@@ -1,0 +1,83 @@
+<div class="form-group">
+  <label>imię:</label>
+  <input [(ngModel)]="newUser.firstName" class="form-control" />
+</div>
+<div class="form-group">
+  <label>nazwisko:</label>
+  <input [(ngModel)]="newUser.lastName" class="form-control" />
+</div>
+<div class="form-group">
+  <label>e-mail:</label>
+  <input [(ngModel)]="newUser.eMail" class="form-control" />
+</div>
+<div class="form-group">
+  <label>hasło:</label>
+  <input type="password" [(ngModel)]="newUser.password" class="form-control" />
+</div>
+<div class="form-group">
+  <label>uprawnienia:</label>
+  <select [(ngModel)]="newUser.permission" (ngModelChange)="makeEnabledAddCompany($event)" class="form-control">
+    <option [ngValue]="p.key" *ngFor="let p of permissionList">{{p.value}}</option>
+  </select>
+</div>
+<div class="form-group">
+  <label>firma:</label>
+  <select [(ngModel)]="newUser.company" [disabled]="disabledAddCompany" class="form-control">
+    <option [ngValue]="c" *ngFor="let c of companies">{{c.name}}</option>
+  </select>
+</div>
+<button (click)="addUser()" class="btn btn-secondary">add</button>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">imie</th>
+    <th scope="col">nazwisko</th>
+    <th scope="col">email</th>
+    <th scope="col">haslo</th>
+    <th scope="col">uprawnienie</th>
+    <th scope="col">firma</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users; index as i">
+    <th scope="row">{{user.id}}</th>
+    <td>
+      <input [(ngModel)]="user.firstName" [disabled]="disabledEdit[i]" class="form-control">
+    </td>
+    <td>
+      <input [(ngModel)]="user.lastName" [disabled]="disabledEdit[i]" class="form-control">
+    </td>
+    <td>
+      <input [(ngModel)]="user.eMail" [disabled]="disabledEdit[i]" class="form-control">
+    </td>
+    <td>
+      <input type="password" [(ngModel)]="user.password" [disabled]="disabledEdit[i]" class="form-control">
+    </td>
+    <td>
+      <div class="form-group">
+      <select [(ngModel)]="user.permissions" [disabled]="disabledEdit[i]" class="form-control">
+        <option [ngValue]="p.key" *ngFor="let p of permissionList" [selected]="user.permissions === p.key">{{p.value}}</option>
+      </select>
+      </div>
+    </td>
+    <td>
+      <div class="form-group">
+        <select [(ngModel)]="user.company" [disabled]="disabledEdit[i]" class="form-control">
+          <option [ngValue]="c" *ngFor="let c of companies">{{c.name}}</option>
+        </select>
+      </div>
+    </td>
+    <td>
+      <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-secondary">edit</button>
+      <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-primary">save</button>
+    </td>
+    <td>
+      <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-danger">usuń</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

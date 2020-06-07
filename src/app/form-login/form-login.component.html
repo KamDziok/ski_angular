@@ -1,0 +1,23 @@
+<div class="col-12 col-lg-6 offset-lg-3 align-self-center border border-dark rounded-bottom shadow p-3 mb-5 bg-white rounded my-5 p-0">
+  <div class="col-12 border-bottom border-dark bg-primary m-0 p-0">
+    <h3 class="text-light py-3 pl-3 mb-0">
+      Zaloguj się
+    </h3>
+  </div>
+  <form class="px-3">
+    <!--    (ngSubmit)="loginUser($event)"-->
+    <div class="form-group mt-3">
+      <label for="inputEmail">E-mail:</label>
+      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+    </div>
+    <div class="form-group">
+      <label for="inputPassword">Hasło:</label>
+      <input type="password" class="form-control" id="inputPassword">
+    </div>
+    <div class="form-group">
+      <a [routerLink]="['/form-regi']">Nie mam jeszcze konta?</a>
+    </div>
+    <!--    <input class="btn btn-primary mb-3" type="submit" value="Zaloguj" />-->
+    <button type="submit" class="btn btn-primary mb-3">Zaloguj</button>
+  </form>
+</div>
