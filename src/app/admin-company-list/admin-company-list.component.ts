@@ -30,6 +30,7 @@ export class AdminCompanyListComponent implements OnInit {
   addCompany() {
     this.companyService.addCompany(this.newCompany).subscribe((success) => {
       console.log('Sukces');
+      this.getAllCompanies();
     }, (error) => {
       console.log('Error');
     });
