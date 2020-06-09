@@ -17,6 +17,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   users: object[] = [];
   disabledEdit: boolean[] = [];
   disabledAddCompany = true;
+  disabledEditCompany = true;
   newUser = {firstName: '', lastName: '', eMail: '', password: '', permission: Permissions.user, company: null};
   constructor(private userService: UserService, private companyService: CompanyService) { }
 
@@ -31,9 +32,12 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
       for (const company of this.companies) {
         for (const user of this.users) {
           // @ts-ignore
-          if (user.company.id === company.id) {
+          if (user.permissions === Permissions.support) {
             // @ts-ignore
-            user.company = company;
+            if (user.company.id === company.id) {
+              // @ts-ignore
+              user.company = company;
+            }
           }
         }
       }
@@ -64,7 +68,27 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
     }
   }
 
+  makeEnabledEditCompany(permissions){
+    if (permissions === Permissions.company){
+      this.disabledEditCompany = false;
+    }else {
+      this.disabledEditCompany = true;
+    }
+  }
+
+  makeSelectedEditUserCompany(user, idCompany) {
+    if (user.permissions === Permissions.company) {
+      if (user.company.id === idCompany) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   addUser() {
+    if (this.newUser.permission !== Permissions.company) {
+      this.newUser.company = null;
+    }
     this.userService.addUser(this.newUser).subscribe((success) => {
       console.log('Sukces');
       this.getAllUnits();

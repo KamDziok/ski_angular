@@ -1,3 +1,20 @@
+<div class="form-group">
+  <label>nazwa:</label>
+  <input [(ngModel)]="newCompany.name" class="form-control" />
+</div>
+<div class="form-group">
+  <label>uprawnienia:</label>
+  <select [(ngModel)]="newCompany.active" class="form-control">
+    <option [ngValue]="true">Aktywna</option>
+    <option [ngValue]="false">Nieaktywna</option>
+  </select>
+</div>
+<div class="form-group">
+  <label>opis:</label>
+  <textarea [(ngModel)]="newCompany.description" class="form-control" ></textarea>
+</div>
+<button (click)="addCompany()" class="btn btn-secondary">add</button>
+
 <table class="table table-striped">
   <thead>
   <tr>

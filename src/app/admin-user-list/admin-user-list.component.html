@@ -32,6 +32,7 @@
   <thead>
   <tr>
     <th scope="col">#</th>
+    <th scope="col">id</th>
     <th scope="col">imie</th>
     <th scope="col">nazwisko</th>
     <th scope="col">email</th>
@@ -44,6 +45,7 @@
   </thead>
   <tbody>
   <tr *ngFor="let user of users; index as i">
+    <th scope="row">{{i}}</th>
     <th scope="row">{{user.id}}</th>
     <td>
       <input [(ngModel)]="user.firstName" [disabled]="disabledEdit[i]" class="form-control">
@@ -59,15 +61,15 @@
     </td>
     <td>
       <div class="form-group">
-      <select [(ngModel)]="user.permissions" [disabled]="disabledEdit[i]" class="form-control">
+      <select [(ngModel)]="user.permissions" [disabled]="disabledEdit[i]" (ngModelChange)="makeEnabledEditCompany($event)" class="form-control">
         <option [ngValue]="p.key" *ngFor="let p of permissionList" [selected]="user.permissions === p.key">{{p.value}}</option>
       </select>
       </div>
     </td>
     <td>
       <div class="form-group">
-        <select [(ngModel)]="user.company" [disabled]="disabledEdit[i]" class="form-control">
-          <option [ngValue]="c" *ngFor="let c of companies">{{c.name}}</option>
+        <select [(ngModel)]="user.company" [disabled]="disabledEdit[i] && disabledEditCompany" class="form-control">
+          <option [ngValue]="c" *ngFor="let c of companies" [selected]="makeSelectedEditUserCompany(user, c.id)" >{{c.name}}</option>
         </select>
       </div>
     </td>

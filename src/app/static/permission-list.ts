@@ -6,5 +6,6 @@ export const PermissionList = [
   {key: Permissions.user, value: 'uzytkownik'},
   {key: Permissions.company, value: 'sprzedawca'},
   {key: Permissions.support, value: 'pomoc techniczna'},
-  {key: Permissions.admin, value: 'administrator'}
+  {key: Permissions.admin, value: 'administrator'},
+  {key: Permissions.ban, value: 'konto zablokowane'}
   ];
