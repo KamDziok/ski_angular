@@ -12,6 +12,19 @@ export class OfferSkiService {
     return this.httpClient.get(this.url);
   }
 
+  getAllCompany(company) {
+    return this.httpClient.get(this.url + '/company/' + company.id);
+  }
+
+  getAllFromCity(city){
+    return this.httpClient.get( (this.url + '/' + city));
+  }
+
+  getAllByData(begin, end){
+    // return this.httpClient.get( (this.url + '/' + begin + '/' + end));
+    return this.httpClient.get( this.url + '/sctive' );
+  }
+
   delete(offerSki) {
     return this.httpClient.delete(this.url, offerSki);
   }

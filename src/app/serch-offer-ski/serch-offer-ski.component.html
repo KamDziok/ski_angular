@@ -1,1 +1,149 @@
-<p>serch-offer-ski works!</p>
+<!--<div class="form-group">-->
+<!--  <label>miejscowość:</label>-->
+<!--  <input [(ngModel)]="city" class="form-control" />-->
+<!--</div>-->
+<!--<button (click)="searchOfferSki()" class="btn btn-secondary">Szukaj</button>-->
+
+
+<div class="col-12">
+  <div class="col-4 d-inline-block">
+    <div class="form-group mt-3">
+      <p class="col-12 float-left">
+        <label>misato:</label>
+        <input type="email" [(ngModel)]="city" class="form-control"/>
+      </p>
+    </div>
+    <div class="form-group mt-3">
+      <p class="col-6 float-left">
+        <mat-form-field>
+          <mat-label>data rozpoczęcia:</mat-label><br/>
+          <input [(ngModel)]="startOffer" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+          <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+          <mat-datepicker #tartOffer></mat-datepicker>
+        </mat-form-field>
+<!--        <mat-date-range-input [rangePicker]="picker">-->
+<!--          <input matStartDate [(ngModel)]="startOffer" placeholder="Start date">-->
+<!--          <input matEndDate [(ngModel)]="stopOffer" placeholder="End date">-->
+<!--        </mat-date-range-input>-->
+
+<!--        <mat-date-range-picker #picker></mat-date-range-picker>-->
+      </p>
+      <p class="col-6 float-left">
+        <mat-form-field>
+          <mat-label>data zakończenia:</mat-label><br/>
+          <input [(ngModel)]="stopOffer" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+          <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
+          <mat-datepicker #topOffer></mat-datepicker>
+        </mat-form-field>
+      </p>
+<!--      <p class="col-6 float-left">-->
+<!--        <label for="inputEmail">data rozpoczęcia:</label>-->
+<!--        <input type="email" [(ngModel)]="startOffer" disabled="disabled" class="form-control" />-->
+<!--      </p>-->
+<!--      <p class="col-6 float-left">-->
+<!--        <label for="inputEmail">data zakończenia:</label>-->
+<!--        <input type="email" [(ngModel)]="stopOffer" disabled="disabled" class="form-control"/>-->
+<!--      </p>-->
+    </div>
+    <div class="form-group">
+      <p class="col-12 float-left">
+        <label>firma:</label>
+        <select [(ngModel)]="company" disabled="disabled" class="form-control">
+          <option [ngValue]="c" *ngFor="let c of companies">{{c.name}}</option>
+        </select>
+      </p>
+    </div>
+    <div class="form-group">
+      <p class="col-12 float-left">
+        <label>producent:</label>
+        <select [(ngModel)]="producer" disabled="disabled" class="form-control">
+          <option [ngValue]="p" *ngFor="let p of producers">{{p.name}}</option>
+        </select>
+      </p>
+    </div>
+    <div class="form-group">
+      <p class="col-12 float-left">
+        <label>narty:</label>
+        <select [(ngModel)]="skis" disabled="disabled" class="form-control">
+          <option [ngValue]="s" *ngFor="let s of skis">{{s.producer.name}} {{s.name}}</option>
+        </select>
+      </p>
+    </div>
+    <button (click)="searchOfferSki()" class="btn btn-outline-success">szukaj</button>
+  </div>
+    <div class="col-6 offset-1 d-inline-block border border-dark rounded-bottom shadow" *ngIf="searchOfferSkis">
+      <div class="col-12" *ngFor="let os of offerSkis">
+        <p class="col-12 float-left">
+          <label>firma: {{os.company.name}}</label>
+        </p>
+        <p class="col-12 float-left">
+          <label>miasto: {{os.city}}</label>
+        </p>
+        <p class="col-12 float-left">
+          <label>narty: {{os.ski.producer.name}} {{os.ski.name}}</label>
+        </p>
+        <p class="col-12 float-left">
+          <label>długość: {{os.ski.lengthSki}}</label>
+        </p>
+        <p class="col-12 float-left">
+          <label>dostępnych: {{os.quantity}}</label>
+        </p>
+        <p class="col-12 float-left">
+          <label>cena: {{os.price.value}} {{os.price.unit.name}}</label>
+        </p>
+        <p class="col-12 float-left">
+          <label>data rozpoczęcia: {{os.startOffer}}</label>
+        </p>
+        <p class="col-12 float-left">
+          <label>data zakończenia: {{os.stopOffer}}</label>
+        </p>
+        <p class="col-12 float-left" *ngIf="isUserLogin">
+          <button class="btn btn-outline-success">wypożycz</button>
+        </p>
+      </div>
+    </div>
+</div>
+
+<!--<table class="table table-striped">-->
+<!--  <thead>-->
+<!--  <tr>-->
+<!--    <th scope="col">#</th>-->
+<!--    <th scope="col">firma</th>-->
+<!--    <th scope="col">miejscowość</th>-->
+<!--    <th scope="col">narty</th>-->
+<!--    <th scope="col">długość</th>-->
+<!--    <th scope="col">cena</th>-->
+<!--    <th scope="col">data rozpoczęcia</th>-->
+<!--    <th scope="col">data zakończenia</th>-->
+<!--    <th></th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr *ngFor="let offerSki of offerSkis; index as i">-->
+<!--    <th scope="row">{{ i + 1 }}</th>-->
+<!--    <td>-->
+<!--      <label>{{ offerSki.company.name }}</label>-->
+<!--    <td>-->
+<!--      <label>{{offerSki.city}}</label>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <label>{{offerSki.ski.producer.name}} {{offerSki.ski.name}}</label>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <label>{{offerSki.ski.lengthSki}}cm</label>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <label>{{offerSki.price.value}} {{offerSki.price.unit.name}}</label>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <label>{{offerSki.startOffer}}</label>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <label>{{offerSki.stopOffer}}</label>-->
+<!--    </td>-->
+<!--    <td>-->
+<!--      <button *ngIf="isUserLogin" (click)="addToBasket(i)" class="btn btn-outline-success">wypożycz</button>-->
+<!--    </td>-->
+<!--  </tr>-->
+<!--  </tbody>-->
+<!--</table>-->

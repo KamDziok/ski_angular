@@ -1,43 +1,34 @@
 <div class="form-group">
   <label>nazwa:</label>
-  <input [(ngModel)]="newCompany.name" class="form-control" />
+  <input [(ngModel)]="newUnit.name" class="form-control" />
 </div>
-<div class="form-group">
-  <label>uprawnienia:</label>
-  <select [(ngModel)]="newCompany.active" class="form-control">
-    <option [ngValue]="true">Aktywna</option>
-    <option [ngValue]="false">Nieaktywna</option>
-  </select>
-</div>
-<div class="form-group">
-  <label>opis:</label>
-  <textarea [(ngModel)]="newCompany.description" class="form-control" ></textarea>
-</div>
-<button (click)="addCompany()" class="btn btn-secondary">add</button>
+<button (click)="addUnit()" class="btn btn-outline-success">dodaj</button>
 
 <table class="table table-striped">
   <thead>
   <tr>
     <th scope="col">#</th>
+    <th scope="col">id</th>
     <th scope="col">nazwa</th>
     <th></th>
     <th></th>
   </tr>
   </thead>
   <tbody>
-  <!--  <tr *ngFor="let user of users; index as i">-->
-  <!--    <th scope="row">{{ i + 1 }}</th>-->
-  <!--    <td>-->
-  <!--      <input [(ngModel)]="unit.name" [disabled]="disabled[i]" class="form-control">-->
-  <!--    </td>-->
-  <!--    <td>-->
-  <!--      <button (click)="makeEnabled(i)" *ngIf="disabled[i]" class="btn btn-secondary">edit</button>-->
-  <!--      <button (click)="save(i)" *ngIf="!disabled[i]" class="btn btn-primary">save</button>-->
-  <!--    </td>-->
-  <!--    <td>-->
-  <!--      <button (click)="delete(i)" [disabled]="!disabled[i]" class="btn btn-danger">usuń</button>-->
-  <!--    </td>-->
-  <!--  </tr>-->
+    <tr *ngFor="let unit of units; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <th scope="row">{{ unit.id }}</th>
+      <td>
+        <input [(ngModel)]="unit.name" [disabled]="disabledEdit[i]" class="form-control">
+      </td>
+      <td>
+        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
+        <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+      </td>
+      <td>
+        <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
+      </td>
+    </tr>
   </tbody>
 </table>
 

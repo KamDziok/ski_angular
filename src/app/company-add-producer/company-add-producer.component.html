@@ -1,1 +1,24 @@
-<p>company-add-producer works!</p>
+<div class="form-group">
+  <label>nazwa:</label>
+  <input [(ngModel)]="newProducer.name" class="form-control" />
+</div>
+<button (click)="addPrice()" class="btn btn-secondary">add</button>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">id</th>
+    <th scope="col">nazwa producenta</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let producer of producers; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <th scope="row">{{ producer.id }}</th>
+    <td>
+      <input [(ngModel)]="producer.name" [disabled]="disabledEdit[i]" class="form-control">
+    </td>
+  </tr>
+  </tbody>
+</table>

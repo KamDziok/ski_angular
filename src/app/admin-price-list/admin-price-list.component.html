@@ -1,7 +1,20 @@
+<div class="form-group">
+  <label>cena:</label>
+  <input [(ngModel)]="newPrice.value" class="form-control" />
+</div>
+<div class="form-group">
+  <label>jednostka:</label>
+  <select [(ngModel)]="newPrice.unit" class="form-control">
+    <option [ngValue]="u" *ngFor="let u of units">{{u.name}}</option>
+  </select>
+</div>
+<button (click)="addPrice()" class="btn btn-outline-success">dodaj</button>
+
 <table class="table table-striped">
   <thead>
   <tr>
     <th scope="col">#</th>
+    <th scope="col">id</th>
     <th scope="col">wartość</th>
     <th scope="col">jednostka</th>
     <th></th>
@@ -9,19 +22,27 @@
   </tr>
   </thead>
   <tbody>
-  <!--  <tr *ngFor="let user of users; index as i">-->
-  <!--    <th scope="row">{{ i + 1 }}</th>-->
-  <!--    <td>-->
-  <!--      <input [(ngModel)]="unit.name" [disabled]="disabled[i]" class="form-control">-->
-  <!--    </td>-->
-  <!--    <td>-->
-  <!--      <button (click)="makeEnabled(i)" *ngIf="disabled[i]" class="btn btn-secondary">edit</button>-->
-  <!--      <button (click)="save(i)" *ngIf="!disabled[i]" class="btn btn-primary">save</button>-->
-  <!--    </td>-->
-  <!--    <td>-->
-  <!--      <button (click)="delete(i)" [disabled]="!disabled[i]" class="btn btn-danger">usuń</button>-->
-  <!--    </td>-->
-  <!--  </tr>-->
+    <tr *ngFor="let price of prices; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <th scope="row">{{ price.id }}</th>
+      <td>
+        <input [(ngModel)]="price.value" [disabled]="disabledEdit[i]" class="form-control">
+      </td>
+      <td>
+        <div class="form-group">
+          <select [(ngModel)]="price.unit" [disabled]="disabledEdit[i]" class="form-control">
+            <option [ngValue]="u" *ngFor="let u of units" [selected]="price.unit.id === u.id">{{u.name}}</option>
+          </select>
+        </div>
+      </td>
+      <td>
+        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
+        <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+      </td>
+      <td>
+        <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
+      </td>
+    </tr>
   </tbody>
 </table>
 

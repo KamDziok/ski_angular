@@ -1,26 +1,34 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-green ">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" [routerLinkActive]="['active']" id="navbarTogglerDemo01">
-    <a class="navbar-brand" [routerLink]="['']">ski.pl</a>
+    <a class="col-1 navbar-brand" [routerLink]="['/company']">
+      <img class="col-12" src="../../assets/img/logo.png" alt="logo"/>
+    </a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" [routerLink]="['']">Moje wypożyczenia</a>
+        <a class="nav-link" [routerLink]="['company-producer']">Dodaj producenta</a>
       </li>
       <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" [routerLink]="['']">Dodaj ofertę</a>
+        <a class="nav-link" [routerLink]="['company-ski']">Dodaj narty</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['company-offer-ski']">Dodaj ofertę</a>
       </li>
     </ul>
     <ul class="navbar-nav mr-0 mt-2 mt-lg-0">
+<!--      <li class="nav-item">-->
+<!--        <form class="form-inline my-2 my-lg-0">-->
+<!--          <input class="form-control bg-primary mr-sm-2" type="search" placeholder="Szukaj" aria-label="Search">-->
+<!--          <button class="btn btn-outline-success bg-primary my-2 my-sm-0" type="submit">Szukaj</button>-->
+<!--        </form>-->
+<!--      </li>-->
       <li class="nav-item">
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control bg-primary mr-sm-2" type="search" placeholder="Szukaj" aria-label="Search">
-          <button class="btn btn-outline-success bg-primary my-2 my-sm-0" type="submit">Szukaj</button>
-        </form>
+        <a class="nav-link" [routerLink]="['/company']">Witaj {{currentUser.firstName}} {{currentUser.lastName}}!</a>
       </li>
       <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" [routerLink]="['']">Wyloguj</a>
+        <a class="nav-link" (click)="logOut()">Wyloguj</a>
       </li>
     </ul>
   </div>

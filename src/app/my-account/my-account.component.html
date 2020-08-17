@@ -1,1 +1,21 @@
-<p>my-account works!</p>
+<div class="col-12">
+      <div class="col-6 offset-3 d-inline-block border border-dark rounded-bottom shadow">
+        <div class="col-12">
+          <p class="col-12 float-left">
+            <label>e-mail: {{user.eMail}}</label>
+          </p>
+          <p class="col-12 float-left">
+            <label>imię: {{user.firstName}}</label>
+          </p>
+          <p class="col-12 float-left">
+            <label>nazwisko: {{user.lastName}}</label>
+          </p>
+          <p class="col-12 float-left">
+            <label>uprawnienie: {{permission}}</label>
+          </p>
+          <p class="col-12 float-left" *ngIf="user.permissions === permissions.company">
+            <label>firma: {{company.name}}</label>
+          </p>
+        </div>
+      </div>
+</div>

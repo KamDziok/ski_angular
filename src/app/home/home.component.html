@@ -1,16 +1,69 @@
-<div class="container col-12 mt-5">
-  <a [routerLink]="['/form-login']">
-    <article class="card col-12 col-lg-2 offset-lg-3 d-inline-block text-center shadow p-3 mb-5 bg-white rounded">
-      <div class="card-body">
-        Zaloguj jako klient
+<div class="col-12 col-lg-8 offset-lg-2 vh-75 align-self-center border border-dark rounded-bottom shadow p-3 mb-5 bg-white rounded my-5 p-0">
+  <div class="col-12 border-bottom border-dark bg-green m-0 p-0">
+    <h3 class="text-light py-3 pl-3 mb-0">
+      Logowania
+    </h3>
+  </div>
+  <div class="col-12">
+    <div class=" col-6 m-0 p-0 d-inline-block">
+      <div class="form-group mt-3">
+        <p class="col-12 float-left">
+          <label for="inputEmail">E-mail:</label>
+          <input type="email" [(ngModel)]="userLoginData.eMail" name="eMaile" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+        </p>
       </div>
-    </article>
-  </a>
-  <a [routerLink]="['/form-login-company']">
-    <article class="card col-12 col-lg-2 offset-lg-2 d-inline-block text-center shadow p-3 mb-5 bg-white rounded">
-      <div class="card-body">
-        Zaloguj jako firma
+      <div class="form-group">
+        <p class="col-12 float-left">
+          <label for="inputPassword">Hasło:</label>
+          <input type="password" [(ngModel)]="userLoginData.password" name="password" class="form-control" id="inputPassword">
+        </p>
       </div>
-    </article>
-  </a>
+      <div class="form-group">
+        <p class="col-12 float-left">
+          <label class="text-danger">{{errorMassage}}</label>
+        </p>
+      </div>
+      <p class="col-12 float-left">
+        <button type="submit" (click)="login()" class="btn btn-outline-success mb-3">Zaloguj</button>
+      </p>
+    </div>
+    <div class=" col-6 m-0 p-0 d-inline-block border-left">
+      <form class="px-3">
+        <div class="form-group mt-3">
+          <p class="col-6 float-left">
+            <label>Imię:</label>
+            <input [(ngModel)]="userRegi.firstName" name="firstName" class="form-control" />
+          </p>
+          <p class="col-6 float-left">
+            <label>Nazwisko:</label>
+            <input [(ngModel)]="userRegi.lastName" name="lastName" class="form-control" />
+          </p>
+        </div>
+        <div class="form-group">
+          <p class="col-12 float-left">
+            <label>E-mail:</label>
+            <input type="email" [(ngModel)]="userRegi.eMail" name="eMaile" class="form-control" aria-describedby="emailHelp" />
+          </p>
+        </div>
+        <div class="form-group">
+          <p class="col-6 float-left">
+            <label>Hasło:</label>
+            <input type="password" [(ngModel)]="password" name="password" class="form-control" />
+          </p>
+          <p class="col-6 float-left">
+            <label>Powtórz hasło::</label>
+            <input type="password" [(ngModel)]="repeatPassword" name="repeatPassword" class="form-control" />
+          </p>
+        </div>
+        <div class="form-group mt-3">
+          <p class="col-12 float-left">
+            <label class="text-danger">{{errorMassage}}</label>
+          </p>
+        </div>
+        <p class="col-12 float-left">
+          <button (click)="regi()" type="submit" class="btn btn-outline-success mb-3">Zarejestryj</button>
+        </p>
+      </form>
+    </div>
+  </div>
 </div>

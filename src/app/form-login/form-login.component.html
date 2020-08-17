@@ -4,20 +4,25 @@
       Zaloguj się
     </h3>
   </div>
-  <form class="px-3">
+  <div class="px-3">
+<!--  <form class="px-3">-->
     <!--    (ngSubmit)="loginUser($event)"-->
     <div class="form-group mt-3">
       <label for="inputEmail">E-mail:</label>
-      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+      <input type="email" [(ngModel)]="userLogin.eMail" name="eMaile" class="form-control" id="inputEmail" aria-describedby="emailHelp">
     </div>
     <div class="form-group">
       <label for="inputPassword">Hasło:</label>
-      <input type="password" class="form-control" id="inputPassword">
+      <input type="password" [(ngModel)]="userLogin.password" name="password" class="form-control" id="inputPassword">
     </div>
     <div class="form-group">
       <a [routerLink]="['/form-regi']">Nie mam jeszcze konta?</a>
     </div>
+    <div class="form-group">
+      <label class="text-danger">{{errorMassage}}</label>
+    </div>
     <!--    <input class="btn btn-primary mb-3" type="submit" value="Zaloguj" />-->
-    <button type="submit" class="btn btn-primary mb-3">Zaloguj</button>
-  </form>
+    <button type="submit" (click)="login()" class="btn btn-primary mb-3">Zaloguj</button>
+  </div>
+<!--  </form>-->
 </div>

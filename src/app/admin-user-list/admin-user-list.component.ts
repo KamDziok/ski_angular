@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Permissions } from './../static/permissions';
-import { UserService } from './../service/user.service';
-import { CompanyService } from './../service/company.service';
-import { PermissionList } from './../static/permission-list';
+import { Permissions } from '../static/permissions';
+import { UserService } from '../service/user.service';
+import { CompanyService } from '../service/company.service';
+import { PermissionList } from '../static/permission-list';
+import {User} from '../interface/user';
+import {Company} from '../interface/company';
 
 @Component({
   selector: 'app-admin-user-list',
@@ -13,29 +15,25 @@ import { PermissionList } from './../static/permission-list';
 export class AdminUserListComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
   permissionList = PermissionList;
-  companies: object[] = [];
-  users: object[] = [];
+  companies: Company[] = [];
+  users: User[] = [];
   disabledEdit: boolean[] = [];
   disabledAddCompany = true;
   disabledEditCompany = true;
-  newUser = {firstName: '', lastName: '', eMail: '', password: '', permission: Permissions.user, company: null};
+  newUser = {firstName: '', lastName: '', eMail: '', password: '', permissions: Permissions.user, company: null};
   constructor(private userService: UserService, private companyService: CompanyService) { }
 
   ngOnInit(): void {
-    this.getAllUnits();
+    this.getAllUsers();
   }
 
   getAllCompanies() {
-    // @ts-ignore
-    this.subscriptions.add(this.companyService.getAll().subscribe((result: any[]) => {
+    this.subscriptions.add(this.companyService.getAll().subscribe((result: Company[]) => {
       this.companies = result;
       for (const company of this.companies) {
         for (const user of this.users) {
-          // @ts-ignore
           if (user.permissions === Permissions.support) {
-            // @ts-ignore
             if (user.company.id === company.id) {
-              // @ts-ignore
               user.company = company;
             }
           }
@@ -43,12 +41,11 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
       }
       console.log(result);
       this.disabledEdit = result.map(r => true);
-      // this.getAllUnits();
     }, (error) => {}));
   }
 
-  getAllUnits() {
-    this.userService.getAll().subscribe((result: object[]) => {
+  getAllUsers() {
+    this.userService.getAllWithOutCurrentUser().subscribe((result: User[]) => {
       this.users = result;
       this.disabledEdit = result.map(r => true);
       this.newUser.company = result[0];
@@ -86,12 +83,12 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   }
 
   addUser() {
-    if (this.newUser.permission !== Permissions.company) {
+    if (this.newUser.permissions !== Permissions.company) {
       this.newUser.company = null;
     }
     this.userService.addUser(this.newUser).subscribe((success) => {
       console.log('Sukces');
-      this.getAllUnits();
+      this.getAllUsers();
     }, (error) => {
       console.log('Error');
     });
@@ -101,7 +98,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
     this.disabledEdit[id] = true;
     this.userService.updateUser(this.users[id]).subscribe((success) => {
       console.log('Sukces');
-      this.getAllUnits();
+      this.getAllUsers();
     }, (error => {
       console.log('Error');
     }));

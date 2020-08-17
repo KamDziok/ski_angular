@@ -1,1 +1,101 @@
-<p>admin-transaction-list works!</p>
+<div class="form-group">
+  <label>data rozpoczęcia:</label>
+  <input [(ngModel)]="startOffer" class="form-control" />
+</div>
+<div class="form-group">
+  <label>data zakończenia:</label>
+  <input [(ngModel)]="stopOffer" class="form-control" />
+</div>
+<div class="form-group">
+  <label>użytkownik:</label>
+  <select [(ngModel)]="newTransaction.user" class="form-control">
+    <option [ngValue]="u" *ngFor="let u of users">{{u.eMail}}</option>
+  </select>
+</div>
+<div class="form-group">
+  <label>oferta nart:</label>
+  <select [(ngModel)]="offerSkiLocal" class="form-control">
+    <option [ngValue]="os" *ngFor="let os of offerSkis">{{os.ski.producer.name}} {{os.ski.name}} {{os.ski.lengthSki}}cm</option>
+  </select>
+  <button (click)="addOfferSkisLocal()" class="btn btn-secondary">Dodaj</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">narty</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let o of offerSkiListLocal; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<button (click)="addTransaction()" class="btn btn-secondary">add</button>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">id</th>
+    <th scope="col">data zawarcia transakcji</th>
+    <th scope="col">data rozpoczęcia</th>
+    <th scope="col">data zakończenia</th>
+    <th scope="col">użytkownik</th>
+    <th scope="col">oferty</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let transaction of transactions; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <th scope="row">{{ transaction.id }}</th>
+    <td>
+      <input [(ngModel)]="transaction.prepareTransaction" [disabled]="disabledEdit[i]" class="form-control">
+    </td>
+    <td>
+      <input [(ngModel)]="transaction.startTransaction" [disabled]="disabledEdit[i]" class="form-control">
+    </td>
+    <td>
+      <input [(ngModel)]="transaction.stopTransaction" [disabled]="disabledEdit[i]" class="form-control">
+    </td>
+    <td>
+      <div class="form-group">
+        <select [(ngModel)]="transaction.user" [disabled]="disabledEdit[i]" class="form-control">
+          <option [ngValue]="u" *ngFor="let u of users" [selected]="transaction.user.id === u.id">{{u.id}} {{u.eMail}}</option>
+        </select>
+      </div>
+    </td>
+    <td>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">narty</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let o of transaction.offerSkiList; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+    <td>
+      <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-secondary">edit</button>
+      <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-primary">save</button>
+    </td>
+    <td>
+      <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-danger">usuń</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

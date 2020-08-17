@@ -1,1 +1,14 @@
-<p>create-company works!</p>
+<div class="col-12 col-lg-6 offset-lg-3 align-self-center border border-dark rounded-bottom shadow p-3 mb-5 bg-white rounded my-5 p-0">
+  <div class="col-12 border-bottom border-dark bg-green m-0 p-0">
+    <h3 class="text-light py-3 pl-3 mb-0">
+      Zarejestruj się
+    </h3>
+  </div>
+  <div class="px-3">
+    <div class="form-group mt-3">
+      <label>Nazwa firmy:</label>
+      <input [(ngModel)]="newCompany.name" type="text" class="form-control">
+    </div>
+    <button type="submit" (click)="createNewCompany()" class="btn btn-outline-success mb-3">Zarejestruj</button>
+  </div>
+</div>

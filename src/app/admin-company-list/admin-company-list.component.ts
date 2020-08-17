@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CompanyService } from './../service/company.service';
+import { CompanyService } from '../service/company.service';
+import {Company} from '../interface/company';
 
 @Component({
   selector: 'app-admin-company-list',
@@ -7,7 +8,7 @@ import { CompanyService } from './../service/company.service';
   styleUrls: ['./admin-company-list.component.css']
 })
 export class AdminCompanyListComponent implements OnInit {
-  companies: object[] = [];
+  companies: Company[] = [];
   disabledEdit: boolean[] = [];
   newCompany = {name: '', active: false, description: ''};
   constructor(private companyService: CompanyService) { }
@@ -17,7 +18,7 @@ export class AdminCompanyListComponent implements OnInit {
   }
 
   getAllCompanies() {
-    this.companyService.getAll().subscribe((result: object[]) => {
+    this.companyService.getAll().subscribe((result: Company[]) => {
       this.companies = result;
       this.disabledEdit = result.map(r => true);
     }, (error) => {});

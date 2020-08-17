@@ -1,1 +1,55 @@
-<p>my-transaction works!</p>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">id</th>
+    <th scope="col">data zawarcia transakcji</th>
+    <th scope="col">data rozpoczęcia</th>
+    <th scope="col">data zakończenia</th>
+    <th scope="col">użytkownik</th>
+    <th scope="col">oferty</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let transaction of transactions; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <th scope="row">{{ transaction.id }}</th>
+    <td>
+      <input [(ngModel)]="transaction.prepareTransaction" class="form-control">
+    </td>
+    <td>
+      <input [(ngModel)]="transaction.startTransaction" class="form-control">
+    </td>
+    <td>
+      <input [(ngModel)]="transaction.stopTransaction" class="form-control">
+    </td>
+    <td>
+      <div class="form-group">
+        <select [(ngModel)]="transaction.user" class="form-control">
+          <option [ngValue]="u" *ngFor="let u of users" [selected]="transaction.user.id === u.id">{{u.id}} {{u.eMail}}</option>
+        </select>
+      </div>
+    </td>
+    <td>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">narty</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let o of transaction.offerSkiList; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>
