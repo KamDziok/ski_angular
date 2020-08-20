@@ -10,10 +10,11 @@ import {Router} from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  errorMassage = '';
+  errorLoginMassage = '';
+  errorRegiMassage = '';
   userLoginData = {eMail: '', password: ''};
-  userLogin = {id: 0, firstName: '', lastName: '', eMail: '', password: '', permissions: Permissions.user, company: null};
-  userRegi = {eMail: '', password: '', firstName: '', lastName: '', permissions: Permissions.user, company: null};
+  userLogin = {id: 0, firstName: '', lastName: '', eMail: '', password: '', permissions: Permissions.USER, company: null};
+  userRegi = {eMail: '', password: '', firstName: '', lastName: '', permissions: Permissions.USER, company: null};
   password = '';
   repeatPassword = '';
   constructor(private userService: UserService, private router: Router) { }
@@ -22,48 +23,49 @@ export class HomeComponent implements OnInit {
   }
 
   login(){
-    this.errorMassage = '';
+    this.errorLoginMassage = '';
     this.userService.getLogin(this.userLoginData).subscribe( (result: User) => {
       this.userLogin = result;
       if (this.userLogin != null) {
         this.userService.logIn(this.userLogin);
-        localStorage.setItem('user', JSON.stringify(result));
+        // localStorage.setItem(LocalStorageKey.USER, JSON.stringify(this.userLogin));
         switch (this.userLogin.permissions) {
-          case Permissions.user:
+          case Permissions.USER:
             this.router.navigate(['login']);
             break;
 
-          case Permissions.company:
+          case Permissions.COMPANY:
             this.router.navigate(['company']);
             break;
 
-          case Permissions.support:
+          case Permissions.SUPPORT:
             this.router.navigate(['support']);
             break;
 
-          case Permissions.admin:
+          case Permissions.ADMIN:
             this.router.navigate(['admin']);
             break;
 
-          case Permissions.ban:
-            this.errorMassage = 'Twoje konto zostało zablokowane.';
+          case Permissions.BAN:
+            this.errorLoginMassage = 'Twoje konto zostało zablokowane.';
             break;
 
           default:
-            this.errorMassage = 'Błędny login lub hasło.';
+            this.errorLoginMassage = 'Błędny login lub hasło.';
             break;
         }
       } else {
-        this.errorMassage = 'Błędny login lub hasło.';
+        this.errorLoginMassage = 'Błędny login lub hasło.';
       }
     }, (error) => {});
   }
 
   regi(){
+    this.errorRegiMassage = '';
     if (this.password === this.repeatPassword){
       if (this.userService.isUserByEMail(this.userRegi.eMail)) {
         this.userRegi.password = this.password;
-        this.userRegi.permissions = Permissions.user;
+        this.userRegi.permissions = Permissions.USER;
         this.userRegi.company = null;
         this.userService.addUser(this.userRegi).subscribe((success) => {
           console.log('Sukces');
@@ -75,13 +77,13 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['']);
         }, (error => {
           console.log('Error');
-          this.errorMassage = 'Coś poszło nie tak.';
+          this.errorRegiMassage = 'Coś poszło nie tak.';
         }));
       } else {
-        this.errorMassage = 'Istnieje już konto na podany adres email.';
+        this.errorRegiMassage = 'Istnieje już konto na podany adres email.';
       }
     }else{
-      this.errorMassage = 'Hasła nie są identyczne.';
+      this.errorRegiMassage = 'Hasła nie są identyczne.';
     }
   }
 }

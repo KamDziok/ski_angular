@@ -28,7 +28,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
               private userService: UserService) { }
 
   ngOnInit(): void {
-    this.user = this.userService.currentUser;
+    this.user = this.userService.getCurrentUser();
     this.getAllOfferSki();
   }
 

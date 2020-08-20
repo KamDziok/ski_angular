@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./form-regi.component.css']
 })
 export class FormRegiComponent implements OnInit {
-  user = {eMail: '', password: '', firstName: '', lastName: '', permissions: Permissions.user, company: null};
+  user = {eMail: '', password: '', firstName: '', lastName: '', permissions: Permissions.USER, company: null};
   password = '';
   repeatPassword = '';
   errorMassage = '';
@@ -22,7 +22,7 @@ export class FormRegiComponent implements OnInit {
     if (this.password === this.repeatPassword){
       if (this.userService.isUserByEMail(this.user.eMail)) {
         this.user.password = this.password;
-        this.user.permissions = Permissions.user;
+        this.user.permissions = Permissions.USER;
         this.user.company = null;
         this.userService.addUser(this.user).subscribe((success) => {
           console.log('Sukces');

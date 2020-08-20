@@ -12,7 +12,7 @@ import {User} from '../interface/user';
 export class FormLoginComponent implements OnInit {
   errorMassage = '';
   userLogin = {eMail: '', password: ''};
-  user = {id: 0, firstName: '', lastName: '', eMail: '', password: '', permissions: Permissions.user, company: null};
+  user = {id: 0, firstName: '', lastName: '', eMail: '', password: '', permissions: Permissions.USER, company: null};
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
@@ -25,23 +25,23 @@ export class FormLoginComponent implements OnInit {
       if (this.user != null) {
         this.userService.logIn(this.user);
         switch (this.user.permissions) {
-          case Permissions.user:
+          case Permissions.USER:
             this.router.navigate(['login']);
             break;
 
-          case Permissions.company:
+          case Permissions.COMPANY:
             this.router.navigate(['company']);
             break;
 
-          case Permissions.support:
+          case Permissions.SUPPORT:
             this.router.navigate(['support']);
             break;
 
-          case Permissions.admin:
+          case Permissions.ADMIN:
             this.router.navigate(['admin']);
             break;
 
-          case Permissions.ban:
+          case Permissions.BAN:
             this.errorMassage = 'Twoje konto zostało zablokowane.';
             break;
 

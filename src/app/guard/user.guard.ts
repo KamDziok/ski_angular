@@ -14,7 +14,7 @@ export class UserGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.userService.user;
+    return this.userService.getPermissionUser();
   }
 
 }

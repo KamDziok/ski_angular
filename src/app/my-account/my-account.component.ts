@@ -19,13 +19,13 @@ export class MyAccountComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.user = this.userService.currentUser;
+    this.user = this.userService.getCurrentUser();
     for (const p of this.permissionList){
       if (p.key === this.user.permissions){
         this.permission = p.value;
       }
     }
-    if (this.user.permissions === Permissions.company){
+    if (this.user.permissions === Permissions.COMPANY){
       this.company = this.user.company;
     }
   }

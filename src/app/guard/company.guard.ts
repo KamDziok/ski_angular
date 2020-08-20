@@ -14,7 +14,7 @@ export class CompanyGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.userService.company;
+    return this.userService.getPermissionCompany();
   }
 
 }

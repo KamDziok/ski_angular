@@ -19,14 +19,14 @@ export class CreateCompanyComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.user = this.userService.currentUser;
+    this.user = this.userService.getCurrentUser();
   }
 
   createNewCompany(){
     this.companyService.addCompany(this.newCompany).subscribe((result: Company) => {
       if (result != null){
         this.company = result;
-        this.user.permissions = Permissions.company;
+        this.user.permissions = Permissions.COMPANY;
         this.userService.updateUser(this.user).subscribe((success) => {
           console.log('Sukces');
         }, (error => {

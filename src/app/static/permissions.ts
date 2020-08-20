@@ -1,7 +1,7 @@
 export abstract class Permissions {
-  static readonly ban = -1;
-  static readonly admin = 0;
-  static readonly support = 1;
-  static readonly company = 2;
-  static readonly user = 3;
+  static readonly BAN = -1;
+  static readonly ADMIN = 0;
+  static readonly SUPPORT = 1;
+  static readonly COMPANY = 2;
+  static readonly USER = 3;
 }

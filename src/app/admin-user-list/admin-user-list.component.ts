@@ -1,3 +1,4 @@
+import { Company } from './../interface/company';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Permissions } from '../static/permissions';
@@ -5,7 +6,6 @@ import { UserService } from '../service/user.service';
 import { CompanyService } from '../service/company.service';
 import { PermissionList } from '../static/permission-list';
 import {User} from '../interface/user';
-import {Company} from '../interface/company';
 
 @Component({
   selector: 'app-admin-user-list',
@@ -20,7 +20,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   disabledEdit: boolean[] = [];
   disabledAddCompany = true;
   disabledEditCompany = true;
-  newUser = {firstName: '', lastName: '', eMail: '', password: '', permissions: Permissions.user, company: null};
+  newUser = {firstName: '', lastName: '', eMail: '', password: '', permissions: Permissions.USER, company: null};
   constructor(private userService: UserService, private companyService: CompanyService) { }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
       this.companies = result;
       for (const company of this.companies) {
         for (const user of this.users) {
-          if (user.permissions === Permissions.support) {
+          if (user.permissions === Permissions.SUPPORT) {
             if (user.company.id === company.id) {
               user.company = company;
             }
@@ -58,7 +58,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   }
 
   makeEnabledAddCompany(permissions){
-    if (permissions === Permissions.company){
+    if (permissions === Permissions.COMPANY){
       this.disabledAddCompany = false;
     }else {
       this.disabledAddCompany = true;
@@ -66,7 +66,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   }
 
   makeEnabledEditCompany(permissions){
-    if (permissions === Permissions.company){
+    if (permissions === Permissions.COMPANY){
       this.disabledEditCompany = false;
     }else {
       this.disabledEditCompany = true;
@@ -74,7 +74,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   }
 
   makeSelectedEditUserCompany(user, idCompany) {
-    if (user.permissions === Permissions.company) {
+    if (user.permissions === Permissions.COMPANY) {
       if (user.company.id === idCompany) {
         return true;
       }
@@ -83,7 +83,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   }
 
   addUser() {
-    if (this.newUser.permissions !== Permissions.company) {
+    if (this.newUser.permissions !== Permissions.COMPANY) {
       this.newUser.company = null;
     }
     this.userService.addUser(this.newUser).subscribe((success) => {

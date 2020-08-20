@@ -14,7 +14,8 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.userService.admin;
+    // return this.userService.admin;
+    return this.userService.getPermissionAdmin();
   }
 
 }

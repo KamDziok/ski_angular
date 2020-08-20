@@ -1,8 +1,9 @@
+import { User } from './../interface/user';
 import { Injectable } from '@angular/core';
 import { SetUpHttpService } from './../set-up-http.service';
-import {User} from '../interface/user';
 import {Permissions} from '../static/permissions';
 import {OfferSki} from '../interface/offer-ski';
+import {LocalStorageKey} from '../static/local-storage-key';
 
 @Injectable({
   providedIn: 'root'
@@ -11,39 +12,73 @@ export class UserService {
   url = 'api/user';
   offerSkiList: OfferSki[] = [];
   offerSkiListSize = 0;
-  currentUser: User = null;
-  admin = false;
-  support = false;
-  company = false;
-  user = false;
+  // currentUser: User = null;
+  // admin = false;
+  // support = false;
+  // company = false;
+  // user = false;
   constructor(private httpClient: SetUpHttpService) { }
 
   logIn(user){
     if (user != null){
-      this.currentUser = user;
+      // this.currentUser = user;
+      localStorage.setItem(LocalStorageKey.USER_CURRENT, JSON.stringify(user));
       switch (user.permissions) {
-        case Permissions.admin:
-          this.admin = true;
+        case Permissions.ADMIN:
+          // this.admin = true;
+          this.setPermissions(true, false, false, false);
           break;
-        case Permissions.support:
-          this.support = true;
+        case Permissions.SUPPORT:
+          // this.support = true;
+          this.setPermissions(false, true, false, false);
           break;
-        case Permissions.company:
-          this.company = true;
+        case Permissions.COMPANY:
+          // this.company = true;
+          this.setPermissions(false, false, true, false);
           break;
-        case Permissions.user:
-          this.user = true;
+        case Permissions.USER:
+          // this.user = true;
+          this.setPermissions(false, false, false, true);
           break;
       }
     }
   }
 
+  setPermissions (admin: boolean, support: boolean, company: boolean, user: boolean) {
+    localStorage.setItem(LocalStorageKey.ADMIN, JSON.stringify(admin));
+    localStorage.setItem(LocalStorageKey.SUPPORT, JSON.stringify(support));
+    localStorage.setItem(LocalStorageKey.COMPANY, JSON.stringify(company));
+    localStorage.setItem(LocalStorageKey.USER, JSON.stringify(user));
+  }
+
+  getPermissionAdmin(): boolean {
+    return JSON.parse(localStorage.getItem(LocalStorageKey.ADMIN));
+  }
+
+  getPermissionSupport(): boolean {
+    return JSON.parse(localStorage.getItem(LocalStorageKey.SUPPORT));
+  }
+
+  getPermissionCompany(): boolean {
+    return JSON.parse(localStorage.getItem(LocalStorageKey.COMPANY));
+  }
+
+  getPermissionUser(): boolean {
+    return JSON.parse(localStorage.getItem(LocalStorageKey.USER));
+  }
+
+  getCurrentUser (): User {
+    // return (JSON.parse(localStorage.getItem(LocalStorageKey.USER)) as User);
+    return JSON.parse(localStorage.getItem(LocalStorageKey.USER));
+  }
+
   logOut(){
-    this.currentUser = null;
-    this.admin = false;
-    this.support = false;
-    this.company = false;
-    this.user = false;
+    // this.currentUser = null;
+    // this.admin = false;
+    // this.support = false;
+    // this.company = false;
+    // this.user = false;
+    localStorage.clear();
   }
 
   addOfferSki(offerSki: OfferSki){
@@ -56,7 +91,7 @@ export class UserService {
   }
 
   getAllWithOutCurrentUser(){
-    return this.httpClient.get(this.url + '/user/' + this.currentUser.id);
+    return this.httpClient.get(this.url + '/user/' + this.getCurrentUser().id);
   }
 
   getLogin(user){

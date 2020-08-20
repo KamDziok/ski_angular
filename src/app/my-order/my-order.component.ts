@@ -20,7 +20,7 @@ export class MyOrderComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.user = this.userService.currentUser;
+    this.user = this.userService.getCurrentUser();
     this.offerSkiList = this.userService.offerSkiList;
   }
 

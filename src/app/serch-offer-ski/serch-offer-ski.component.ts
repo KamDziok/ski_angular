@@ -45,8 +45,8 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
     this.getAllCompany();
     this.getAllProducers();
     this.getAllSki();
-    if (this.userService.currentUser != null){
-      this.currentUser = this.userService.currentUser;
+    if (this.userService.getCurrentUser() != null){
+      this.currentUser = this.userService.getCurrentUser();
       this.isUserLogin = true;
       this.loginComponent = LoginComponent;
     }

@@ -22,7 +22,7 @@ export class MyTransactionComponent implements OnInit {
               private offerSkiService: OfferSkiService) { }
 
   ngOnInit(): void {
-    this.user = this.userService.currentUser;
+    this.user = this.userService.getCurrentUser();
     this.getAllTransaction();
   }
 
