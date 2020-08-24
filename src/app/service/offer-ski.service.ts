@@ -21,8 +21,8 @@ export class OfferSkiService {
   }
 
   getAllByData(begin, end){
-    // return this.httpClient.get( (this.url + '/' + begin + '/' + end));
-    return this.httpClient.get( this.url + '/sctive' );
+    return this.httpClient.get( (this.url + '/start-date/' + begin + '/stop-date/' + end));
+    // return this.httpClient.get( this.url + '/sctive' );
   }
 
   delete(offerSki) {
