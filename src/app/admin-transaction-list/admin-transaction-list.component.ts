@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {Subscription} from 'rxjs';
+import { SubscribeDataAdminService } from './../service/subscribe-data-admin.service';
 import { TransactionService } from '../service/transaction.service';
 import { UserService } from '../service/user.service';
 import { OfferSkiService } from '../service/offer-ski.service';
@@ -13,7 +13,6 @@ import {OfferSki} from '../interface/offer-ski';
   styleUrls: ['./admin-transaction-list.component.css']
 })
 export class AdminTransactionListComponent implements OnInit, OnDestroy {
-  subscriptions: Subscription = new Subscription();
   offerSkis: OfferSki[] = [];
   offerSkiListLocal: OfferSki[] = [];
   offerSkiLocal: OfferSki = null;
@@ -23,51 +22,69 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
   startOffer = '';
   stopOffer = '';
   newTransaction = {prepareTransaction: null, startTransaction: null, stopTransaction: null, user: null, offerSkiList: []};
-  constructor(private transactionService: TransactionService, private userService: UserService,
-              private offerSkiService: OfferSkiService) { }
+  constructor(private transactionService: TransactionService, private subscribeDataAdminService: SubscribeDataAdminService
+              // private userService: UserService,
+              // private offerSkiService: OfferSkiService
+              ) { }
 
   ngOnInit(): void {
     this.getAllTransaction();
   }
 
   getAllUser() {
-    this.subscriptions.add(this.userService.getAll().subscribe((result: User[]) => {
-      this.users = result;
-      for (const user of this.users) {
-        for (const transaction of this.transactions) {
-          if (transaction.user.id === user.id) {
-            transaction.user = user;
-          }
-        }
-      }
-      console.log(result);
-      this.disabledEdit = result.map(r => true);
-    }, (error) => {}));
+    this.users = this.subscribeDataAdminService.getUsers();
+    // this.subscriptions.add(this.userService.getAll().subscribe((result: User[]) => {
+    //   this.users = result;
+    //   for (const user of this.users) {
+    //     for (const transaction of this.transactions) {
+    //       if (transaction.user.id === user.id) {
+    //         transaction.user = user;
+    //       }
+    //     }
+    //   }
+    //   console.log(result);
+    //   this.disabledEdit = result.map(r => true);
+    // }, (error) => {}));
   }
 
   getAllOfferSki() {
-    this.subscriptions.add(this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
-      this.offerSkis = result;
-      for (const offerSki of this.offerSkis) {
-        for (const transaction of this.transactions) {
+    this.offerSkis = this.subscribeDataAdminService.getOfferSkis();
+    // this.subscriptions.add(this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
+    //   this.offerSkis = result;
+      // for (const offerSki of this.offerSkis) {
+      //   for (const transaction of this.transactions) {
+      //     for (const offerSkiInTransaction of transaction.offerSkiList) {
+      //       if (offerSkiInTransaction.id === offerSki.id) {
+      //         transaction.offerSkiList.push(offerSki);
+      //       }
+      //     }
+      //   }
+      // }
+    //   console.log(result);
+    //   this.disabledEdit = result.map(r => true);
+    // }, (error) => {}));
+  }
+
+  getAllTransaction() {
+    this.getAllOfferSki();
+    this.getAllUser();
+    this.transactionService.getAll().subscribe((result: Transaction[]) => {
+      this.transactions = result;
+      for (const transaction of this.transactions) {
+        for (const offerSki of this.offerSkis) {
           for (const offerSkiInTransaction of transaction.offerSkiList) {
             if (offerSkiInTransaction.id === offerSki.id) {
               transaction.offerSkiList.push(offerSki);
             }
           }
+          for (const user of this.users) {
+            if (transaction.user.id === user.id) {
+              transaction.user = user;
+            }
+          }
         }
       }
-      console.log(result);
       this.disabledEdit = result.map(r => true);
-    }, (error) => {}));
-  }
-
-  getAllTransaction() {
-    this.transactionService.getAll().subscribe((result: Transaction[]) => {
-      this.transactions = result;
-      this.disabledEdit = result.map(r => true);
-      this.getAllOfferSki();
-      this.getAllUser();
     }, (error) => {});
   }
 
@@ -115,6 +132,6 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
       });
   }
   ngOnDestroy() {
-    this.subscriptions.unsubscribe();
+    // this.subscriptions.unsubscribe();
   }
 }

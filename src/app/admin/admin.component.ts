@@ -1,3 +1,4 @@
+import { SubscribeDataAdminService } from './../service/subscribe-data-admin.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../service/user.service';
@@ -10,7 +11,10 @@ import {LocalStorageKey} from '../static/local-storage-key';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  
   currentUser: User = null;
+  subscribeDataAdminService: SubscribeDataAdminService;
+  
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {

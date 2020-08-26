@@ -69,7 +69,7 @@ export class UserService {
 
   getCurrentUser (): User {
     // return (JSON.parse(localStorage.getItem(LocalStorageKey.USER)) as User);
-    return JSON.parse(localStorage.getItem(LocalStorageKey.USER));
+    return JSON.parse(localStorage.getItem(LocalStorageKey.USER_CURRENT));
   }
 
   logOut(){

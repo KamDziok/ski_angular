@@ -1,3 +1,4 @@
+import { SubscribeDataAdminService } from './../service/subscribe-data-admin.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OfferSkiService } from '../service/offer-ski.service';
@@ -24,65 +25,92 @@ export class AdminOfferSkiListComponent implements OnInit, OnDestroy {
   startOffer = '';
   stopOffer = '';
   newOfferSki = {city: '', startOffer: null, stopOffer: null, quantity: 0, company: null, price: null, ski: null};
-  constructor(private offerSkiService: OfferSkiService, private priceService: PriceService,
-              private companyService: CompanyService, private skiService: SkiService) { }
+  constructor( private subscribeDataAdminService: SubscribeDataAdminService, private offerSkiService: OfferSkiService
+              // , private priceService: PriceService,
+              // private companyService: CompanyService, private skiService: SkiService
+              ) { }
 
   ngOnInit(): void {
     this.getAllOfferSki();
   }
 
   getAllPrices() {
-    this.subscriptions.add(this.priceService.getAll().subscribe((result: Price[]) => {
-      this.prices = result;
-      for (const price of this.prices) {
-        for (const offerSki of this.offerSkis) {
-          if (offerSki.price.id === price.id) {
-            offerSki.price = price;
-          }
-        }
-      }
-      console.log(result);
-      this.disabledEdit = result.map(r => true);
-    }, (error) => {}));
+    this.prices = this.subscribeDataAdminService.getPrices();
+    // this.subscriptions.add(this.priceService.getAll().subscribe((result: Price[]) => {
+    //   this.prices = result;
+    //   for (const price of this.prices) {
+    //     for (const offerSki of this.offerSkis) {
+    //       if (offerSki.price.id =ng == price.id) {
+    //         offerSki.price = price;
+    //       }
+    //     }
+    //   }
+    //   console.log(result);
+    // }, (error) => {}));
   }
 
   getAllCompany() {
-    this.subscriptions.add(this.companyService.getAll().subscribe((result: Company[]) => {
-      this.companies = result;
-      for (const company of this.companies) {
-        for (const offerSki of this.offerSkis) {
-          if (offerSki.company.id === company.id) {
-            offerSki.company = company;
-          }
-        }
-      }
-      console.log(result);
-      this.disabledEdit = result.map(r => true);
-    }, (error) => {}));
+    this.companies = this.subscribeDataAdminService.getCompanies();
+    // this.subscriptions.add(this.companyService.getAll().subscribe((result: Company[]) => {
+    //   this.companies = result;
+    //   for (const company of this.companies) {
+    //     for (const offerSki of this.offerSkis) {
+    //       if (offerSki.company.id === company.id) {
+    //         offerSki.company = company;
+    //       }
+    //     }
+    //   }
+    //   console.log(result);
+    // }, (error) => {}));
   }
 
   getAllSki() {
-    this.subscriptions.add(this.skiService.getAll().subscribe((result: Ski[]) => {
-      this.skis = result;
-      for (const ski of this.skis) {
-        for (const offerSki of this.offerSkis) {
-          if (offerSki.ski.id === ski.id) {
-            offerSki.ski = ski;
-          }
-        }
-      }
-      console.log(result);
-      this.disabledEdit = result.map(r => true);
-    }, (error) => {}));
+    this.skis = this.subscribeDataAdminService.getSkis();
+    // this.subscriptions.add(this.skiService.getAll().subscribe((result: Ski[]) => {
+    //   this.skis = result;
+    //   for (const ski of this.skis) {
+    //     for (const offerSki of this.offerSkis) {
+    //       if (offerSki.ski.id === ski.id) {
+    //         offerSki.ski = ski;
+    //       }
+    //     }
+    //   }
+    //   console.log(result);
+    // }, (error) => {}));
   }
 
   getAllOfferSki() {
+    this.getAllPrices();
+    this.getAllCompany();
+    this.getAllSki();
+    // this.offerSkis = this.subscribeDataAdminService.getOfferSkis();
+    // this.disabledEdit = this.offerSkis.map(r => true);
     this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
       this.offerSkis = result;
+      for (const offerSki of this.offerSkis) {
+        for (const price of this.prices) {
+          if (offerSki.price.id === price.id) {
+            offerSki.price = price;
+            break;
+          }
+        }
+        for (const company of this.companies) {
+          if (offerSki.company.id === company.id) {
+            offerSki.company = company;
+            break;
+          }
+        }
+        for (const ski of this.skis) {
+          if (offerSki.ski.id === ski.id) {
+            offerSki.ski = ski;
+            break;
+          }
+        }
+      }
       this.disabledEdit = result.map(r => true);
-      this.getAllPrices();
-      this.getAllCompany();
-      this.getAllSki();
+      // this.getAllPrices();
+      // this.getAllCompany();
+      // this.getAllSki();
     }, (error) => {});
   }
 
@@ -114,6 +142,7 @@ export class AdminOfferSkiListComponent implements OnInit, OnDestroy {
       console.log('Error');
     }));
   }
+
   delete(id) {
     this.offerSkiService.delete(this.offerSkis[id]).subscribe((success) => {
         this.offerSkis.splice(id, 1);
@@ -122,6 +151,7 @@ export class AdminOfferSkiListComponent implements OnInit, OnDestroy {
         console.log('Error');
       });
   }
+  
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
