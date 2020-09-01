@@ -1,56 +1,59 @@
-<div class="form-group">
-  <label>nazwa:</label>
-  <input [(ngModel)]="newCompany.name" class="form-control" />
+<div class="col-md-12 col-lg-3 float-left position-fixed border border-dark rounded-bottom shadow py-3">
+  <div class="form-group">
+    <label>nazwa:</label>
+    <input [(ngModel)]="newCompany.name" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>uprawnienia:</label>
+    <select [(ngModel)]="newCompany.active" class="form-control">
+      <option [ngValue]="true">Aktywna</option>
+      <option [ngValue]="false">Nieaktywna</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>opis:</label>
+    <textarea [(ngModel)]="newCompany.description" class="form-control" ></textarea>
+  </div>
+  <button (click)="addCompany()" class="btn btn-outline-success">dodaj</button>
 </div>
-<div class="form-group">
-  <label>uprawnienia:</label>
-  <select [(ngModel)]="newCompany.active" class="form-control">
-    <option [ngValue]="true">Aktywna</option>
-    <option [ngValue]="false">Nieaktywna</option>
-  </select>
-</div>
-<div class="form-group">
-  <label>opis:</label>
-  <textarea [(ngModel)]="newCompany.description" class="form-control" ></textarea>
-</div>
-<button (click)="addCompany()" class="btn btn-outline-success">dodaj</button>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">nazwa</th>
-    <th scope="col">aktywna</th>
-    <th scope="col">opis</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let company of companies; index as i">
-      <th scope="row">{{company.id}}</th>
-      <td>
-        <input [(ngModel)]="company.name" [disabled]="disabledEdit[i]" class="form-control">
-      </td>
-      <td>
-        <div class="form-group">
-          <select [(ngModel)]="company.active" [disabled]="disabledEdit[i]" class="form-control">
-            <option [ngValue]="true"  [selected]="company.active === true">Aktywna</option>
-            <option [ngValue]="false"  [selected]="company.active === false">Nieaktywna</option>
-          </select>
-        </div>
-      </td>
-      <td>
-        <textarea [(ngModel)]="company.description" [disabled]="disabledEdit[i]" class="form-control"></textarea>
-      </td>
-      <td>
-        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
-        <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
-      </td>
-      <td>
-        <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
-      </td>
+<div class="col-md-12 offset-lg-3 col-lg-9 float-left table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">nazwa</th>
+      <th scope="col">aktywna</th>
+      <th scope="col">opis</th>
+      <th></th>
+      <th></th>
     </tr>
-  </tbody>
-</table>
-
+    </thead>
+    <tbody>
+      <tr *ngFor="let company of companies; index as i">
+        <th scope="row">{{company.id}}</th>
+        <td>
+          <input [(ngModel)]="company.name" [disabled]="disabledEdit[i]" class="form-control">
+        </td>
+        <td>
+          <div class="form-group">
+            <select [(ngModel)]="company.active" [disabled]="disabledEdit[i]" class="form-control">
+              <option [ngValue]="true"  [selected]="company.active === true">Aktywna</option>
+              <option [ngValue]="false"  [selected]="company.active === false">Nieaktywna</option>
+            </select>
+          </div>
+        </td>
+        <td>
+          <textarea [(ngModel)]="company.description" [disabled]="disabledEdit[i]" class="form-control"></textarea>
+        </td>
+        <td>
+          <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
+          <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+        </td>
+        <td>
+          <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -54,7 +54,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
       this.users = result;
       for (const user of this.users) {
         for (const company of this.companies) {
-          if (user.permissions === Permissions.SUPPORT) {
+          if (user.permissions === Permissions.COMPANY) {
             if (user.company.id === company.id) {
               user.company = company;
               break;

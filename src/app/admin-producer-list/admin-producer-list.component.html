@@ -1,33 +1,37 @@
-<div class="form-group">
-  <label>nazwa:</label>
-  <input [(ngModel)]="newProducer.name" class="form-control" />
+<div class="col-md-12 col-lg-3 float-left position-fixed border border-dark rounded-bottom shadow py-3">
+  <div class="form-group">
+    <label>nazwa:</label>
+    <input [(ngModel)]="newProducer.name" class="form-control" />
+  </div>
+  <button (click)="addPrice()" class="btn btn-outline-success">dodaj</button>
 </div>
-<button (click)="addPrice()" class="btn btn-outline-success">dodaj</button>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">id</th>
-    <th scope="col">nazwa producenta</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let producer of producers; index as i">
-    <th scope="row">{{ i + 1 }}</th>
-    <th scope="row">{{ producer.id }}</th>
-    <td>
-      <input [(ngModel)]="producer.name" [disabled]="disabledEdit[i]" class="form-control">
-    </td>
-    <td>
-      <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
-      <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
-    </td>
-    <td>
-      <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div class="col-md-12 offset-lg-3 col-lg-9 float-left table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">id</th>
+      <th scope="col">nazwa producenta</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let producer of producers; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <th scope="row">{{ producer.id }}</th>
+      <td>
+        <input [(ngModel)]="producer.name" [disabled]="disabledEdit[i]" class="form-control">
+      </td>
+      <td>
+        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
+        <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+      </td>
+      <td>
+        <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

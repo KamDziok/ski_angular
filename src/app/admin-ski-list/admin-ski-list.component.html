@@ -1,63 +1,67 @@
-<div class="form-group">
-  <label>nazwa:</label>
-  <input [(ngModel)]="newSki.name" class="form-control" />
+<div class="col-md-12 col-lg-3 float-left position-fixed border border-dark rounded-bottom shadow py-3">
+  <div class="form-group">
+    <label>nazwa:</label>
+    <input [(ngModel)]="newSki.name" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>długość:</label>
+    <input [(ngModel)]="newSki.lengthSki" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>typ:</label>
+    <input [(ngModel)]="newSki.type" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label>producent:</label>
+    <select [(ngModel)]="newSki.producer" class="form-control">
+      <option [ngValue]="p" *ngFor="let p of producers">{{p.name}}</option>
+    </select>
+  </div>
+  <button (click)="addSki()" class="btn btn-outline-success">dodaj</button>
 </div>
-<div class="form-group">
-  <label>długość:</label>
-  <input [(ngModel)]="newSki.lengthSki" class="form-control" />
-</div>
-<div class="form-group">
-  <label>typ:</label>
-  <input [(ngModel)]="newSki.type" class="form-control" />
-</div>
-<div class="form-group">
-  <label>producent:</label>
-  <select [(ngModel)]="newSki.producer" class="form-control">
-    <option [ngValue]="p" *ngFor="let p of producers">{{p.name}}</option>
-  </select>
-</div>
-<button (click)="addSki()" class="btn btn-outline-success">dodaj</button>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">id</th>
-    <th scope="col">nazwa</th>
-    <th scope="col">długość</th>
-    <th scope="col">typ</th>
-    <th scope="col">producent</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let ski of skis; index as i">
-    <th scope="row">{{ i + 1 }}</th>
-    <th scope="row">{{ ski.id }}</th>
-    <td>
-      <input [(ngModel)]="ski.name" [disabled]="disabledEdit[i]" class="form-control">
-    </td>
-    <td>
-      <input [(ngModel)]="ski.lengthSki" [disabled]="disabledEdit[i]" class="form-control">
-    </td>
-    <td>
-      <input [(ngModel)]="ski.type" [disabled]="disabledEdit[i]" class="form-control">
-    </td>
-    <td>
-      <div class="form-group">
-        <select [(ngModel)]="ski.producer" [disabled]="disabledEdit[i]" class="form-control">
-          <option [ngValue]="p" *ngFor="let p of producers" [selected]="ski.producer.id === p.id">{{p.name}}</option>
-        </select>
-      </div>
-    </td>
-    <td>
-      <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
-      <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
-    </td>
-    <td>
-      <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div class="col-md-12 offset-lg-3 col-lg-9 float-left table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">id</th>
+      <th scope="col">nazwa</th>
+      <th scope="col">długość</th>
+      <th scope="col">typ</th>
+      <th scope="col">producent</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ski of skis; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <th scope="row">{{ ski.id }}</th>
+      <td>
+        <input [(ngModel)]="ski.name" [disabled]="disabledEdit[i]" class="form-control">
+      </td>
+      <td>
+        <input [(ngModel)]="ski.lengthSki" [disabled]="disabledEdit[i]" class="form-control">
+      </td>
+      <td>
+        <input [(ngModel)]="ski.type" [disabled]="disabledEdit[i]" class="form-control">
+      </td>
+      <td>
+        <div class="form-group">
+          <select [(ngModel)]="ski.producer" [disabled]="disabledEdit[i]" class="form-control">
+            <option [ngValue]="p" *ngFor="let p of producers" [selected]="ski.producer.id === p.id">{{p.name}}</option>
+          </select>
+        </div>
+      </td>
+      <td>
+        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
+        <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+      </td>
+      <td>
+        <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
