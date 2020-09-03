@@ -1,3 +1,6 @@
+import { SubscribeDataCompanyService } from './../service/subscribe-data-company.service';
+import { Producer } from './../interface/producer';
+import { Ski } from './../interface/ski';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ProducerService } from '../service/producer.service';
@@ -10,39 +13,47 @@ import { SkiService } from '../service/ski.service';
 })
 export class CompanyAddSkiComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
-  skis: object[] = [];
-  producers: object[] = [];
+  skis: Ski[] = [];
+  producers: Producer[] = [];
   disabledEdit: boolean[] = [];
-  newSki = {name: '', length: 0.0, type: '', producer: null};
-  constructor(private producerService: ProducerService, private skiService: SkiService) { }
+  newSki = {name: '', lengthSki: 0.0, type: '', producer: null};
+  constructor(private subscribeDataCompanyService: SubscribeDataCompanyService, private skiService: SkiService) { }
 
   ngOnInit(): void {
     this.getAllSki();
   }
 
   getAllProducers() {
-    // @ts-ignore
-    this.subscriptions.add(this.producerService.getAll().subscribe((result: any[]) => {
-      this.producers = result;
+    this.producers = this.subscribeDataCompanyService.getProducers();
+    // // @ts-ignore
+    // this.subscriptions.add(this.producerService.getAll().subscribe((result: any[]) => {
+    //   this.producers = result;
+    //   for (const producer of this.producers) {
+    //     for (const ski of this.skis) {
+    //       // @ts-ignore
+    //       if (ski.producer.id === producer.id) {
+    //         // @ts-ignore
+    //         ski.producer = producer;
+    //       }
+    //     }
+    //   }
+    //   console.log(result);
+    //   this.disabledEdit = result.map(r => true);
+    // }, (error) => {}));
+  }
+
+  getAllSki() {
+    this.getAllProducers();
+    this.skiService.getAll().subscribe((result: Ski[]) => {
+      this.skis = result;
       for (const producer of this.producers) {
         for (const ski of this.skis) {
-          // @ts-ignore
           if (ski.producer.id === producer.id) {
-            // @ts-ignore
             ski.producer = producer;
           }
         }
       }
-      console.log(result);
       this.disabledEdit = result.map(r => true);
-    }, (error) => {}));
-  }
-
-  getAllSki() {
-    this.skiService.getAll().subscribe((result: object[]) => {
-      this.skis = result;
-      this.disabledEdit = result.map(r => true);
-      this.getAllProducers();
     }, (error) => {});
   }
 

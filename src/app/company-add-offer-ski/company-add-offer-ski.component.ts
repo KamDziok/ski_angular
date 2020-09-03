@@ -1,3 +1,8 @@
+import { SubscribeDataCompanyService } from './../service/subscribe-data-company.service';
+import { OfferSki } from './../interface/offer-ski';
+import { Ski } from './../interface/ski';
+import { Company } from './../interface/company';
+import { Price } from './../interface/price';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OfferSkiService } from '../service/offer-ski.service';
@@ -15,16 +20,15 @@ import {User} from '../interface/user';
 export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
   user: User;
-  prices: object[] = [];
-  companies: object[] = [];
-  skis: object[] = [];
-  offerSkis: object[] =[];
+  prices: Price[] = [];
+  companies: Company[] = [];
+  skis: Ski[] = [];
+  offerSkis: OfferSki[] =[];
   disabledEdit: boolean[] = [];
   startOffer = '';
   stopOffer = '';
   newOfferSki = {city: '', startOffer: null, stopOffer: null, company: null, price: null, ski: null};
-  constructor(private offerSkiService: OfferSkiService, private priceService: PriceService,
-              private companyService: CompanyService, private skiService: SkiService,
+  constructor(private offerSkiService: OfferSkiService, private subscribeDataCompanyService: SubscribeDataCompanyService,
               private userService: UserService) { }
 
   ngOnInit(): void {
@@ -33,66 +37,81 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
   }
 
   getAllPrices() {
-    // @ts-ignore
-    this.subscriptions.add(this.priceService.getAll().subscribe((result: any[]) => {
-      this.prices = result;
-      for (const price of this.prices) {
-        for (const offerSki of this.offerSkis) {
-          // @ts-ignore
+    this.prices = this.subscribeDataCompanyService.getPrices();
+    // // @ts-ignore
+    // this.subscriptions.add(this.priceService.getAll().subscribe((result: any[]) => {
+    //   this.prices = result;
+    //   for (const price of this.prices) {
+    //     for (const offerSki of this.offerSkis) {
+    //       // @ts-ignore
+    //       if (offerSki.price.id === price.id) {
+    //         // @ts-ignore
+    //         offerSki.price = price;
+    //       }
+    //     }
+    //   }
+    //   console.log(result);
+    //   this.disabledEdit = result.map(r => true);
+    // }, (error) => {}));
+  }
+
+  getAllCompany() {
+    // // @ts-ignore
+    // this.subscriptions.add(this.companyService.getAll().subscribe((result: any[]) => {
+    //   this.companies = result;
+    //   for (const company of this.companies) {
+    //     for (const offerSki of this.offerSkis) {
+    //       // @ts-ignore
+    //       if (offerSki.company.id === company.id) {
+    //         // @ts-ignore
+    //         offerSki.company = company;
+    //       }
+    //     }
+    //   }
+    //   console.log(result);
+    //   this.disabledEdit = result.map(r => true);
+    // }, (error) => {}));
+  }
+
+  getAllSki() {
+    this.skis = this.subscribeDataCompanyService.getSkis();
+    // // @ts-ignore
+    // this.subscriptions.add(this.skiService.getAll().subscribe((result: any[]) => {
+    //   this.skis = result;
+    //   for (const ski of this.skis) {
+    //     for (const offerSki of this.offerSkis) {
+    //       // @ts-ignore
+    //       if (offerSki.ski.id === ski.id) {
+    //         // @ts-ignore
+    //         offerSki.ski = ski;
+    //       }
+    //     }
+    //   }
+    //   console.log(result);
+    //   this.disabledEdit = result.map(r => true);
+    // }, (error) => {}));
+  }
+
+  getAllOfferSki() {
+    this.getAllPrices();
+      // this.getAllCompany();
+      this.getAllSki();
+    this.offerSkiService.getAllCompany(this.user.company).subscribe((result: OfferSki[]) => {
+      this.offerSkis = result;
+      for (const offerSki of this.offerSkis) {
+        for (const ski of this.skis) {
+          if (offerSki.ski.id === ski.id) {
+            offerSki.ski = ski;
+          }
+        }
+        for (const price of this.prices) {
           if (offerSki.price.id === price.id) {
-            // @ts-ignore
             offerSki.price = price;
           }
         }
       }
-      console.log(result);
       this.disabledEdit = result.map(r => true);
-    }, (error) => {}));
-  }
-
-  getAllCompany() {
-    // @ts-ignore
-    this.subscriptions.add(this.companyService.getAll().subscribe((result: any[]) => {
-      this.companies = result;
-      for (const company of this.companies) {
-        for (const offerSki of this.offerSkis) {
-          // @ts-ignore
-          if (offerSki.company.id === company.id) {
-            // @ts-ignore
-            offerSki.company = company;
-          }
-        }
-      }
-      console.log(result);
-      this.disabledEdit = result.map(r => true);
-    }, (error) => {}));
-  }
-
-  getAllSki() {
-    // @ts-ignore
-    this.subscriptions.add(this.skiService.getAll().subscribe((result: any[]) => {
-      this.skis = result;
-      for (const ski of this.skis) {
-        for (const offerSki of this.offerSkis) {
-          // @ts-ignore
-          if (offerSki.ski.id === ski.id) {
-            // @ts-ignore
-            offerSki.ski = ski;
-          }
-        }
-      }
-      console.log(result);
-      this.disabledEdit = result.map(r => true);
-    }, (error) => {}));
-  }
-
-  getAllOfferSki() {
-    this.offerSkiService.getAllCompany(this.user.company).subscribe((result: object[]) => {
-      this.offerSkis = result;
-      this.disabledEdit = result.map(r => true);
-      this.getAllPrices();
-      this.getAllCompany();
-      this.getAllSki();
+      
     }, (error) => {});
   }
 

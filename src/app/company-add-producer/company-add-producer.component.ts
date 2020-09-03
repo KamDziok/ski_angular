@@ -1,3 +1,4 @@
+import { Producer } from './../interface/producer';
 import { Component, OnInit } from '@angular/core';
 import { ProducerService } from '../service/producer.service';
 
@@ -7,7 +8,7 @@ import { ProducerService } from '../service/producer.service';
   styleUrls: ['./company-add-producer.component.css']
 })
 export class CompanyAddProducerComponent implements OnInit {
-  producers: object[] = [];
+  producers: Producer[] = [];
   disabledEdit: boolean[] = [];
   newProducer = {name: ''};
   constructor(private producerService: ProducerService) { }
@@ -17,7 +18,7 @@ export class CompanyAddProducerComponent implements OnInit {
   }
 
   getAllProducers() {
-    this.producerService.getAll().subscribe((result: object[]) => {
+    this.producerService.getAll().subscribe((result: Producer[]) => {
       this.producers = result;
       this.disabledEdit = result.map(r => true);
     }, (error) => {});
