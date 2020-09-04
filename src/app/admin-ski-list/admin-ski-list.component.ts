@@ -43,8 +43,8 @@ export class AdminSkiListComponent implements OnInit, OnDestroy {
     this.getAllProducers();
     this.skiService.getAll().subscribe((result: Ski[]) => {
       this.skis = result;
-      for (const producer of this.producers) {
-        for (const ski of this.skis) {
+      for (const ski of this.skis) {
+        for (const producer of this.producers) {
           if (ski.producer.id === producer.id) {
             ski.producer = producer;
           }

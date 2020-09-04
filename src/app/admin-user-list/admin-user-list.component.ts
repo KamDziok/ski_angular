@@ -63,7 +63,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
         }
       }
       this.disabledEdit = result.map(r => true);
-      this.newUser.company = result[0];
+      // this.newUser.company = result[0];
     }, (error) => {});
   }
 
