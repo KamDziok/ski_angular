@@ -1,15 +1,26 @@
-<div class="col-md-12 col-lg-3 float-left position-fixed border border-dark rounded-bottom shadow py-3">
+<div class="col-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3">
   <div class="form-group">
     <label>miejscowość:</label>
     <input [(ngModel)]="newOfferSki.city" class="form-control" />
   </div>
   <div class="form-group">
-    <label>data rozpoczęcia:</label>
-    <input [(ngModel)]="startOffer" class="form-control" />
+    <mat-form-field>
+      <mat-label>data rozpoczęcia:</mat-label><br/>
+      <input [(ngModel)]="newOfferSki.startOffer" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+      <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+      <mat-datepicker #tartOffer></mat-datepicker>
+    </mat-form-field>
+    <!-- <input [(ngModel)]="startOffer" class="form-control" /> -->
   </div>
   <div class="form-group">
-    <label>data zakończenia:</label>
-    <input [(ngModel)]="stopOffer" class="form-control" />
+    <mat-form-field>
+      <mat-label>data zakończenia:</mat-label><br/>
+      <input [(ngModel)]="newOfferSki.stopOffer" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+      <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
+      <mat-datepicker #topOffer></mat-datepicker>
+    </mat-form-field>
+    <!-- <label>data zakończenia:</label>
+    <input [(ngModel)]="stopOffer" class="form-control" /> -->
   </div>
   <div class="form-group">
     <label>cena:</label>
@@ -17,12 +28,12 @@
       <option [ngValue]="p" *ngFor="let p of prices">{{p.value}} {{p.unit.name}}</option>
     </select>
   </div>
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label>firma:</label>
     <select [(ngModel)]="newOfferSki.company" class="form-control">
       <option [ngValue]="c" *ngFor="let c of companies">{{c.name}}</option>
     </select>
-  </div>
+  </div> -->
   <div class="form-group">
     <label>narta:</label>
     <select [(ngModel)]="newOfferSki.ski" class="form-control">
@@ -32,7 +43,7 @@
   <button (click)="addOfferSki()" class="btn btn-secondary">add</button>
 </div>
 
-<div class="col-md-12 offset-lg-3 col-lg-9 float-left table-responsive">
+<div class="col-12 offset-lg-3 col-lg-9 float-left table-responsive">
   <table class="table table-striped">
     <thead>
     <tr>
@@ -54,10 +65,22 @@
         <input [(ngModel)]="offerSki.city" [disabled]="disabledEdit[i]" class="form-control">
       </td>
       <td>
-        <input [(ngModel)]="offerSki.startOffer" [disabled]="disabledEdit[i]" class="form-control">
+        <mat-form-field>
+          <mat-label>data rozpoczęcia:</mat-label><br/>
+          <input [(ngModel)]="offerSki.startOffer" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+          <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+          <mat-datepicker #tartOffer></mat-datepicker>
+        </mat-form-field>
+        <!-- <input [(ngModel)]="offerSki.startOffer" [disabled]="disabledEdit[i]" class="form-control"> -->
       </td>
       <td>
-        <input [(ngModel)]="offerSki.stopOffer" [disabled]="disabledEdit[i]" class="form-control">
+        <mat-form-field>
+          <mat-label>data zakończenia:</mat-label><br/>
+          <input [(ngModel)]="offerSki.stopOffer" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+          <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
+          <mat-datepicker #topOffer></mat-datepicker>
+        </mat-form-field>
+        <!-- <input [(ngModel)]="offerSki.stopOffer" [disabled]="disabledEdit[i]" class="form-control"> -->
       </td>
       <td>
         <div class="form-group">

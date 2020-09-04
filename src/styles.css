@@ -5,3 +5,13 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.position-fixed-lg{
+  position: fixed!important;
+}
+
+@media only screen and (max-width: 991px) {
+  .position-fixed-lg{
+    position: static!important;
+  }
+}
