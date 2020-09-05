@@ -119,10 +119,10 @@ export class AdminOfferSkiListComponent implements OnInit, OnDestroy {
   }
 
   addOfferSki() {
-    this.newOfferSki.startOffer = new Date(this.startOffer);
-    if (this.stopOffer !== ''){
-      this.newOfferSki.stopOffer = new Date(this.stopOffer);
-    }
+    // this.newOfferSki.startOffer = new Date(this.startOffer);
+    // if (this.stopOffer !== ''){
+    //   this.newOfferSki.stopOffer = new Date(this.stopOffer);
+    // }
     this.offerSkiService.addOfferSki(this.newOfferSki).subscribe((success) => {
       console.log('Sukces');
       this.getAllOfferSki();

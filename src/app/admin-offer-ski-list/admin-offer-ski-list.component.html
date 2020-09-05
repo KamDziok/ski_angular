@@ -8,12 +8,24 @@
     <input [(ngModel)]="newOfferSki.quantity" class="form-control" />
   </div>
   <div class="form-group">
-    <label>data rozpoczęcia:</label>
-    <input [(ngModel)]="startOffer" class="form-control" />
+    <mat-form-field>
+      <mat-label>data rozpoczęcia:</mat-label><br/>
+      <input [(ngModel)]="newOfferSki.startOffer" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+      <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+      <mat-datepicker #tartOffer></mat-datepicker>
+    </mat-form-field>
+    <!-- <label>data rozpoczęcia:</label>
+    <input [(ngModel)]="startOffer" class="form-control" /> -->
   </div>
   <div class="form-group">
-    <label>data zakończenia:</label>
-    <input [(ngModel)]="stopOffer" class="form-control" />
+    <mat-form-field>
+      <mat-label>data zakończenia:</mat-label><br/>
+      <input [(ngModel)]="newOfferSki.stopOffer" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+      <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
+      <mat-datepicker #topOffer></mat-datepicker>
+    </mat-form-field>
+    <!-- <label>data zakończenia:</label>
+    <input [(ngModel)]="stopOffer" class="form-control" /> -->
   </div>
   <div class="form-group">
     <label>cena:</label>
@@ -44,8 +56,8 @@
       <th scope="col">id</th>
       <th scope="col">miejscowość</th>
       <th scope="col">ilość</th>
-      <th scope="col">data rozpoczęcia</th>
-      <th scope="col">data zakończenia</th>
+      <th scope="col">data rozpoczęcia / <br /> data zakończenia</th>
+      <!-- <th scope="col">data zakończenia</th> -->
       <th scope="col">cena</th>
       <th scope="col">firma</th>
       <th scope="col">narty</th>
@@ -64,10 +76,23 @@
         <input [(ngModel)]="offerSki.quantity" [disabled]="disabledEdit[i]" class="form-control">
       </td>
       <td>
-        <input [(ngModel)]="offerSki.startOffer" [disabled]="disabledEdit[i]" class="form-control">
-      </td>
-      <td>
-        <input [(ngModel)]="offerSki.stopOffer" [disabled]="disabledEdit[i]" class="form-control">
+        <mat-form-field>
+          <mat-label>data rozpoczęcia:</mat-label><br/>
+          <input [(ngModel)]="offerSki.startOffer" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+          <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+          <mat-datepicker #tartOffer></mat-datepicker>
+        </mat-form-field>
+        <!-- <input [(ngModel)]="offerSki.startOffer" [disabled]="disabledEdit[i]" class="form-control"> -->
+      <!-- </td>
+      <td> -->
+        <br />
+        <mat-form-field>
+          <mat-label>data zakończenia:</mat-label><br/>
+          <input [(ngModel)]="offerSki.stopOffer" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+          <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
+          <mat-datepicker #topOffer></mat-datepicker>
+        </mat-form-field>
+        <!-- <input [(ngModel)]="offerSki.stopOffer" [disabled]="disabledEdit[i]" class="form-control"> -->
       </td>
       <td>
         <div class="form-group">

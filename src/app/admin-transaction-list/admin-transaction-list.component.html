@@ -1,11 +1,31 @@
 <div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3">
   <div class="form-group">
-    <label>data rozpoczęcia:</label>
-    <input [(ngModel)]="startOffer" class="form-control" />
+    <mat-form-field>
+      <mat-label>data zawarcia transakcji:</mat-label><br/>
+      <input [(ngModel)]="newTransaction.prepareTransaction" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+      <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+      <mat-datepicker #tartOffer></mat-datepicker>
+    </mat-form-field>
   </div>
   <div class="form-group">
-    <label>data zakończenia:</label>
-    <input [(ngModel)]="stopOffer" class="form-control" />
+    <mat-form-field>
+      <mat-label>data rozpoczęcia:</mat-label><br/>
+      <input [(ngModel)]="newTransaction.startTransaction" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+      <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+      <mat-datepicker #tartOffer></mat-datepicker>
+    </mat-form-field>
+    <!-- <label>data rozpoczęcia:</label>
+    <input [(ngModel)]="startOffer" class="form-control" /> -->
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>data zakończenia:</mat-label><br/>
+      <input [(ngModel)]="newTransaction.stopTransaction" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+      <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
+      <mat-datepicker #topOffer></mat-datepicker>
+    </mat-form-field>
+    <!-- <label>data zakończenia:</label>
+    <input [(ngModel)]="stopOffer" class="form-control" /> -->
   </div>
   <div class="form-group">
     <label>użytkownik:</label>
@@ -46,8 +66,8 @@
       <th scope="col">#</th>
       <th scope="col">id</th>
       <th scope="col">data zawarcia transakcji</th>
-      <th scope="col">data rozpoczęcia</th>
-      <th scope="col">data zakończenia</th>
+      <th scope="col">data rozpoczęcia /<br /> data zakończenia</th>
+      <!-- <th scope="col">data zakończenia</th> -->
       <th scope="col">użytkownik</th>
       <th scope="col">oferty</th>
       <th></th>
@@ -59,13 +79,32 @@
       <th scope="row">{{ i + 1 }}</th>
       <th scope="row">{{ transaction.id }}</th>
       <td>
-        <input [(ngModel)]="transaction.prepareTransaction" [disabled]="disabledEdit[i]" class="form-control">
+        <mat-form-field>
+          <mat-label>data zawarcia transakcji:</mat-label><br/>
+          <input [(ngModel)]="transaction.prepareTransaction" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+          <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+          <mat-datepicker #tartOffer></mat-datepicker>
+        </mat-form-field>
+        <!-- <input [(ngModel)]="transaction.prepareTransaction" [disabled]="disabledEdit[i]" class="form-control"> -->
       </td>
       <td>
-        <input [(ngModel)]="transaction.startTransaction" [disabled]="disabledEdit[i]" class="form-control">
-      </td>
-      <td>
-        <input [(ngModel)]="transaction.stopTransaction" [disabled]="disabledEdit[i]" class="form-control">
+        <mat-form-field>
+          <mat-label>data rozpoczęcia:</mat-label><br/>
+          <input [(ngModel)]="transaction.startTransaction" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+          <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+          <mat-datepicker #tartOffer></mat-datepicker>
+        </mat-form-field>
+        <!-- <input [(ngModel)]="transaction.startTransaction" [disabled]="disabledEdit[i]" class="form-control"> -->
+      <!-- </td>
+      <td> -->
+        <br />
+        <mat-form-field>
+          <mat-label>data zakończenia:</mat-label><br/>
+          <input [(ngModel)]="transaction.stopTransaction" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+          <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
+          <mat-datepicker #topOffer></mat-datepicker>
+        </mat-form-field>
+        <!-- <input [(ngModel)]="transaction.stopTransaction" [disabled]="disabledEdit[i]" class="form-control"> -->
       </td>
       <td>
         <div class="form-group">
