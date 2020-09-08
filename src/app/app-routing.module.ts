@@ -1,3 +1,4 @@
+import { ProfileCompanyComponent } from './profile-company/profile-company.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SerchOfferSkiComponent } from './serch-offer-ski/serch-offer-ski.component';
@@ -43,6 +44,7 @@ const routes: Routes = [
       { path: 'form-login-company', component: FormLoginCompanyComponent },
       { path: 'form-regi-company', component: FormRegiCompanyComponent },
       { path: 'search', component: SerchOfferSkiComponent },
+      { path: 'profile-company/:id', component: ProfileCompanyComponent},
     ] },
   { path: 'login', component: LoginComponent, canActivate: [UserGuard], children: [
       { path: '', component: MyAccountComponent },
@@ -50,6 +52,7 @@ const routes: Routes = [
       { path: 'my-order', component: MyOrderComponent },
       { path: 'create-company', component: CreateCompanyComponent },
       { path: 'my-transaction', component: MyTransactionComponent },
+      { path: 'profile-company/:id', component: ProfileCompanyComponent},
     ]},
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard], children: [
       { path: '', component: MyAccountComponent },
@@ -74,6 +77,7 @@ const routes: Routes = [
       { path: 'company-producer', component: CompanyAddProducerComponent },
       { path: 'company-ski', component: CompanyAddSkiComponent },
       { path: 'company-offer-ski', component: CompanyAddOfferSkiComponent },
+      { path: 'profile-company/:id', component: ProfileCompanyComponent},
     ]}
 ];
 

@@ -45,6 +45,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import { ProfileCompanyComponent } from './profile-company/profile-company.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     MyAccountComponent,
     MyOrderComponent,
     CreateCompanyComponent,
-    MyTransactionComponent
+    MyTransactionComponent,
+    ProfileCompanyComponent
   ],
   imports: [
     BrowserModule,

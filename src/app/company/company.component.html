@@ -16,6 +16,9 @@
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['company-offer-ski']">Dodaj ofertę</a>
       </li>
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" [routerLink]="['profile-company/' + currentUser.company.id]">Profil</a>
+      </li>
     </ul>
     <ul class="navbar-nav mr-0 mt-2 mt-lg-0">
 <!--      <li class="nav-item">-->

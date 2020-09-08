@@ -1,0 +1,58 @@
+<!-- <p>nazwa: </p>
+<span *ngIf="!edit">{{company.name}}</span>
+  <span *ngIf="edit">
+    <textarea [(ngModel)]="company.name" ></textarea>
+  </span>
+<p>opis:</p>
+<p>
+  <span *ngIf="!edit">{{company.description}}</span>
+  <span *ngIf="edit">
+    <textarea [(ngModel)]="company.description" ></textarea>
+  </span>
+</p>
+<p *ngIf="userCompany">
+  <input *ngIf="!edit" type="button" (click)="clickEdit()" />
+  <input *ngIf="edit" type="button" (click)="saveCompany()" />
+</p> -->
+
+<div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3">
+  <div class="form-group">
+    <img src="../../assets/img/logo.png" class="rounded-circle img-thumbnail profil-img" alt="profile-img"/>
+    <label *ngIf="!edit">{{company.name}}</label>
+    <input type="text" *ngIf="edit" [(ngModel)]="company.name" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label>opis:</label>
+    <span *ngIf="!edit">{{company.description}}</span>
+    <textarea *ngIf="edit" [(ngModel)]="company.description" class="form-control" ></textarea>
+  </div>
+  <button *ngIf="!edit" (click)="clickEdit()" class="btn btn-outline-success">edytuj</button>
+  <button *ngIf="edit" (click)="saveCompany()" class="btn btn-outline-success">zapisz</button>
+  <button *ngIf="edit" (click)="clickEdit()" class="btn btn-outline-success">anuluj</button>
+</div>
+
+<div class="col-md-12 offset-lg-3 col-lg-9 float-left">
+  <div class="col-12" *ngFor="let os of offerSkisCompany">
+    <p class="col-12 float-left">
+      <label>miasto: {{os.city}}</label>
+    </p>
+    <p class="col-12 float-left">
+      <label>narty: {{os.ski.producer.name}} {{os.ski.name}}</label>
+    </p>
+    <p class="col-12 float-left">
+      <label>długość: {{os.ski.lengthSki}}</label>
+    </p>
+    <p class="col-12 float-left">
+      <label>dostępnych: {{os.quantity}}</label>
+    </p>
+    <p class="col-12 float-left">
+      <label>cena: {{os.price.value}} {{os.price.unit.name}}</label>
+    </p>
+    <p class="col-12 float-left">
+      <label>data rozpoczęcia: {{os.startOffer}}</label>
+    </p>
+    <p class="col-12 float-left">
+      <label>data zakończenia: {{os.stopOffer}}</label>
+    </p>
+  </div>
+</div>

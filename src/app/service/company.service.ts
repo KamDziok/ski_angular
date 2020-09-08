@@ -12,6 +12,10 @@ export class CompanyService {
     return this.httpClient.get(this.url);
   }
 
+  getById(id) {
+    return this.httpClient.get(this.url + '/id/' + id);
+  }
+
   delete(company) {
     return this.httpClient.delete(this.url, company);
   }
