@@ -1,7 +1,7 @@
 import { OfferSki } from './../interface/offer-ski';
 import { Company } from './../interface/company';
 import { Injectable } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { map } from "rxjs/operators";
 import { OfferSkiService } from '../service/offer-ski.service';
 import { PriceService } from '../service/price.service';
 import { CompanyService } from '../service/company.service';
@@ -129,9 +129,9 @@ export class SubscribeDataAdminService {
 
   private getAllOfferSki() {
     // this.subscriptions.add(this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
-    this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
+    this.offerSkiService.getAll().pipe(map((result: OfferSki[]) => {
       this.setOfferSkis(result);
-    }, (error) => {});
+    }, (error) => {}));
     // }, (error) => {}));
   }
 
@@ -161,9 +161,9 @@ export class SubscribeDataAdminService {
 
   private getAllUser() {
     // this.subscriptions.add(this.userService.getAll().subscribe((result: User[]) => {
-    this.userService.getAll().subscribe((result: User[]) => {
+    this.userService.getAll().pipe(map((result: User[]) => {
       this.setUsers(result);
-    }, (error) => {});
+    }, (error) => {}));
     // }, (error) => {}));
   }
 

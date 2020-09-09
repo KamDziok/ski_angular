@@ -1,3 +1,4 @@
+import { Company } from './../interface/company';
 import { Injectable } from '@angular/core';
 import { SetUpHttpService } from './../set-up-http.service';
 
@@ -12,7 +13,7 @@ export class OfferSkiService {
     return this.httpClient.get(this.url);
   }
 
-  getAllCompany(company) {
+  getAllCompany(company: Company) {
     return this.httpClient.get(this.url + '/company/' + company.id);
   }
 

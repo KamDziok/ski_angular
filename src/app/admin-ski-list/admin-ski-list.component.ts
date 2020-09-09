@@ -20,6 +20,7 @@ export class AdminSkiListComponent implements OnInit, OnDestroy {
   constructor(private subscribeDataAdminService: SubscribeDataAdminService, private skiService: SkiService) { }
 
   ngOnInit(): void {
+    this.getAllProducers();
     this.getAllSki();
   }
 
@@ -40,7 +41,6 @@ export class AdminSkiListComponent implements OnInit, OnDestroy {
   }
 
   getAllSki() {
-    this.getAllProducers();
     this.skiService.getAll().subscribe((result: Ski[]) => {
       this.skis = result;
       for (const ski of this.skis) {

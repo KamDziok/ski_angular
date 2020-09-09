@@ -31,6 +31,9 @@ export class AdminOfferSkiListComponent implements OnInit, OnDestroy {
               ) { }
 
   ngOnInit(): void {
+    this.getAllPrices();
+    this.getAllCompany();
+    this.getAllSki();
     this.getAllOfferSki();
   }
 
@@ -80,9 +83,6 @@ export class AdminOfferSkiListComponent implements OnInit, OnDestroy {
   }
 
   getAllOfferSki() {
-    this.getAllPrices();
-    this.getAllCompany();
-    this.getAllSki();
     // this.offerSkis = this.subscribeDataAdminService.getOfferSkis();
     // this.disabledEdit = this.offerSkis.map(r => true);
     this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {

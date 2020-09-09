@@ -25,9 +25,8 @@ export class ProfileCompanyComponent implements OnInit {
 
   ngOnInit(): void {
     this.setPermissions();
-    this.companyId = Number(this.route.snapshot.paramMap.get("id"));
+    this.companyId = Number(this.route.snapshot.paramMap.get('id'));
     this.getCompanyById(this.companyId);
-    this.getAllOfferSkiCompany(this.company);
   }
 
   setPermissions(){
@@ -69,6 +68,7 @@ export class ProfileCompanyComponent implements OnInit {
   getCompanyById(id){
     this.companyService.getById(id).subscribe((result: Company) => {
       this.company = result;
+      this.getAllOfferSkiCompany(this.company);
       // this.disabledEdit = result.map(r => true);
     }, (error) => {});
   }
@@ -76,6 +76,7 @@ export class ProfileCompanyComponent implements OnInit {
   getAllOfferSkiCompany(company: Company){
     this.offerSkiService.getAllCompany(company).subscribe((result: OfferSki[]) => {
       this.offerSkisCompany = result;
+      console.log(result);
     }, (error) => {});
   }
 

@@ -97,6 +97,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
       // this.getAllCompany();
       this.getAllSki();
     this.offerSkiService.getAllCompany(this.user.company).subscribe((result: OfferSki[]) => {
+      console.log(result);
       this.offerSkis = result;
       for (const offerSki of this.offerSkis) {
         for (const ski of this.skis) {
