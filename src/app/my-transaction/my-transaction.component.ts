@@ -26,41 +26,41 @@ export class MyTransactionComponent implements OnInit {
     this.getAllTransaction();
   }
 
-  getAllUser() {
-    this.subscriptions.add(this.userService.getAll().subscribe((result: User[]) => {
-      this.users = result;
-      for (const user of this.users) {
-        for (const transaction of this.transactions) {
-          if (transaction.user.id === user.id) {
-            transaction.user = user;
-          }
-        }
-      }
-      console.log(result);
-    }, (error) => {}));
-  }
+  // getAllUser() {
+  //   this.subscriptions.add(this.userService.getAll().subscribe((result: User[]) => {
+  //     this.users = result;
+  //     for (const user of this.users) {
+  //       for (const transaction of this.transactions) {
+  //         if (transaction.user.id === user.id) {
+  //           transaction.user = user;
+  //         }
+  //       }
+  //     }
+  //     console.log(result);
+  //   }, (error) => {}));
+  // }
 
   getAllOfferSki() {
-    this.subscriptions.add(this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
+    this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
       this.offerSkis = result;
-      for (const offerSki of this.offerSkis) {
-        for (const transaction of this.transactions) {
-          for (const offerSkiInTransaction of transaction.offerSkiList) {
-            if (offerSkiInTransaction.id === offerSki.id) {
-              transaction.offerSkiList.push(offerSki);
-            }
-          }
-        }
-      }
+      // for (const offerSki of this.offerSkis) {
+      //   for (const transaction of this.transactions) {
+      //     for (const offerSkiInTransaction of transaction.offerSkiList) {
+      //       if (offerSkiInTransaction.id === offerSki.id) {
+      //         transaction.offerSkiList.push(offerSki);
+      //       }
+      //     }
+      //   }
+      // }
       console.log(result);
-    }, (error) => {}));
+    }, (error) => {});
   }
 
   getAllTransaction() {
     this.transactionService.getAllUser(this.user).subscribe((result: Transaction[]) => {
       this.transactions = result;
       this.getAllOfferSki();
-      this.getAllUser();
+      // this.getAllUser();
     }, (error) => {});
   }
 }
