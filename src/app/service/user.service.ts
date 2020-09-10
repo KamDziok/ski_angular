@@ -78,6 +78,7 @@ export class UserService {
     // this.support = false;
     // this.company = false;
     // this.user = false;
+    this.setPermissions(false, false, false, false);
     localStorage.clear();
   }
 

@@ -74,7 +74,7 @@
     <div class="col-6 offset-1 d-inline-block border border-dark rounded-bottom shadow" *ngIf="searchOfferSkis">
       <div class="col-12" *ngFor="let os of offerSkis">
         <p class="col-12 float-left">
-          <label>firma: <a [routerLink]="['profile-company/' + os.company.id]">{{os.company.name}}</a></label>
+          <label>firma: <a [routerLink]="['/profile-company/' + os.company.id]">{{os.company.name}}</a></label>
         </p>
         <p class="col-12 float-left">
           <label>miasto: {{os.city}}</label>

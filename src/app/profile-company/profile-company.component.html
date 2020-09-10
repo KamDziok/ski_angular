@@ -26,9 +26,11 @@
     <span *ngIf="!edit">{{company.description}}</span>
     <textarea *ngIf="edit" [(ngModel)]="company.description" class="form-control" ></textarea>
   </div>
-  <button *ngIf="!edit" (click)="clickEdit()" class="btn btn-outline-success">edytuj</button>
-  <button *ngIf="edit" (click)="saveCompany()" class="btn btn-outline-success">zapisz</button>
-  <button *ngIf="edit" (click)="clickEdit()" class="btn btn-outline-success">anuluj</button>
+  <div class="form-group" *ngIf="userCompany">
+    <button *ngIf="!edit" (click)="clickEdit()" class="btn btn-outline-success">edytuj</button>
+    <button *ngIf="edit" (click)="saveCompany()" class="btn btn-outline-success">zapisz</button>
+    <button *ngIf="edit" (click)="clickEdit()" class="btn btn-outline-success">anuluj</button>
+  </div>
 </div>
 
 <div class="col-md-12 offset-lg-3 col-lg-9 float-left">

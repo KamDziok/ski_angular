@@ -30,18 +30,22 @@ export class ProfileCompanyComponent implements OnInit {
   }
 
   setPermissions(){
-    if(this.userService.getPermissionCompany()){
+    if (this.userService.getPermissionUser() == null && this.userService.getPermissionCompany() == null) {
+      this.userCompany = false;
+      this.userDefault = false;
+      this.userUnlogin = true;
+    }else if (this.userService.getPermissionUser()){
+      this.userDefault = true;
+      this.userCompany = !this.userDefault;
+      this.userUnlogin = !this.userDefault;
+    }else if(this.userService.getPermissionCompany()){
       this.userCompany = true;
       this.userDefault = !this.userCompany;
       this.userUnlogin = !this.userCompany;
-    }else if (this.userService.getPermissionUser()){
-      this.userCompany = !this.userDefault;
-      this.userDefault = true;
-      this.userUnlogin = !this.userDefault;
     }else{
-      this.userCompany = !this.userUnlogin;
-      this.userDefault = !this.userUnlogin;
-      this.userUnlogin = true;
+      this.userCompany = false;
+      this.userDefault = false;
+      this.userUnlogin = false;
     }
   }
 
@@ -76,7 +80,6 @@ export class ProfileCompanyComponent implements OnInit {
   getAllOfferSkiCompany(company: Company){
     this.offerSkiService.getAllCompany(company).subscribe((result: OfferSki[]) => {
       this.offerSkisCompany = result;
-      console.log(result);
     }, (error) => {});
   }
 

@@ -8,7 +8,7 @@
     </a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" [routerLink]="['search']">Szukaj ofert</a>
+        <a class="nav-link" [routerLink]="['/search']">Szukaj ofert</a>
       </li>
     </ul>
     <ul class="navbar-nav mr-0 mt-2 mt-lg-0">
@@ -26,5 +26,7 @@
 </nav>
 
 <div class="container-fluid">
-  <router-outlet></router-outlet>
+  <div class="col-12 px-lg-1 px-xl-3 mt-5 pt-5">
+    <router-outlet></router-outlet>
+  </div>
 </div>
