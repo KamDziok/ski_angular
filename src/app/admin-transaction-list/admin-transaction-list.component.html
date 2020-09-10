@@ -81,7 +81,7 @@
       <td>
         <mat-form-field>
           <mat-label>data zawarcia transakcji:</mat-label><br/>
-          <input [(ngModel)]="transaction.prepareTransaction" [value]="" matInput [matDatepicker]="transactionPrepareTransaction"  placeholder="date">
+          <input [(ngModel)]="transaction.prepareTransaction" [value]="" [disabled]="disabledEdit[i]" matInput [matDatepicker]="transactionPrepareTransaction"  placeholder="date">
           <mat-datepicker-toggle  matSuffix [for]="transactionPrepareTransaction"></mat-datepicker-toggle>
           <mat-datepicker #transactionPrepareTransaction></mat-datepicker>
         </mat-form-field>
@@ -90,7 +90,7 @@
       <td>
         <mat-form-field>
           <mat-label>data rozpoczęcia:</mat-label><br/>
-          <input [(ngModel)]="transaction.startTransaction" [value]="" matInput [matDatepicker]="transactionStartTransaction"  placeholder="date">
+          <input [(ngModel)]="transaction.startTransaction" [value]="" [disabled]="disabledEdit[i]" matInput [matDatepicker]="transactionStartTransaction"  placeholder="date">
           <mat-datepicker-toggle  matSuffix [for]="transactionStartTransaction"></mat-datepicker-toggle>
           <mat-datepicker #transactionStartTransaction></mat-datepicker>
         </mat-form-field>
@@ -100,7 +100,7 @@
         <br />
         <mat-form-field>
           <mat-label>data zakończenia:</mat-label><br/>
-          <input [(ngModel)]="transaction.stopTransaction" [value]="" matInput [matDatepicker]="transactionStopTransaction"  placeholder="date">
+          <input [(ngModel)]="transaction.stopTransaction" [value]="" [disabled]="disabledEdit[i]" matInput [matDatepicker]="transactionStopTransaction"  placeholder="date">
           <mat-datepicker-toggle  matSuffix [for]="transactionStopTransaction"></mat-datepicker-toggle>
           <mat-datepicker #transactionStopTransaction></mat-datepicker>
         </mat-form-field>
