@@ -39,54 +39,54 @@ export class SubscribeDataAdminService {
 
   public getOfferSkis() {
     // if (this.offerSkis.length === 0) {
-    if (!this.offerSkis) {
+    // if (!this.offerSkis) {
       this.getAllOfferSki();
-    }
+    // }
     // return this.offerSkis;
     return JSON.parse(localStorage.getItem(LocalStorageKey.OFFER_SKIS));
   }
 
   public getPrices() {
     // if (this.prices.length === 0) {
-    if (!this.prices) {
+    // if (!this.prices) {
       this.getAllPrices();
-    }
+    // }
     // return this.prices;
     return JSON.parse(localStorage.getItem(LocalStorageKey.PRICES));
   }
 
   public getCompanies() {
     // if (this.companies.length === 0) {
-    if (!this.companies) {
+    // if (!this.companies) {
       this.getAllCompany();
-    }
+    // }
     // return this.companies;
     return JSON.parse(localStorage.getItem(LocalStorageKey.COMPANIES));
   }
 
   public getSkis() {
     // if (this.skis.length === 0) {
-    if (!this.skis) {
+    // if (!this.skis) {
       this.getAllSki();
-    }
+    // }
     // return this.skis;
     return JSON.parse(localStorage.getItem(LocalStorageKey.SKIS));
   }
 
   public getUsers() {
     // if (this.users.length === 0) {
-    if (!this.users) {
+    // if (!this.users) {
       this.getAllUser();
-    }
+    // }
     // return this.users;
     return JSON.parse(localStorage.getItem(LocalStorageKey.USERS));
   }
 
   public getProducers() {
     // if (this.producers.length === 0) {
-    if (!this.producers) {
+    // if (!this.producers) {
       this.getAllProducers();
-    }
+    // }
     // return this.producers;
     return JSON.parse(localStorage.getItem(LocalStorageKey.PRODUCERS));
   }
@@ -161,9 +161,9 @@ export class SubscribeDataAdminService {
 
   private getAllUser() {
     // this.subscriptions.add(this.userService.getAll().subscribe((result: User[]) => {
-    this.userService.getAll().pipe(map((result: User[]) => {
+    this.userService.getAll().subscribe((result: User[]) => {
       this.setUsers(result);
-    }, (error) => {}));
+    }, (error) => {});
     // }, (error) => {}));
   }
 
