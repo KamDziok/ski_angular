@@ -5,8 +5,9 @@
 <!--<button (click)="searchOfferSki()" class="btn btn-secondary">Szukaj</button>-->
 
 
-<div class="col-12">
-  <div class="col-4 d-inline-block">
+<!-- <div class="col-12"> -->
+  <!-- <div class="col-4 d-inline-block"> -->
+  <div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3">
     <div class="form-group mt-3">
       <p class="col-12 float-left">
         <label>misato:</label>
@@ -45,7 +46,7 @@
 <!--        <input type="email" [(ngModel)]="stopOffer" disabled="disabled" class="form-control"/>-->
 <!--      </p>-->
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <p class="col-12 float-left">
         <label>firma:</label>
         <select [(ngModel)]="company" disabled="disabled" class="form-control">
@@ -68,10 +69,10 @@
           <option [ngValue]="s" *ngFor="let s of skis">{{s.producer.name}} {{s.name}}</option>
         </select>
       </p>
-    </div>
+    </div> -->
     <button (click)="searchOfferSki()" class="btn btn-outline-success">szukaj</button>
   </div>
-    <div class="col-6 offset-1 d-inline-block border border-dark rounded-bottom shadow" *ngIf="searchOfferSkis">
+    <!-- <div class="col-6 offset-1 d-inline-block border border-dark rounded-bottom shadow" *ngIf="searchOfferSkis">
       <div class="col-12" *ngFor="let os of offerSkis">
         <p class="col-12 float-left">
           <label>firma: <a [routerLink]="['/profile-company/' + os.company.id]">{{os.company.name}}</a></label>
@@ -101,8 +102,35 @@
           <button class="btn btn-outline-success">wypożycz</button>
         </p>
       </div>
+    </div> -->
+    <div class="col-md-12 offset-lg-3 col-lg-9 float-left">
+      <div class="col-12 col-xl-6 border border-dark rounded-bottom shadow float-left p-3" *ngFor="let os of offerSkis">
+        <div class="col-6 float-left">
+          <img src="../../assets/img/logo.png" class="img-thumbnail" alt="offer-ski-img"/>
+        </div>
+        <div class="col-6 float-left">
+          <p class="col-12 ">
+            <label>miasto: {{os.city}}</label>
+          </p>
+          <p class="col-12 ">
+            <label>narty: {{os.ski.producer.name}} {{os.ski.name}}</label>
+          </p>
+          <p class="col-12">
+            <label>długość: {{os.ski.lengthSki}}</label>
+          </p>
+          <p class="col-12">
+            <label>cena: {{os.price.value}} {{os.price.unit.name}}</label>
+          </p>
+          <p class="col-12 float-left" *ngIf="os.stopOffer != null">
+            <label>data zakończenia: {{os.stopOffer | date:'MM/dd/y'}}</label>
+          </p>
+          <p class="col-12 float-left" *ngIf="isUserLogin">
+            <button class="btn btn-outline-success">wypożycz</button>
+          </p>
+        </div>
+      </div>
     </div>
-</div>
+<!-- </div> -->
 
 <!--<table class="table table-striped">-->
 <!--  <thead>-->

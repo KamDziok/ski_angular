@@ -111,6 +111,7 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
   getAllOfferSkiByDate(begin, end) {
     this.offerSkiService.getAllByData(begin, end)
       .subscribe((result: OfferSki[]) => {
+        console.log(result[0].stopOffer);
         // return result;
         this.offerSkis = result;
         if (this.offerSkis.length > 0){
