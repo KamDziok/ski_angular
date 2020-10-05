@@ -1,10 +1,23 @@
 <div class="form-group">
-  <label>data rozpoczęcia:</label>
-  <input [(ngModel)]="startOffer" class="form-control" />
+  <mat-form-field>
+    <mat-label>data rozpoczęcia:</mat-label><br/>
+    <input [(ngModel)]="newTransaction.startTransaction" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+    <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+    <mat-datepicker #tartOffer></mat-datepicker>
+  </mat-form-field>
 </div>
+  <!-- <label>data rozpoczęcia:</label>
+  <input [(ngModel)]="startOffer" class="form-control" /> -->
+<!-- </div> -->
 <div class="form-group">
-  <label>data zakończenia:</label>
-  <input [(ngModel)]="stopOffer" class="form-control" />
+  <mat-form-field>
+    <mat-label>data zakończenia:</mat-label><br/>
+    <input [(ngModel)]="newTransaction.stopTransaction" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+    <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
+    <mat-datepicker #topOffer></mat-datepicker>
+  </mat-form-field>
+  <!-- <label>data zakończenia:</label>
+  <input [(ngModel)]="stopOffer" class="form-control" /> -->
 </div>
 <button (click)="addTransaction()" class="btn btn-outline-success">dodaj</button>
 <label>Wybrane oferty:</label>

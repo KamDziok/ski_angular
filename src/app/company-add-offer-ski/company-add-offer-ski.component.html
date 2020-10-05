@@ -67,7 +67,7 @@
       <td>
         <mat-form-field>
           <mat-label>data rozpoczęcia:</mat-label><br/>
-          <input [(ngModel)]="offerSki.startOffer" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+          <input [(ngModel)]="offerSki.startOffer" [value]="" [disabled]="true" matInput [matDatepicker]="tartOffer"  placeholder="date">
           <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
           <mat-datepicker #tartOffer></mat-datepicker>
         </mat-form-field>
@@ -76,7 +76,7 @@
       <td>
         <mat-form-field>
           <mat-label>data zakończenia:</mat-label><br/>
-          <input [(ngModel)]="offerSki.stopOffer" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+          <input [(ngModel)]="offerSki.stopOffer" [value]="" [disabled]="true" matInput [matDatepicker]="topOffer"  placeholder="date">
           <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
           <mat-datepicker #topOffer></mat-datepicker>
         </mat-form-field>

@@ -1,3 +1,4 @@
+import { Transaction } from './../interface/transaction';
 import { User } from './../interface/user';
 import { Injectable } from '@angular/core';
 import { SetUpHttpService } from './../set-up-http.service';
@@ -12,6 +13,7 @@ export class UserService {
   url = 'api/user';
   offerSkiList: OfferSki[] = [];
   offerSkiListSize = 0;
+  transaction = {startTransaction: null, stopTransaction: null, offerSkiList: null};
   // currentUser: User = null;
   // admin = false;
   // support = false;
@@ -82,8 +84,13 @@ export class UserService {
     localStorage.clear();
   }
 
-  addOfferSki(offerSki: OfferSki){
+  addOfferSki(offerSki: OfferSki, start: Date, stop: Date){
+    console.log(start)
+    console.log(stop)
+    this.transaction.startTransaction = start;
+    this.transaction.stopTransaction = stop;
     this.offerSkiList.push(offerSki);
+    this.transaction.offerSkiList = this.offerSkiList;
     this.offerSkiListSize++;
   }
 

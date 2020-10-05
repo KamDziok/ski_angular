@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
-    this.basket = this.userService.offerSkiList;
-    this.basketSize = this.userService.offerSkiListSize;
+    // this.basket = this.userService.offerSkiList;
+    // this.basketSize = this.userService.offerSkiListSize;
   }
 
   logOut(){

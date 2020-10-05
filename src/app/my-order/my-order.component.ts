@@ -1,3 +1,4 @@
+import { LoginComponent } from './../login/login.component';
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../service/user.service';
 import {User} from '../interface/user';
@@ -17,7 +18,7 @@ export class MyOrderComponent implements OnInit {
   stopOffer = '';
   newTransaction = {prepareTransaction: null, startTransaction: null, stopTransaction: null, user: null, offerSkiList: []};
   constructor(private userService: UserService, private transactionService: TransactionService,
-              private router: Router) { }
+              private router: Router, private loginComponent: LoginComponent) { }
 
   ngOnInit(): void {
     this.user = this.userService.getCurrentUser();
@@ -25,14 +26,22 @@ export class MyOrderComponent implements OnInit {
   }
 
   addTransaction() {
-    this.newTransaction.startTransaction = new Date(this.startOffer);
-    this.newTransaction.stopTransaction = new Date(this.stopOffer);
+    // this.newTransaction.startTransaction = new Date(this.startOffer);
+    // this.newTransaction.stopTransaction = new Date(this.stopOffer);
+    this.newTransaction.startTransaction = this.userService.transaction.startTransaction;
+    this.newTransaction.stopTransaction = this.userService.transaction.stopTransaction;
     this.newTransaction.offerSkiList = this.offerSkiList;
     this.offerSkiList = [];
     this.newTransaction.prepareTransaction = new Date();
     this.newTransaction.user = this.user;
     this.transactionService.addTransaction(this.newTransaction).subscribe((success) => {
       console.log('Sukces');
+      this.newTransaction.startTransaction = null;
+      this.newTransaction.stopTransaction = null;
+      this.newTransaction.offerSkiList = [];
+      this.offerSkiList = [];
+      this.loginComponent.basketSize = 0;
+      
       this.router.navigate(['/login']);
     }, (error) => {
       console.log('Error');

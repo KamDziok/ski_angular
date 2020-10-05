@@ -36,10 +36,11 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
   city = '';
   isUserLogin = false;
   currentUser: User = null;
-  private loginComponent;
+  private loginComponent = null;
   constructor(private offerSkiService: OfferSkiService, private companyService: CompanyService,
               private skiService: SkiService, private producerService: ProducerService,
-              private userService: UserService ) {}
+              public userService: UserService//, private loginComponent: LoginComponent
+               ) {}
 
   ngOnInit(): void {
     this.getAllCompany();
@@ -49,6 +50,7 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
       this.currentUser = this.userService.getCurrentUser();
       this.isUserLogin = true;
       this.loginComponent = LoginComponent;
+      // this.loginComponent = LoginComponent;
     }
   }
 
@@ -62,7 +64,7 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
           }
         }
       }
-      console.log(result);
+      // console.log(result);
     }, (error) => {}));
   }
 
@@ -76,7 +78,7 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
           }
         }
       }
-      console.log(result);
+      // console.log(result);
     }, (error) => {}));
   }
 
@@ -90,7 +92,7 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
           }
         }
       }
-      console.log(result);
+      // console.log(result);
     }, (error) => {}));
   }
 
@@ -111,7 +113,8 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
   getAllOfferSkiByDate(begin, end) {
     this.offerSkiService.getAllByData(begin, end)
       .subscribe((result: OfferSki[]) => {
-        console.log(result[0].stopOffer);
+        console.log(result);
+        // console.log(result[0].stopOffer);
         // return result;
         this.offerSkis = result;
         if (this.offerSkis.length > 0){
@@ -127,9 +130,10 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
   }
 
   addToBasket(id){
-    this.userService.addOfferSki(this.offerSkis[id]);
-    this.loginComponent.basketSize++;
-    this.loginComponent.basket = this.userService.offerSkiList;
+    this.userService.addOfferSki(this.offerSkis[id], this.startOffer, this.stopOffer);
+    // this.userService.offerSkiListSize++;
+    // this.loginComponent.basketSize++;
+    // this.loginComponent.basket = this.userService.offerSkiList;
   }
 
   searchOfferSki(){
