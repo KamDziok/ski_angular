@@ -27,11 +27,16 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
+    this.getAllCompanies();
+    // setTimeout(this.getAllUsers, 1000);
     this.getAllUsers();
   }
 
   getAllCompanies() {
+    console.log('ładowanie...');
     this.companies = this.subscribeDataAdminService.getCompanies();
+    console.log(this.companies);
+    console.log('załadowane.');
     // this.subscriptions.add(this.companyService.getAll().subscribe((result: Company[]) => {
     //   this.companies = result;
     //   for (const company of this.companies) {
@@ -49,22 +54,40 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   }
 
   getAllUsers() {
-    this.getAllCompanies();
-    this.userService.getAllWithOutCurrentUser().subscribe((result: User[]) => {
-      this.users = result;
-      for (const user of this.users) {
-        for (const company of this.companies) {
-          if (user.permissions === Permissions.COMPANY) {
-            if (user.company.id === company.id) {
-              user.company = company;
-              break;
+    // this.getAllCompanies();
+    setTimeout(() => {
+      this.userService.getAllWithOutCurrentUser().subscribe((result: User[]) => {
+        this.users = result;
+        for (const user of this.users) {
+          console.log(this.companies);
+          for (const company of this.companies) {
+            if (user.permissions === Permissions.COMPANY) {
+              if (user.company.id === company.id) {
+                user.company = company;
+                break;
+              }
             }
           }
         }
-      }
-      this.disabledEdit = result.map(r => true);
-      // this.newUser.company = result[0];
-    }, (error) => {});
+        this.disabledEdit = result.map(r => true);
+        // this.newUser.company = result[0];
+      }, (error) => {});
+    }, 5000);
+    // this.userService.getAllWithOutCurrentUser().subscribe((result: User[]) => {
+    //   this.users = result;
+    //   for (const user of this.users) {
+    //     for (const company of this.companies) {
+    //       if (user.permissions === Permissions.COMPANY) {
+    //         if (user.company.id === company.id) {
+    //           user.company = company;
+    //           break;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   this.disabledEdit = result.map(r => true);
+    //   // this.newUser.company = result[0];
+    // }, (error) => {});
   }
 
   makeEnabledEdit(id) {

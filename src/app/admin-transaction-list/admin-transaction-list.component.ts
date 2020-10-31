@@ -69,31 +69,44 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
   }
 
   getAllTransaction() {
-    this.transactionService.getAll().subscribe((result: Transaction[]) => {
-      this.transactions = result;
-      this.transactions.forEach(transaction => {
-        this.users.forEach(user => {
-          if (transaction.user.id === user.id) {
-            transaction.user = user;
-          }
-        })
-      });
-      // for (const transaction of this.transactions) {
-      //   // for (const offerSki of this.offerSkis) {
-      //   //   for (const offerSkiInTransaction of transaction.offerSkiList) {
-      //   //     if (offerSkiInTransaction.id === offerSki.id) {
-      //   //       transaction.offerSkiList.push(offerSki);
-      //   //     }
-      //   //   }
-      //   // }
-      //   for (const user of this.users) {
-      //     if (transaction.user.id === user.id) {
-      //       transaction.user = user;
-      //     }
-      //   }
-      // }
-      this.disabledEdit = result.map(r => true);
-    }, (error) => {});
+    setTimeout(() => {
+      this.transactionService.getAll().subscribe((result: Transaction[]) => {
+        this.transactions = result;
+        this.transactions.forEach(transaction => {
+          this.users.forEach(user => {
+            if (transaction.user.id === user.id) {
+              transaction.user = user;
+            }
+          })
+        });
+        this.disabledEdit = result.map(r => true);
+      }, (error) => {});
+    }, 2000);
+    // this.transactionService.getAll().subscribe((result: Transaction[]) => {
+    //   this.transactions = result;
+    //   this.transactions.forEach(transaction => {
+    //     this.users.forEach(user => {
+    //       if (transaction.user.id === user.id) {
+    //         transaction.user = user;
+    //       }
+    //     })
+    //   });
+    //   // for (const transaction of this.transactions) {
+    //   //   // for (const offerSki of this.offerSkis) {
+    //   //   //   for (const offerSkiInTransaction of transaction.offerSkiList) {
+    //   //   //     if (offerSkiInTransaction.id === offerSki.id) {
+    //   //   //       transaction.offerSkiList.push(offerSki);
+    //   //   //     }
+    //   //   //   }
+    //   //   // }
+    //   //   for (const user of this.users) {
+    //   //     if (transaction.user.id === user.id) {
+    //   //       transaction.user = user;
+    //   //     }
+    //   //   }
+    //   // }
+    //   this.disabledEdit = result.map(r => true);
+    // }, (error) => {});
   }
 
   makeEnabledEdit(id) {

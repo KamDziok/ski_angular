@@ -1,3 +1,4 @@
+import { CompanyTransactionComponent } from './company-transaction/company-transaction.component';
 import { ProfileCompanyComponent } from './profile-company/profile-company.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -77,6 +78,7 @@ const routes: Routes = [
       { path: 'company-producer', component: CompanyAddProducerComponent },
       { path: 'company-ski', component: CompanyAddSkiComponent },
       { path: 'company-offer-ski', component: CompanyAddOfferSkiComponent },
+      { path: 'company-transaction', component: CompanyTransactionComponent },
       { path: 'profile-company/:id', component: ProfileCompanyComponent},
     ]}
 ];

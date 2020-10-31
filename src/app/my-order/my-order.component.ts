@@ -1,3 +1,4 @@
+import { Transaction } from './../interface/transaction';
 import { LoginComponent } from './../login/login.component';
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../service/user.service';
@@ -14,6 +15,7 @@ import {Router} from '@angular/router';
 export class MyOrderComponent implements OnInit {
   user: User;
   offerSkiList: OfferSki[];
+  transactionList: Transaction[];
   startOffer = '';
   stopOffer = '';
   newTransaction = {prepareTransaction: null, startTransaction: null, stopTransaction: null, user: null, offerSkiList: []};
@@ -23,6 +25,7 @@ export class MyOrderComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.userService.getCurrentUser();
     this.offerSkiList = this.userService.offerSkiList;
+    this.transactionList = this.userService.transactionList;
   }
 
   addTransaction() {
@@ -47,4 +50,15 @@ export class MyOrderComponent implements OnInit {
       console.log('Error');
     });
   }
+
+  delTransaction(idTrasaction){
+    this.userService.delTransaction(idTrasaction);
+    this.transactionList = this.userService.transactionList;
+  }
+
+  delOfferSkiFromTransaction(idTransaction, idOfferSki){
+    this.userService.delOfferSkiFromTransaction(idTransaction, idOfferSki);
+    this.transactionList = this.userService.transactionList;
+  }
+
 }

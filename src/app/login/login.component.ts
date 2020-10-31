@@ -13,7 +13,10 @@ export class LoginComponent implements OnInit {
   currentUser: User = null;
   basket: OfferSki[] = [];
   basketSize = 0;
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) {
+    this.basket = this.userService.offerSkiList;
+    this.basketSize = this.userService.offerSkiListSize;
+   }
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();

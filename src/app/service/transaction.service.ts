@@ -16,6 +16,10 @@ export class TransactionService {
     return this.httpClient.get(this.url + '/user/' + user.id);
   }
 
+  getAllCompany(company) {
+    return this.httpClient.get(this.url + '/company/' + company.id);
+  }
+
   delete(transaction) {
     return this.httpClient.delete(this.url, transaction);
   }

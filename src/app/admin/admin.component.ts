@@ -13,13 +13,16 @@ import {LocalStorageKey} from '../static/local-storage-key';
 export class AdminComponent implements OnInit {
   
   currentUser: User = null;
-  subscribeDataAdminService: SubscribeDataAdminService;
+  // subscribeDataAdminService: SubscribeDataAdminService;
   
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router,
+              private subscribeDataAdminService :SubscribeDataAdminService
+              ) { }
 
   ngOnInit(): void {
     // this.currentUser = this.userService.currentUser;
     this.currentUser = this.userService.getCurrentUser();
+    this.subscribeDataAdminService.getAllData();
   }
 
   logOut(){

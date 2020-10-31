@@ -1,4 +1,4 @@
-<div class="form-group">
+<!-- <div class="form-group">
   <mat-form-field>
     <mat-label>data rozpoczęcia:</mat-label><br/>
     <input [(ngModel)]="newTransaction.startTransaction" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
@@ -6,22 +6,22 @@
     <mat-datepicker #tartOffer></mat-datepicker>
   </mat-form-field>
 </div>
-  <!-- <label>data rozpoczęcia:</label>
+  <label>data rozpoczęcia:</label>
   <input [(ngModel)]="startOffer" class="form-control" /> -->
 <!-- </div> -->
-<div class="form-group">
+<!-- <div class="form-group">
   <mat-form-field>
     <mat-label>data zakończenia:</mat-label><br/>
     <input [(ngModel)]="newTransaction.stopTransaction" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
     <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
     <mat-datepicker #topOffer></mat-datepicker>
   </mat-form-field>
-  <!-- <label>data zakończenia:</label>
-  <input [(ngModel)]="stopOffer" class="form-control" /> -->
-</div>
+  <label>data zakończenia:</label>
+  <input [(ngModel)]="stopOffer" class="form-control" />
+</div> -->
 <button (click)="addTransaction()" class="btn btn-outline-success">dodaj</button>
 <label>Wybrane oferty:</label>
-<table class="table table-striped">
+<!-- <table class="table table-striped">
   <thead>
   <tr>
     <th scope="col">#</th>
@@ -34,6 +34,55 @@
     <td>
       <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
     </td>
+  </tr>
+  </tbody>
+</table> -->
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">data rozpoczęcia</th>
+    <th scope="col">data zakończenia</th>
+    <th></th>
+    <th scope="col">narty</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let t of transactionList; index as iT">
+    <th scope="row">{{ iT + 1 }}</th>
+    <th scope="row">
+      <mat-form-field>
+        <mat-label>data rozpoczęcia:</mat-label><br/>
+        <input [(ngModel)]="t.startTransaction" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+        <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
+        <mat-datepicker #topOffer></mat-datepicker>
+      </mat-form-field>
+    </th>
+    <th scope="row">
+      <mat-form-field>
+        <mat-label>data zakończenia:</mat-label><br/>
+        <input [(ngModel)]="t.stopTransaction" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+        <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+        <mat-datepicker #tartOffer></mat-datepicker>
+      </mat-form-field>
+    </th>
+    <td>
+      <button (click)="delTransaction(iT)" class="btn btn-outline-danger">usuń</button>
+    </td>
+    <td>
+      <table class="table table-striped">
+        <tbody>
+        <tr *ngFor="let o of t.offerSkiList; index as iOS">
+          <th scope="row">{{ iOS + 1 }}</th>
+          <td>
+            <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
+          </td>
+          <td>
+            <button (click)="delOfferSkiFromTransaction(iT, iOS)" class="btn btn-outline-danger">usuń</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
   </tr>
   </tbody>
 </table>

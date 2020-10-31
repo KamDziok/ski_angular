@@ -37,6 +37,15 @@ export class SubscribeDataAdminService {
               private companyService: CompanyService, private skiService: SkiService,
               private userService: UserService, private producerService: ProducerService) { }
 
+  public getAllData() {
+    this.getAllCompany();
+    this.getAllOfferSki();
+    this.getAllPrices();
+    this.getAllProducers();
+    this.getAllSki();
+    this.getAllUser();
+  }
+
   public getOfferSkis() {
     // if (this.offerSkis.length === 0) {
     // if (!this.offerSkis) {

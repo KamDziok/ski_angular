@@ -1,3 +1,4 @@
+import { SubscribeDataAdminService } from './subscribe-data-admin.service';
 import { Transaction } from './../interface/transaction';
 import { User } from './../interface/user';
 import { Injectable } from '@angular/core';
@@ -5,6 +6,7 @@ import { SetUpHttpService } from './../set-up-http.service';
 import {Permissions} from '../static/permissions';
 import {OfferSki} from '../interface/offer-ski';
 import {LocalStorageKey} from '../static/local-storage-key';
+import { Statement } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -12,24 +14,29 @@ import {LocalStorageKey} from '../static/local-storage-key';
 export class UserService {
   url = 'api/user';
   offerSkiList: OfferSki[] = [];
-  offerSkiListSize = 0;
+  transactionList: Transaction[] = [];
+  public offerSkiListSize = 0;
   transaction = {startTransaction: null, stopTransaction: null, offerSkiList: null};
+  add: boolean = false;
   // currentUser: User = null;
   // admin = false;
   // support = false;
   // company = false;
   // user = false;
-  constructor(private httpClient: SetUpHttpService) { }
+  constructor(private httpClient: SetUpHttpService//, private subscribeDataAdminService :SubscribeDataAdminService
+    ) { }
 
   logIn(user){
     if (user != null){
       // this.currentUser = user;
       localStorage.setItem(LocalStorageKey.USER_CURRENT, JSON.stringify(user));
       switch (user.permissions) {
-        case Permissions.ADMIN:
+        case Permissions.ADMIN:{
           // this.admin = true;
+          // this.subscribeDataAdminService.getAllData();
           this.setPermissions(true, false, false, false);
           break;
+        }
         case Permissions.SUPPORT:
           // this.support = true;
           this.setPermissions(false, true, false, false);
@@ -84,14 +91,56 @@ export class UserService {
     localStorage.clear();
   }
 
+  // addOfferSki(offerSki: OfferSki, start: Date, stop: Date){
+  //   // console.log(start)
+  //   // console.log(stop)
+  //   this.transaction.startTransaction = start;
+  //   this.transaction.stopTransaction = stop;
+  //   this.offerSkiList.push(offerSki);
+  //   this.transaction.offerSkiList = this.offerSkiList;
+  //   this.offerSkiListSize++;
+  // }
+
+  addTransaction(offerSki: OfferSki, start: Date, stop: Date){
+    let transactionTMP = {offerSkiList: []} as Transaction;
+    transactionTMP.startTransaction = start;
+    transactionTMP.stopTransaction = stop;
+    transactionTMP.offerSkiList.push(offerSki);
+    return transactionTMP;
+  }
+
+  delTransaction(idTransaction){
+    this.transactionList.splice(idTransaction, 1);
+  }
+
+  delOfferSkiFromTransaction(idTransaction, idOfferSki){
+    this.transactionList[idTransaction].offerSkiList.splice(idOfferSki, 1);
+  }
+
   addOfferSki(offerSki: OfferSki, start: Date, stop: Date){
-    console.log(start)
-    console.log(stop)
-    this.transaction.startTransaction = start;
-    this.transaction.stopTransaction = stop;
-    this.offerSkiList.push(offerSki);
-    this.transaction.offerSkiList = this.offerSkiList;
-    this.offerSkiListSize++;
+    this.add = false;
+    if(this.transactionList.length > 0){
+      this.transactionList.forEach( (transaction) => {
+        let tStrat = new Date(transaction.startTransaction);
+        let aStart = new Date(start);
+        let tStop = new Date(transaction.stopTransaction);
+        let aStop = new Date(stop);
+        if(tStrat.getTime() === aStart.getTime() && tStop.getTime() === aStop.getTime()){
+          transaction.offerSkiList.push(offerSki);
+          this.add = true;
+        }
+      } );
+      if(!this.add){
+        this.transactionList.push(this.addTransaction(offerSki, start, stop));
+      }
+    }else{
+      this.transactionList.push(this.addTransaction(offerSki, start, stop));
+    }
+    // this.transaction.startTransaction = start;
+    // this.transaction.stopTransaction = stop;
+    // this.offerSkiList.push(offerSki);
+    // this.transaction.offerSkiList = this.offerSkiList;
+    // this.offerSkiListSize++;
   }
 
   getAll() {
