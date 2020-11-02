@@ -72,15 +72,39 @@
     <td>
       <table class="table table-striped">
         <tbody>
-        <tr *ngFor="let o of t.offerSkiList; index as iOS">
-          <th scope="row">{{ iOS + 1 }}</th>
-          <td>
-            <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
-          </td>
-          <td>
-            <button (click)="delOfferSkiFromTransaction(iT, iOS)" class="btn btn-outline-danger">usuń</button>
-          </td>
-        </tr>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">narty</th>
+            <th scope="col">ceny podstawowa</th>
+            <th scope="col">ceny</th>
+            <th scope="col"></th>
+          </tr>
+          <tr *ngFor="let o of t.offerSkiList; index as iOS">
+            <th scope="row">{{ o.id }}</th>
+            <td>
+              <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
+            </td>
+            <td>
+              <label>{{o.priceForDay}} zł/dzień</label>
+            </td>
+            <td>
+              <label>{{sumPriceOfferSki(t.startTransaction, t.stopTransaction, o)}} zł</label>
+            </td>
+            <td>
+              <button (click)="delOfferSkiFromTransaction(iT, iOS)" class="btn btn-outline-danger">x</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <td class="text-right">
+              <label>suma:</label>
+            </td>
+            <td>
+              <label>{{sumPriceTransaction(t)}} zł</label>
+            </td>
+            <td></td>
+          </tr>
         </tbody>
       </table>
   </tr>

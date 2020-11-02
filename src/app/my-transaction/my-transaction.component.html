@@ -54,15 +54,33 @@
       <table class="table table-striped">
         <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">id</th>
           <th scope="col">narty</th>
+          <th scope="col">ceny podstawowa</th>
+          <th scope="col">ceny</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let o of transaction.offerSkiList; index as i">
-          <th scope="row">{{ i + 1 }}</th>
+          <th scope="row">{{ o.id }}</th>
+            <td>
+              <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
+            </td>
+            <td>
+              <label>{{o.priceForDay | currency:'zł/dzień':'symbol':'1.2-2':'fr'}}</label>
+            </td>
+            <td>
+              <label>{{sumPriceOfferSki(transaction.startTransaction, transaction.stopTransaction, o) | currency:'zł':'symbol':'1.2-2':'fr'}}</label>
+            </td>
+        </tr>
+        <tr>
+          <th scope="row"></th>
+          <th scope="row"></th>
+          <td class="text-right">
+            <label>suma:</label>
+          </td>
           <td>
-            <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
+            <label>{{sumPriceTransaction(transaction) | currency:'zł':'symbol':'1.2-2':'fr'}}</label>
           </td>
         </tr>
         </tbody>

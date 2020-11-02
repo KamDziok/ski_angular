@@ -1,3 +1,4 @@
+import { OfferSki } from './../interface/offer-ski';
 import { UserService } from './../service/user.service';
 import { TransactionService } from './../service/transaction.service';
 import { User } from './../interface/user';
@@ -16,25 +17,27 @@ export class CompanyTransactionComponent implements OnInit {
   date: Date;
   month: number;
   year: number;
+  
   constructor(private transactionService: TransactionService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.user = this.userService.getCurrentUser();
-    this.getAllTransaction();
     this.date = new Date();
     this.month = this.date.getMonth()+1;
     this.year = this.date.getFullYear();
-    console.log(this.transactions);
-    console.log(this.transactionListFilter);
+    this.getAllTransaction();
+    // console.log(this.transactions);
+    // console.log(this.transactionListFilter);
     this.transactionListFilter = this.filterTransaction(Object.assign([], this.transactions), this.month, this.year);
-    console.log(this.transactions);
-    console.log(this.transactionListFilter);
+    // console.log(this.transactions);
+    // console.log(this.transactionListFilter);
   }
 
   getAllTransaction() {
     this.transactionService.getAllCompany(this.user.company).subscribe((result: Transaction[]) => {
       console.log(result)
       this.transactions = result;
+      this.transactionListFilter = this.filterTransaction(Object.assign([], this.transactions), this.month, this.year);
     }, (error) => {});
   }
 
@@ -44,6 +47,43 @@ export class CompanyTransactionComponent implements OnInit {
     // transaction.startTransaction.getFullYear() == year));
     return transactionList.filter(transaction => new Date(transaction.startTransaction).getMonth()+1 == mounth &&
                                                 new Date(transaction.startTransaction).getFullYear() == year);
+  }
+
+  calDays(start: Date, stop: Date){
+    let startDate = new Date(start);
+    let stopDate = new Date(stop);
+    let time = Math.abs(startDate.getTime() - stopDate.getTime());
+    return Math.ceil(time / (1000 * 3600 * 24));
+  }
+
+  sumPriceOfferSki(start: Date, stop: Date, offerSki: OfferSki){
+    let days = this.calDays(start, stop);
+    return offerSki.priceForDay * days;
+  }
+
+  sumPriceTransaction(transaction: Transaction){
+    let sum = 0.0;
+    let days = this.calDays(transaction.startTransaction, transaction.stopTransaction);
+    transaction.offerSkiList.forEach(offerSki => {
+      sum += offerSki.priceForDay * days;
+    });
+    return sum;
+  }
+
+  sumPriceTransactionList(transactionList: Transaction[]){
+    let sum = 0.0;
+    transactionList.forEach(transaction => {
+      sum += this.sumPriceTransaction(transaction);
+    });
+    return sum;
+  }
+
+  sumPrice(offerSkiList: OfferSki[]){
+    let sum = 0.0;
+    offerSkiList.forEach(offerSki => {
+      sum += offerSki.priceForDay;
+    });
+    return sum;
   }
 
   monthUp(){

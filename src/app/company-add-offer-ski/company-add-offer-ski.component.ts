@@ -27,7 +27,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
   disabledEdit: boolean[] = [];
   startOffer = '';
   stopOffer = '';
-  newOfferSki = {city: '', startOffer: null, stopOffer: null, company: null, price: null, ski: null};
+  newOfferSki = {city: '', startOffer: null, stopOffer: null, company: null, priceForDay: null, ski: null};
   constructor(private offerSkiService: OfferSkiService, private subscribeDataCompanyService: SubscribeDataCompanyService,
               private userService: UserService) { }
 
@@ -36,24 +36,24 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
     this.getAllOfferSki();
   }
 
-  getAllPrices() {
-    this.prices = this.subscribeDataCompanyService.getPrices();
-    // // @ts-ignore
-    // this.subscriptions.add(this.priceService.getAll().subscribe((result: any[]) => {
-    //   this.prices = result;
-    //   for (const price of this.prices) {
-    //     for (const offerSki of this.offerSkis) {
-    //       // @ts-ignore
-    //       if (offerSki.price.id === price.id) {
-    //         // @ts-ignore
-    //         offerSki.price = price;
-    //       }
-    //     }
-    //   }
-    //   console.log(result);
-    //   this.disabledEdit = result.map(r => true);
-    // }, (error) => {}));
-  }
+  // getAllPrices() {
+  //   this.prices = this.subscribeDataCompanyService.getPrices();
+  //   // // @ts-ignore
+  //   // this.subscriptions.add(this.priceService.getAll().subscribe((result: any[]) => {
+  //   //   this.prices = result;
+  //   //   for (const price of this.prices) {
+  //   //     for (const offerSki of this.offerSkis) {
+  //   //       // @ts-ignore
+  //   //       if (offerSki.price.id === price.id) {
+  //   //         // @ts-ignore
+  //   //         offerSki.price = price;
+  //   //       }
+  //   //     }
+  //   //   }
+  //   //   console.log(result);
+  //   //   this.disabledEdit = result.map(r => true);
+  //   // }, (error) => {}));
+  // }
 
   getAllCompany() {
     // // @ts-ignore
@@ -93,7 +93,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
   }
 
   getAllOfferSki() {
-    this.getAllPrices();
+    // this.getAllPrices();
       // this.getAllCompany();
       this.getAllSki();
     this.offerSkiService.getAllCompany(this.user.company).subscribe((result: OfferSki[]) => {
@@ -105,11 +105,11 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
             offerSki.ski = ski;
           }
         }
-        for (const price of this.prices) {
-          if (offerSki.price.id === price.id) {
-            offerSki.price = price;
-          }
-        }
+        // for (const price of this.prices) {
+        //   if (offerSki.price.id === price.id) {
+        //     offerSki.price = price;
+        //   }
+        // }
       }
       this.disabledEdit = result.map(r => true);
       
@@ -144,7 +144,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
     this.disabledEdit[id] = true;
     this.offerSkiService.updateOfferSki(this.offerSkis[id]).subscribe((success) => {
       console.log('Sukces');
-      this.getAllPrices();
+      // this.getAllPrices();
     }, (error => {
       console.log('Error');
     }));

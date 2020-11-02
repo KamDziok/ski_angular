@@ -63,4 +63,26 @@ export class MyTransactionComponent implements OnInit {
       // this.getAllUser();
     }, (error) => {});
   }
+
+  calDays(start: Date, stop: Date){
+    let startDate = new Date(start);
+    let stopDate = new Date(stop);
+    let time = Math.abs(startDate.getTime() - stopDate.getTime());
+    return Math.ceil(time / (1000 * 3600 * 24));
+  }
+
+  sumPriceOfferSki(start: Date, stop: Date, offerSki: OfferSki){
+    let days = this.calDays(start, stop);
+    return offerSki.priceForDay * days;
+  }
+
+  sumPriceTransaction(transaction: Transaction){
+    let sum = 0.0;
+    let days = this.calDays(transaction.startTransaction, transaction.stopTransaction);
+    transaction.offerSkiList.forEach(offerSki => {
+      sum += offerSki.priceForDay * days;
+    });
+    return sum;
+  }
+  
 }

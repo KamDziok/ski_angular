@@ -132,11 +132,11 @@
         </table>
       </td>
       <td>
-        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-secondary">edit</button>
-        <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-primary">save</button>
+        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-secondary">edit</button>
+        <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-primary">save</button>
       </td>
       <td>
-        <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-danger">usuń</button>
+        <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
       </td>
     </tr>
     </tbody>

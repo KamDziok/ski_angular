@@ -17,7 +17,7 @@
         <a class="nav-link" [routerLink]="['company-offer-ski']">Dodaj ofertę</a>
       </li>
       <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" [routerLink]="['company-transaction']">Tranzakcje</a>
+        <a class="nav-link" [routerLink]="['company-transaction']">Transakcje</a>
       </li>
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['profile-company/' + currentUser.company.id]">Profil</a>
@@ -31,7 +31,7 @@
 <!--        </form>-->
 <!--      </li>-->
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/company']">Witaj {{currentUser.firstName}} {{currentUser.lastName}}!</a>
+        <a class="nav-link" [routerLink]="['/company']">Witaj <b>{{currentUser.firstName}} {{currentUser.lastName}}</b>!</a>
       </li>
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" (click)="logOut()">Wyloguj</a>

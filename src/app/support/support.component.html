@@ -16,7 +16,7 @@
     </ul>
     <ul class="navbar-nav mr-0 mt-2 mt-lg-0">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/support']">Witaj {{currentUser.firstName}} {{currentUser.lastName}}!</a>
+        <a class="nav-link" [routerLink]="['/support']">Witaj <b>{{currentUser.firstName}} {{currentUser.lastName}}</b>!</a>
       </li>
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" (click)="logOut()">Wyloguj</a>

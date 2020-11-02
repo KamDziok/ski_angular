@@ -26,10 +26,11 @@
 <!--      </li>-->
       <li class="nav-item mr-1" [routerLinkActive]="['active']">
         <!-- <p class="nav-link" [routerLink]="['my-order']">W koszyku: {{userService.offerSkiListSize}}</p> -->
-        <p class="nav-link" [routerLink]="['my-order']">W koszyku: {{basketSize}}</p>
+        <!-- <p class="nav-link" [routerLink]="['my-order']">W koszyku: {{basketSize}}</p> -->
+        <p class="nav-link" [routerLink]="['my-order']">Koszyk</p>
       </li>
       <li class="nav-item" [routerLinkActive]="['active']">
-        <a  class="nav-link" [routerLink]="['/login']">Witaj {{currentUser.firstName}} {{currentUser.lastName}}!</a>
+        <a  class="nav-link" [routerLink]="['/login']">Witaj <b>{{currentUser.firstName}} {{currentUser.lastName}}</b>!</a>
       </li>
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" (click)="logOut()">Wyloguj</a>

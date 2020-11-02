@@ -13,12 +13,12 @@
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['admin-company-list']">Firmy</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <!-- <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['admin-unit-list']">Jednostki</a>
       </li>
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['admin-price-list']">Ceny</a>
-      </li>
+      </li> -->
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['admin-producer-list']">Producenci</a>
       </li>
@@ -43,7 +43,7 @@
     </ul>
     <ul class="navbar-nav mr-0 mt-2 mt-lg-0">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/admin']">Witaj {{currentUser.firstName}} {{currentUser.lastName}}!</a>
+        <a class="nav-link" [routerLink]="['/admin']">Witaj <b>{{currentUser.firstName}} {{currentUser.lastName}}</b>!</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="logOut()">Wyloguj</a>

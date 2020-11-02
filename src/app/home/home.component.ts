@@ -20,6 +20,17 @@ export class HomeComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    if(this.userService.getPermissionAdmin()){
+      this.router.navigate(['admin']);
+    }else if(this.userService.getPermissionCompany()){
+      this.router.navigate(['company']);
+    }else if(this.userService.getPermissionSupport()){
+      this.router.navigate(['support']);
+    }else if(this.userService.getPermissionUser()){
+      this.router.navigate(['login']);
+    } else {
+      this.userService.logOut();
+    }
   }
 
   login(){

@@ -24,33 +24,33 @@ export class AdminOfferSkiListComponent implements OnInit, OnDestroy {
   disabledEdit: boolean[] = [];
   startOffer = '';
   stopOffer = '';
-  newOfferSki = {city: '', startOffer: null, stopOffer: null, quantity: 0, company: null, price: null, ski: null};
+  newOfferSki = {city: '', startOffer: null, stopOffer: null, quantity: 0, company: null, priceForDay: 0.0, ski: null};
   constructor( private subscribeDataAdminService: SubscribeDataAdminService, private offerSkiService: OfferSkiService
               // , private priceService: PriceService,
               // private companyService: CompanyService, private skiService: SkiService
               ) { }
 
   ngOnInit(): void {
-    this.getAllPrices();
+    // this.getAllPrices();
     this.getAllCompany();
     this.getAllSki();
     this.getAllOfferSki();
   }
 
-  getAllPrices() {
-    this.prices = this.subscribeDataAdminService.getPrices();
-    // this.subscriptions.add(this.priceService.getAll().subscribe((result: Price[]) => {
-    //   this.prices = result;
-    //   for (const price of this.prices) {
-    //     for (const offerSki of this.offerSkis) {
-    //       if (offerSki.price.id =ng == price.id) {
-    //         offerSki.price = price;
-    //       }
-    //     }
-    //   }
-    //   console.log(result);
-    // }, (error) => {}));
-  }
+  // getAllPrices() {
+  //   this.prices = this.subscribeDataAdminService.getPrices();
+  //   // this.subscriptions.add(this.priceService.getAll().subscribe((result: Price[]) => {
+  //   //   this.prices = result;
+  //   //   for (const price of this.prices) {
+  //   //     for (const offerSki of this.offerSkis) {
+  //   //       if (offerSki.price.id =ng == price.id) {
+  //   //         offerSki.price = price;
+  //   //       }
+  //   //     }
+  //   //   }
+  //   //   console.log(result);
+  //   // }, (error) => {}));
+  // }
 
   getAllCompany() {
     this.companies = this.subscribeDataAdminService.getCompanies();
@@ -88,12 +88,12 @@ export class AdminOfferSkiListComponent implements OnInit, OnDestroy {
     this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
       this.offerSkis = result;
       for (const offerSki of this.offerSkis) {
-        for (const price of this.prices) {
-          if (offerSki.price.id === price.id) {
-            offerSki.price = price;
-            break;
-          }
-        }
+        // for (const price of this.prices) {
+        //   if (offerSki.price.id === price.id) {
+        //     offerSki.price = price;
+        //     break;
+        //   }
+        // }
         for (const company of this.companies) {
           if (offerSki.company.id === company.id) {
             offerSki.company = company;
@@ -137,7 +137,7 @@ export class AdminOfferSkiListComponent implements OnInit, OnDestroy {
     this.disabledEdit[id] = true;
     this.offerSkiService.updateOfferSki(this.offerSkis[id]).subscribe((success) => {
       console.log('Sukces');
-      this.getAllPrices();
+      // this.getAllPrices();
     }, (error => {
       console.log('Error');
     }));

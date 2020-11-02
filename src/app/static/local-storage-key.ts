@@ -12,4 +12,6 @@ export abstract class LocalStorageKey {
   static readonly SKIS= 'skis';
   static readonly PRODUCERS= 'producers';
   static readonly USERS = 'users';
+
+  static readonly BASKETSIZE ='basketSize';
 }

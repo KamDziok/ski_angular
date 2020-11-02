@@ -22,8 +22,8 @@
     <input type="text" *ngIf="edit" [(ngModel)]="company.name" class="form-control"/>
   </div>
   <div class="form-group">
-    <label>opis:</label>
-    <span *ngIf="!edit">{{company.description}}</span>
+    <label>opis: </label>
+    <div *ngIf="!edit">{{company.description}}</div>
     <textarea *ngIf="edit" [(ngModel)]="company.description" class="form-control" ></textarea>
   </div>
   <div class="form-group" *ngIf="userCompany">
@@ -49,7 +49,8 @@
         <label>długość: {{os.ski.lengthSki}}</label>
       </p>
       <p class="col-12">
-        <label>cena: {{os.price.value}} {{os.price.unit.name}}</label>
+        <!-- <label>cena: {{os.price.value}} {{os.price.unit.name}}</label> -->
+        <label>cena: {{os.priceForDay | currency:'zł/dzień':'symbol':'1.2-2':'fr'}}</label>
       </p>
     </div>
   </div>

@@ -78,7 +78,7 @@ export class ProfileCompanyComponent implements OnInit {
   }
 
   getAllOfferSkiCompany(company: Company){
-    this.offerSkiService.getAllCompany(company).subscribe((result: OfferSki[]) => {
+    this.offerSkiService.getAllCompanyActive(company).subscribe((result: OfferSki[]) => {
       this.offerSkisCompany = result;
     }, (error) => {});
   }

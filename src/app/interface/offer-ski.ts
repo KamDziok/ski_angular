@@ -1,5 +1,5 @@
 import {Company} from './company';
-import {Price} from './price';
+// import {Price} from './price';
 import {Ski} from './ski';
 
 export interface OfferSki {
@@ -9,6 +9,7 @@ export interface OfferSki {
   stopOffer: Date;
   quantity: number;
   company: Company;
-  price: Price;
+  priceForDay: number;
+  // price: Price;
   ski: Ski;
 }

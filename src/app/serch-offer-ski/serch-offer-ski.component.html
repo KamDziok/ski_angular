@@ -15,28 +15,40 @@
       </p>
     </div>
     <div class="form-group mt-3">
-      <p class="col-6 float-left">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate [(ngModel)]="startOffer" placeholder="Start date">
+          <input matEndDate [(ngModel)]="stopOffer" placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      
+        <!-- <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+        <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error> -->
+      </mat-form-field>
+      <!-- <p class="col-12 col-xl-6 float-left">
         <mat-form-field>
           <mat-label>data rozpoczęcia:</mat-label><br/>
           <input [(ngModel)]="startOffer" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
           <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
           <mat-datepicker #tartOffer></mat-datepicker>
-        </mat-form-field>
+        </mat-form-field> -->
 <!--        <mat-date-range-input [rangePicker]="picker">-->
 <!--          <input matStartDate [(ngModel)]="startOffer" placeholder="Start date">-->
 <!--          <input matEndDate [(ngModel)]="stopOffer" placeholder="End date">-->
 <!--        </mat-date-range-input>-->
 
 <!--        <mat-date-range-picker #picker></mat-date-range-picker>-->
-      </p>
-      <p class="col-6 float-left">
+      <!-- </p>
+      <p class="col-12 col-xl-6 float-left">
         <mat-form-field>
           <mat-label>data zakończenia:</mat-label><br/>
           <input [(ngModel)]="stopOffer" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
           <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
           <mat-datepicker #topOffer></mat-datepicker>
         </mat-form-field>
-      </p>
+      </p> -->
 <!--      <p class="col-6 float-left">-->
 <!--        <label for="inputEmail">data rozpoczęcia:</label>-->
 <!--        <input type="email" [(ngModel)]="startOffer" disabled="disabled" class="form-control" />-->
@@ -110,7 +122,10 @@
         </div>
         <div class="col-6 float-left">
           <p class="col-12">
-            <label>firma: <a [routerLink]="['/profile-company/' + os.company.id]">{{os.company.name}}</a></label>
+            <label>firma:
+               <a *ngIf="!isUserLogin" [routerLink]="['/profile-company/' + os.company.id]">{{os.company.name}}</a>
+               <a *ngIf="isUserLogin" [routerLink]="['/login/profile-company/' + os.company.id]">{{os.company.name}}</a>
+            </label>
           </p>
           <p class="col-12 ">
             <label>miasto: {{os.city}}</label>
@@ -125,7 +140,8 @@
             <label>dostępnych: {{os.quantity}}</label>
           </p>
           <p class="col-12">
-            <label>cena: {{os.price.value}} {{os.price.unit.name}}</label>
+            <!-- <label>cena: {{os.price.value}} {{os.price.unit.name}}</label> -->
+            <label>cena: {{os.priceForDay | currency:'zł':'symbol':'1.2-2':'fr'}}</label>
           </p>
           <!-- <p class="col-12 float-left" *ngIf="os.stopOffer != null">
             <label>data zakończenia: {{os.stopOffer | date:'MM/dd/y'}}</label>

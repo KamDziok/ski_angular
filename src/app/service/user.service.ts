@@ -143,6 +143,16 @@ export class UserService {
     // this.offerSkiListSize++;
   }
 
+
+
+  getBasketSize(){
+    let size = 0;
+    this.transactionList.forEach(transaction => {
+      size += transaction.offerSkiList.length;
+    })
+    return size;
+  }
+
   getAll() {
     return this.httpClient.get(this.url);
   }

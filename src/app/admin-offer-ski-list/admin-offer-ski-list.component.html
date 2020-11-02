@@ -29,9 +29,12 @@
   </div>
   <div class="form-group">
     <label>cena:</label>
-    <select [(ngModel)]="newOfferSki.price" class="form-control">
+    <p>
+      <input [(ngModel)]="newOfferSki.priceForDay" class="form-control w-75 mr-0 d-inline-block"> zł/dzień
+    </p>
+    <!-- <select [(ngModel)]="newOfferSki.price" class="form-control">
       <option [ngValue]="p" *ngFor="let p of prices">{{p.value}}zł {{p.unit.name}}</option>
-    </select>
+    </select> -->
   </div>
   <div class="form-group">
     <label>firma:</label>
@@ -96,9 +99,10 @@
       </td>
       <td>
         <div class="form-group">
-          <select [(ngModel)]="offerSki.price" [disabled]="disabledEdit[i]" class="form-control">
+          <input [(ngModel)]="offerSki.priceForDay" [disabled]="disabledEdit[i]" class="form-control"> zł/dzień
+          <!-- <select [(ngModel)]="offerSki.price" [disabled]="disabledEdit[i]" class="form-control">
             <option [ngValue]="p" *ngFor="let p of prices" [selected]="offerSki.price.id === p.id">{{p.value}}zł {{p.unit.name}}</option>
-          </select>
+          </select> -->
         </div>
       </td>
       <td>
