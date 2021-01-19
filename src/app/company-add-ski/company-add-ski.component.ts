@@ -25,21 +25,6 @@ export class CompanyAddSkiComponent implements OnInit, OnDestroy {
 
   getAllProducers() {
     this.producers = this.subscribeDataCompanyService.getProducers();
-    // // @ts-ignore
-    // this.subscriptions.add(this.producerService.getAll().subscribe((result: any[]) => {
-    //   this.producers = result;
-    //   for (const producer of this.producers) {
-    //     for (const ski of this.skis) {
-    //       // @ts-ignore
-    //       if (ski.producer.id === producer.id) {
-    //         // @ts-ignore
-    //         ski.producer = producer;
-    //       }
-    //     }
-    //   }
-    //   console.log(result);
-    //   this.disabledEdit = result.map(r => true);
-    // }, (error) => {}));
   }
 
   getAllSki() {

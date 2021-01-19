@@ -5,9 +5,6 @@
     <th scope="col">id</th>
     <th scope="col">data zawarcia transakcji</th>
     <th scope="col">data rozpoczęcia - zakończenia</th>
-    <!-- <th scope="col">data rozpoczęcia</th>
-    <th scope="col">data zakończenia</th> -->
-    <!-- <th scope="col">użytkownik</th> -->
     <th scope="col">oferty</th>
     <th></th>
     <th></th>
@@ -24,7 +21,6 @@
         <mat-datepicker-toggle  matSuffix [for]="transactionPrepareTransaction"></mat-datepicker-toggle>
         <mat-datepicker #transactionPrepareTransaction></mat-datepicker>
       </mat-form-field>
-      <!-- <input [(ngModel)]="transaction.prepareTransaction" class="form-control"> -->
     </td>
     <td>
       <p class="col-12 float-left">
@@ -37,30 +33,7 @@
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
-      <!-- <mat-form-field>
-        <mat-label>data rozpoczęcia:</mat-label><br/>
-        <input [(ngModel)]="transaction.startTransaction" [value]="" [disabled]="true" matInput [matDatepicker]="transactionStartTransaction"  placeholder="date">
-        <mat-datepicker-toggle  matSuffix [for]="transactionStartTransaction"></mat-datepicker-toggle>
-        <mat-datepicker #transactionStartTransaction></mat-datepicker>
-      </mat-form-field> -->
-      <!-- <input [(ngModel)]="transaction.startTransaction" class="form-control"> -->
     </td>
-    <!-- <td>
-      <mat-form-field>
-        <mat-label>data zakończenia:</mat-label><br/>
-        <input [(ngModel)]="transaction.stopTransaction" [value]="" [disabled]="true" matInput [matDatepicker]="transactionStopTransaction"  placeholder="date">
-        <mat-datepicker-toggle  matSuffix [for]="transactionStopTransaction"></mat-datepicker-toggle>
-        <mat-datepicker #transactionStopTransaction></mat-datepicker>
-      </mat-form-field> -->
-      <!-- <input [(ngModel)]="transaction.stopTransaction" class="form-control"> -->
-    <!-- </td> -->
-    <!-- <td>
-      <div class="form-group">
-        <select [(ngModel)]="transaction.user" class="form-control">
-          <option [ngValue]="u" *ngFor="let u of users" [selected]="transaction.user.id === u.id">{{u.id}} {{u.eMail}}</option>
-        </select>
-      </div>
-    </td> -->
     <td>
       <table class="table table-striped">
         <thead>

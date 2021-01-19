@@ -43,17 +43,14 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
   producer: Producer;
   ski: Ski;
   offerSki: OfferSki;
-  // startOffer = '';
-  // stopOffer = '';
   startOffer: Date;
   stopOffer: Date;
   city = '';
   isUserLogin = false;
   currentUser: User = null;
-  // private loginComponent = null;
   constructor(private offerSkiService: OfferSkiService, private companyService: CompanyService,
               private skiService: SkiService, private producerService: ProducerService,
-              public userService: UserService, public dialog: MatDialog//, private loginComponent: LoginComponent
+              public userService: UserService, public dialog: MatDialog
                ) {
                 this.todayDate = moment(new Date()).format('YYYY-MM-DD');
                }
@@ -65,8 +62,6 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
     if (this.userService.getCurrentUser() != null){
       this.currentUser = this.userService.getCurrentUser();
       this.isUserLogin = true;
-      // this.loginComponent = LoginComponent;
-      // this.loginComponent = LoginComponent;
     }
   }
 
@@ -80,7 +75,6 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
           }
         }
       }
-      // console.log(result);
     }, (error) => {}));
   }
 
@@ -94,7 +88,6 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
           }
         }
       }
-      // console.log(result);
     }, (error) => {}));
   }
 
@@ -108,13 +101,11 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
           }
         }
       }
-      // console.log(result);
     }, (error) => {}));
   }
 
   getAllOfferSkiByCity(city) {
       this.offerSkiService.getAllFromCity(city).
-        //   .pipe(take(1)).
         subscribe((result: OfferSki[]) => {
           this.offerSkis = result;
           if (this.offerSkis.length > 0){
@@ -130,15 +121,12 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
     this.offerSkiService.getAllByData(begin, end)
       .subscribe((result: OfferSki[]) => {
         console.log(result);
-        // console.log(result[0].stopOffer);
-        // return result;
         this.offerSkis = result;
         if (this.offerSkis.length > 0){
           this.searchOfferSkis = true;
         } else {
           this.searchOfferSkis = false;
         }
-        // return this.offerSkis;
       }, (error) => {
         return [];
       });
@@ -149,15 +137,12 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
     this.offerSkiService.getAllByDataAndCity(begin, end, city)
       .subscribe((result: OfferSki[]) => {
         console.log(result);
-        // console.log(result[0].stopOffer);
-        // return result;
         this.offerSkis = result;
         if (this.offerSkis.length > 0){
           this.searchOfferSkis = true;
         } else {
           this.searchOfferSkis = false;
         }
-        // return this.offerSkis;
       }, (error) => {
         return [];
       });
@@ -171,25 +156,15 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
   addToBasket(id){
     this.offerSkis[id].quantity -= 1;
     this.userService.addOfferSki(this.offerSkis[id], this.range.get('start').value, this.range.get('end').value);
-    // this.userService.addOfferSki(this.offerSkis[id], this.startOffer, this.stopOffer);
-    // this.userService.offerSkiListSize++;
-    // this.loginComponent.basketSize++;
-    // this.loginComponent.basket = this.userService.offerSkiList;
   }
 
   searchOfferSki(){
-    // if(this.city === null || this.city === '' || this.startOffer === undefined || this.stopOffer === undefined){
     if(this.city === null || this.city === '' || this.range.get('start').value == null || this.range.get('end').value == null){
       this.openDialog();
     } else {
-      // this.getAllOfferSkiByDateAndCity(formatDate(this.startOffer, 'dd-MM-y', 'en-US'), formatDate(this.stopOffer, 'dd-MM-y', 'en-US'), this.city);
       this.getAllOfferSkiByDateAndCity(formatDate(this.range.get('start').value, 'dd-MM-y', 'en-US'),
                                       formatDate(this.range.get('end').value, 'dd-MM-y', 'en-US'), this.city);
-      // this.getAllOfferSkiByDateAndCity(this.range.get('start').value, this.range.get('end').value, this.city);
     }
-    // this.getAllOfferSkiByCity(this.city);
-    // this.getAllOfferSkiByDate(formatDate(this.startOffer, 'dd-MM-y', 'en-US'), formatDate(this.stopOffer, 'dd-MM-y', 'en-US'));
-    // this.getAllOfferSkiByDate(this.startOffer, this.stopOffer);
   }
 
   calDays(start: Date, stop: Date){

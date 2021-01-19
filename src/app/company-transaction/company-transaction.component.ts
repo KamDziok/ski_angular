@@ -26,11 +26,7 @@ export class CompanyTransactionComponent implements OnInit {
     this.month = this.date.getMonth()+1;
     this.year = this.date.getFullYear();
     this.getAllTransaction();
-    // console.log(this.transactions);
-    // console.log(this.transactionListFilter);
     this.transactionListFilter = this.filterTransaction(Object.assign([], this.transactions), this.month, this.year);
-    // console.log(this.transactions);
-    // console.log(this.transactionListFilter);
   }
 
   getAllTransaction() {
@@ -42,9 +38,6 @@ export class CompanyTransactionComponent implements OnInit {
   }
 
   filterTransaction(transactionList: Transaction[], mounth: number, year: number){
-    // console.log(transactionList);
-    // console.log(transactionList.filter(transaction => transaction.startTransaction.getMonth()+1 == mounth &&
-    // transaction.startTransaction.getFullYear() == year));
     return transactionList.filter(transaction => new Date(transaction.startTransaction).getMonth()+1 == mounth &&
                                                 new Date(transaction.startTransaction).getFullYear() == year);
   }

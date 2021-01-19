@@ -14,8 +14,6 @@
       <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
       <mat-datepicker #tartOffer></mat-datepicker>
     </mat-form-field>
-    <!-- <label>data rozpoczęcia:</label>
-    <input [(ngModel)]="startOffer" class="form-control" /> -->
   </div>
   <div class="form-group">
     <mat-form-field>
@@ -24,17 +22,12 @@
       <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
       <mat-datepicker #topOffer></mat-datepicker>
     </mat-form-field>
-    <!-- <label>data zakończenia:</label>
-    <input [(ngModel)]="stopOffer" class="form-control" /> -->
   </div>
   <div class="form-group">
     <label>cena:</label>
     <p>
       <input [(ngModel)]="newOfferSki.priceForDay" class="form-control w-75 mr-0 d-inline-block"> zł/dzień
     </p>
-    <!-- <select [(ngModel)]="newOfferSki.price" class="form-control">
-      <option [ngValue]="p" *ngFor="let p of prices">{{p.value}}zł {{p.unit.name}}</option>
-    </select> -->
   </div>
   <div class="form-group">
     <label>firma:</label>
@@ -60,7 +53,6 @@
       <th scope="col">miejscowość</th>
       <th scope="col">ilość</th>
       <th scope="col">data rozpoczęcia / <br /> data zakończenia</th>
-      <!-- <th scope="col">data zakończenia</th> -->
       <th scope="col">cena</th>
       <th scope="col">firma</th>
       <th scope="col">narty</th>
@@ -85,9 +77,6 @@
           <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
           <mat-datepicker #tartOffer></mat-datepicker>
         </mat-form-field>
-        <!-- <input [(ngModel)]="offerSki.startOffer" [disabled]="disabledEdit[i]" class="form-control"> -->
-      <!-- </td>
-      <td> -->
         <br />
         <mat-form-field>
           <mat-label>data zakończenia:</mat-label><br/>
@@ -95,14 +84,10 @@
           <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
           <mat-datepicker #topOffer></mat-datepicker>
         </mat-form-field>
-        <!-- <input [(ngModel)]="offerSki.stopOffer" [disabled]="disabledEdit[i]" class="form-control"> -->
       </td>
       <td>
         <div class="form-group">
           <input [(ngModel)]="offerSki.priceForDay" [disabled]="disabledEdit[i]" class="form-control"> zł/dzień
-          <!-- <select [(ngModel)]="offerSki.price" [disabled]="disabledEdit[i]" class="form-control">
-            <option [ngValue]="p" *ngFor="let p of prices" [selected]="offerSki.price.id === p.id">{{p.value}}zł {{p.unit.name}}</option>
-          </select> -->
         </div>
       </td>
       <td>

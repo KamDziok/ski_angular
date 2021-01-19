@@ -28,8 +28,6 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
   stopOffer = '';
   newTransaction = {prepareTransaction: null, startTransaction: null, stopTransaction: null, user: null, offerSkiList: []};
   constructor(private transactionService: TransactionService, private subscribeDataAdminService: SubscribeDataAdminService
-              // private userService: UserService,
-              // private offerSkiService: OfferSkiService
               ) { }
 
   ngOnInit(): void {
@@ -40,53 +38,13 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
 
   getAllUser() {
     return this.subscribeDataAdminService.getUsers();
-    // this.users = this.subscribeDataAdminService.getUsers();
-    // this.subscriptions.add(this.userService.getAll().subscribe((result: User[]) => {
-    //   this.users = result;
-    //   for (const user of this.users) {
-    //     for (const transaction of this.transactions) {
-    //       if (transaction.user.id === user.id) {
-    //         transaction.user = user;
-    //       }
-    //     }
-    //   }
-    //   console.log(result);
-    //   this.disabledEdit = result.map(r => true);
-    // }, (error) => {}));
   }
 
   getAllOfferSki() {
     return this.subscribeDataAdminService.getOfferSkis();
-    // this.subscriptions.add(this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
-    //   this.offerSkis = result;
-      // for (const offerSki of this.offerSkis) {
-      //   for (const transaction of this.transactions) {
-      //     for (const offerSkiInTransaction of transaction.offerSkiList) {
-      //       if (offerSkiInTransaction.id === offerSki.id) {
-      //         transaction.offerSkiList.push(offerSki);
-      //       }
-      //     }
-      //   }
-      // }
-    //   console.log(result);
-    //   this.disabledEdit = result.map(r => true);
-    // }, (error) => {}));
   }
 
   getAllTransaction() {
-    // setTimeout(() => {
-    //   this.transactionService.getAll().subscribe((result: Transaction[]) => {
-    //     this.transactions = result;
-    //     this.transactions.forEach(transaction => {
-    //       this.users.forEach(user => {
-    //         if (transaction.user.id === user.id) {
-    //           transaction.user = user;
-    //         }
-    //       })
-    //     });
-    //     this.disabledEdit = result.map(r => true);
-    //   }, (error) => {});
-    // }, 2000);
     this.transactionService.getAll().subscribe((result: Transaction[]) => {
       this.transactions = result;
       this.transactions.forEach(transaction => {
@@ -96,20 +54,6 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
           }
         })
       });
-      // for (const transaction of this.transactions) {
-      //   // for (const offerSki of this.offerSkis) {
-      //   //   for (const offerSkiInTransaction of transaction.offerSkiList) {
-      //   //     if (offerSkiInTransaction.id === offerSki.id) {
-      //   //       transaction.offerSkiList.push(offerSki);
-      //   //     }
-      //   //   }
-      //   // }
-      //   for (const user of this.users) {
-      //     if (transaction.user.id === user.id) {
-      //       transaction.user = user;
-      //     }
-      //   }
-      // }
       this.disabledEdit = result.map(r => true);
     }, (error) => {});
   }
@@ -125,8 +69,6 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
   }
 
   addTransaction() {
-    // this.newTransaction.startTransaction = new Date(this.startOffer);
-    // this.newTransaction.stopTransaction = new Date(this.stopOffer);
     this.newTransaction.startTransaction = new Date(this.range.get('start').value);
     this.newTransaction.stopTransaction = new Date(this.range.get('ebd').value);
     this.newTransaction.offerSkiList = this.offerSkiListLocal;
@@ -161,6 +103,5 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
       });
   }
   ngOnDestroy() {
-    // this.subscriptions.unsubscribe();
   }
 }

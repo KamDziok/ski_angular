@@ -1,42 +1,5 @@
-<!-- <div class="form-group">
-  <mat-form-field>
-    <mat-label>data rozpoczęcia:</mat-label><br/>
-    <input [(ngModel)]="newTransaction.startTransaction" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
-    <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
-    <mat-datepicker #tartOffer></mat-datepicker>
-  </mat-form-field>
-</div>
-  <label>data rozpoczęcia:</label>
-  <input [(ngModel)]="startOffer" class="form-control" /> -->
-<!-- </div> -->
-<!-- <div class="form-group">
-  <mat-form-field>
-    <mat-label>data zakończenia:</mat-label><br/>
-    <input [(ngModel)]="newTransaction.stopTransaction" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
-    <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
-    <mat-datepicker #topOffer></mat-datepicker>
-  </mat-form-field>
-  <label>data zakończenia:</label>
-  <input [(ngModel)]="stopOffer" class="form-control" />
-</div> -->
 <button (click)="addTransaction()" class="btn btn-outline-success">dodaj</button>
 <label>Wybrane oferty:</label>
-<!-- <table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">narty</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let o of offerSkiList; index as i">
-    <th scope="row">{{ i + 1 }}</th>
-    <td>
-      <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
-    </td>
-  </tr>
-  </tbody>
-</table> -->
 <table class="table table-striped">
   <thead>
   <tr>

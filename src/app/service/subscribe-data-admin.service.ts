@@ -8,7 +8,6 @@ import { CompanyService } from '../service/company.service';
 import { SkiService } from '../service/ski.service';
 import { UserService } from './user.service';
 import { ProducerService } from './producer.service';
-import {Price} from '../interface/price';
 import {Ski} from '../interface/ski';
 import { User } from './../interface/user';
 import { Producer } from './../interface/producer';
@@ -40,7 +39,6 @@ export class SubscribeDataAdminService {
   public getAllData() {
     this.getAllCompany();
     this.getAllOfferSki();
-    this.getAllPrices();
     this.getAllProducers();
     this.getAllSki();
     this.getAllUser();
@@ -53,15 +51,6 @@ export class SubscribeDataAdminService {
     // }
     // return this.offerSkis;
     return JSON.parse(localStorage.getItem(LocalStorageKey.OFFER_SKIS));
-  }
-
-  public getPrices() {
-    // if (this.prices.length === 0) {
-    // if (!this.prices) {
-      this.getAllPrices();
-    // }
-    // return this.prices;
-    return JSON.parse(localStorage.getItem(LocalStorageKey.PRICES));
   }
 
   public getCompanies() {
@@ -106,12 +95,6 @@ export class SubscribeDataAdminService {
     this.offerSkis = true;
   }
 
-  public setPrices(prices: Price[]) {
-    // this.prices = prices;
-    localStorage.setItem(LocalStorageKey.PRICES, JSON.stringify(prices));
-    this.prices = true;
-  }
-
   public setCompanies(companies: Company[]) {
     // this.companies = companies;
     localStorage.setItem(LocalStorageKey.COMPANIES, JSON.stringify(companies));
@@ -141,14 +124,6 @@ export class SubscribeDataAdminService {
     this.offerSkiService.getAll().pipe(map((result: OfferSki[]) => {
       this.setOfferSkis(result);
     }, (error) => {}));
-    // }, (error) => {}));
-  }
-
-  private getAllPrices() {
-    // this.subscriptions.add(this.priceService.getAll().subscribe((result: Price[]) => {
-    this.priceService.getAll().subscribe((result: Price[]) => {
-      this.setPrices(result);
-    }, (error) => {});
     // }, (error) => {}));
   }
 

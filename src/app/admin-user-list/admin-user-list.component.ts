@@ -23,56 +23,18 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   disabledEditCompany = true;
   newUser = {firstName: '', lastName: '', eMail: '', password: '', permissions: Permissions.USER, company: null};
   constructor(private userService: UserService, private subscribeDataAdminService: SubscribeDataAdminService
-    // private companyService: CompanyService
     ) { }
 
   ngOnInit(): void {
     this.getAllCompanies();
-    // setTimeout(this.getAllUsers, 1000);
     this.getAllUsers();
   }
 
   getAllCompanies() {
-    // console.log('ładowanie...');
     this.companies = this.subscribeDataAdminService.getCompanies();
-    // console.log(this.companies);
-    // console.log('załadowane.');
-    // this.subscriptions.add(this.companyService.getAll().subscribe((result: Company[]) => {
-    //   this.companies = result;
-    //   for (const company of this.companies) {
-    //     for (const user of this.users) {
-    //       if (user.permissions === Permissions.SUPPORT) {
-    //         if (user.company.id === company.id) {
-    //           user.company = company;
-    //         }
-    //       }
-    //     }
-    //   }
-    //   console.log(result);
-    //   this.disabledEdit = result.map(r => true);
-    // }, (error) => {}));
   }
 
   getAllUsers() {
-    // this.getAllCompanies();
-    // setTimeout(() => {
-    //   this.userService.getAllWithOutCurrentUser().subscribe((result: User[]) => {
-    //     this.users = result;
-    //     for (const user of this.users) {
-    //       console.log(this.companies);
-    //       for (const company of this.companies) {
-    //         if (user.permissions === Permissions.COMPANY) {
-    //           if (user.company.id === company.id) {
-    //             user.company = company;
-    //             break;
-    //           }
-    //         }
-    //       }
-    //     }
-    //     this.disabledEdit = result.map(r => true);
-    //     // this.newUser.company = result[0];
-    //   }, (error) => {});
-    // }, 5000);
     this.userService.getAllWithOutCurrentUser().subscribe((result: User[]) => {
       this.users = result;
       for (const user of this.users) {
@@ -86,7 +48,6 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
         }
       }
       this.disabledEdit = result.map(r => true);
-      // this.newUser.company = result[0];
     }, (error) => {});
   }
 

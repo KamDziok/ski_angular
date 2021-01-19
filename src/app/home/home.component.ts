@@ -24,8 +24,6 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['admin']);
     }else if(this.userService.getPermissionCompany()){
       this.router.navigate(['company']);
-    }else if(this.userService.getPermissionSupport()){
-      this.router.navigate(['support']);
     }else if(this.userService.getPermissionUser()){
       this.router.navigate(['login']);
     } else {
@@ -39,7 +37,6 @@ export class HomeComponent implements OnInit {
       this.userLogin = result;
       if (this.userLogin != null) {
         this.userService.logIn(this.userLogin);
-        // localStorage.setItem(LocalStorageKey.USER, JSON.stringify(this.userLogin));
         switch (this.userLogin.permissions) {
           case Permissions.USER:
             this.router.navigate(['login']);
@@ -47,10 +44,6 @@ export class HomeComponent implements OnInit {
 
           case Permissions.COMPANY:
             this.router.navigate(['company']);
-            break;
-
-          case Permissions.SUPPORT:
-            this.router.navigate(['support']);
             break;
 
           case Permissions.ADMIN:

@@ -26,32 +26,9 @@ export class MyTransactionComponent implements OnInit {
     this.getAllTransaction();
   }
 
-  // getAllUser() {
-  //   this.subscriptions.add(this.userService.getAll().subscribe((result: User[]) => {
-  //     this.users = result;
-  //     for (const user of this.users) {
-  //       for (const transaction of this.transactions) {
-  //         if (transaction.user.id === user.id) {
-  //           transaction.user = user;
-  //         }
-  //       }
-  //     }
-  //     console.log(result);
-  //   }, (error) => {}));
-  // }
-
   getAllOfferSki() {
     this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
       this.offerSkis = result;
-      // for (const offerSki of this.offerSkis) {
-      //   for (const transaction of this.transactions) {
-      //     for (const offerSkiInTransaction of transaction.offerSkiList) {
-      //       if (offerSkiInTransaction.id === offerSki.id) {
-      //         transaction.offerSkiList.push(offerSki);
-      //       }
-      //     }
-      //   }
-      // }
       console.log(result);
     }, (error) => {});
   }
@@ -60,7 +37,6 @@ export class MyTransactionComponent implements OnInit {
     this.transactionService.getAllUser(this.user).subscribe((result: Transaction[]) => {
       this.transactions = result;
       this.getAllOfferSki();
-      // this.getAllUser();
     }, (error) => {});
   }
 

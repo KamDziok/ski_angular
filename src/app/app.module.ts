@@ -10,26 +10,15 @@ import { AppComponent } from './app.component';
 import { UnloginComponent } from './unlogin/unlogin.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
-import { SupportComponent } from './support/support.component';
 import { CompanyComponent } from './company/company.component';
-import { FormLoginComponent } from './form-login/form-login.component';
-import { FormRegiComponent } from './form-regi/form-regi.component';
-import { FormRegiCompanyComponent } from './form-regi-company/form-regi-company.component';
-import { FormLoginCompanyComponent } from './form-login-company/form-login-company.component';
 import { HomeComponent } from './home/home.component';
 import { AdminUserListComponent } from './admin-user-list/admin-user-list.component';
 import { AdminCompanyListComponent } from './admin-company-list/admin-company-list.component';
-import { AdminUnitListComponent } from './admin-unit-list/admin-unit-list.component';
-import { AdminPriceListComponent } from './admin-price-list/admin-price-list.component';
 import { AdminProducerListComponent } from './admin-producer-list/admin-producer-list.component';
 import { AdminSkiListComponent } from './admin-ski-list/admin-ski-list.component';
 import { AdminOfferSkiListComponent } from './admin-offer-ski-list/admin-offer-ski-list.component';
 import { AdminTransactionListComponent } from './admin-transaction-list/admin-transaction-list.component';
-import { AdminNotificationCompanyListComponent } from './admin-notification-company-list/admin-notification-company-list.component';
-import { AdminNotificationUserListComponent } from './admin-notification-user-list/admin-notification-user-list.component';
 import { SerchOfferSkiComponent } from './serch-offer-ski/serch-offer-ski.component';
-import { SupportNotificationUserComponent } from './support-notification-user/support-notification-user.component';
-import { SupportNotificationCompanyComponent } from './support-notification-company/support-notification-company.component';
 import { CompanyAddProducerComponent } from './company-add-producer/company-add-producer.component';
 import { CompanyAddSkiComponent } from './company-add-ski/company-add-ski.component';
 import { CompanyAddOfferSkiComponent } from './company-add-offer-ski/company-add-offer-ski.component';
@@ -57,26 +46,15 @@ registerLocaleData(localeFr);
     UnloginComponent,
     LoginComponent,
     AdminComponent,
-    SupportComponent,
     CompanyComponent,
-    FormLoginComponent,
-    FormRegiComponent,
-    FormRegiCompanyComponent,
-    FormLoginCompanyComponent,
     HomeComponent,
     AdminUserListComponent,
     AdminCompanyListComponent,
-    AdminUnitListComponent,
-    AdminPriceListComponent,
     AdminProducerListComponent,
     AdminSkiListComponent,
     AdminOfferSkiListComponent,
     AdminTransactionListComponent,
-    AdminNotificationCompanyListComponent,
-    AdminNotificationUserListComponent,
     SerchOfferSkiComponent,
-    SupportNotificationUserComponent,
-    SupportNotificationCompanyComponent,
     CompanyAddProducerComponent,
     CompanyAddSkiComponent,
     CompanyAddOfferSkiComponent,

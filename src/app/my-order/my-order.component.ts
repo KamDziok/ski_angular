@@ -49,29 +49,6 @@ export class MyOrderComponent implements OnInit {
     return sum;
   }
 
-  // addTransaction() {
-  //   // this.newTransaction.startTransaction = new Date(this.startOffer);
-  //   // this.newTransaction.stopTransaction = new Date(this.stopOffer);
-  //   this.newTransaction.startTransaction = this.userService.transaction.startTransaction;
-  //   this.newTransaction.stopTransaction = this.userService.transaction.stopTransaction;
-  //   this.newTransaction.offerSkiList = this.offerSkiList;
-  //   this.offerSkiList = [];
-  //   this.newTransaction.prepareTransaction = new Date();
-  //   this.newTransaction.user = this.user;
-  //   this.transactionService.addTransaction(this.newTransaction).subscribe((success) => {
-  //     console.log('Sukces');
-  //     this.newTransaction.startTransaction = null;
-  //     this.newTransaction.stopTransaction = null;
-  //     this.newTransaction.offerSkiList = [];
-  //     this.offerSkiList = [];
-  //     this.loginComponent.basketSize = 0;
-      
-  //     this.router.navigate(['/login']);
-  //   }, (error) => {
-  //     console.log('Error');
-  //   });
-  // }
-
   addTransaction() {
     let now = new Date();
     let user = this.user;

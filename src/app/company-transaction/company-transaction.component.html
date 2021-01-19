@@ -37,7 +37,6 @@
           <mat-datepicker-toggle  matSuffix [for]="transactionPrepareTransaction"></mat-datepicker-toggle>
           <mat-datepicker #transactionPrepareTransaction></mat-datepicker>
         </mat-form-field>
-        <!-- <input [(ngModel)]="transaction.prepareTransaction" class="form-control"> -->
       </td>
       <td>
         <mat-form-field>
@@ -46,7 +45,6 @@
           <mat-datepicker-toggle  matSuffix [for]="transactionStartTransaction"></mat-datepicker-toggle>
           <mat-datepicker #transactionStartTransaction></mat-datepicker>
         </mat-form-field>
-        <!-- <input [(ngModel)]="transaction.startTransaction" class="form-control"> -->
       </td>
       <td>
         <mat-form-field>
@@ -55,14 +53,10 @@
           <mat-datepicker-toggle  matSuffix [for]="transactionStopTransaction"></mat-datepicker-toggle>
           <mat-datepicker #transactionStopTransaction></mat-datepicker>
         </mat-form-field>
-        <!-- <input [(ngModel)]="transaction.stopTransaction" class="form-control"> -->
       </td>
       <td>
         <div class="form-group">
           <label>{{transaction.user.eMail}}</label>
-          <!-- <select [(ngModel)]="transaction.user" class="form-control">
-            <option [ngValue]="u" *ngFor="let u of users" [selected]="transaction.user.id === u.id">{{u.id}} {{u.eMail}}</option>
-          </select> -->
         </div>
       </td>
       <td>

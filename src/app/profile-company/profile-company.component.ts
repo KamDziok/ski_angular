@@ -73,7 +73,6 @@ export class ProfileCompanyComponent implements OnInit {
     this.companyService.getById(id).subscribe((result: Company) => {
       this.company = result;
       this.getAllOfferSkiCompany(this.company);
-      // this.disabledEdit = result.map(r => true);
     }, (error) => {});
   }
 
