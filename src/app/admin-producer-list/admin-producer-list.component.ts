@@ -1,3 +1,4 @@
+import { SubscribeDataAdminService } from './../service/subscribe-data-admin.service';
 import { Component, OnInit } from '@angular/core';
 import { ProducerService } from '../service/producer.service';
 import {Producer} from '../interface/producer';
@@ -11,7 +12,7 @@ export class AdminProducerListComponent implements OnInit {
   producers: Producer[] = [];
   disabledEdit: boolean[] = [];
   newProducer = {name: ''};
-  constructor(private producerService: ProducerService) { }
+  constructor(private producerService: ProducerService, private subscribeDataAdminService: SubscribeDataAdminService) { }
 
   ngOnInit(): void {
     this.getAllProducers();
@@ -35,6 +36,7 @@ export class AdminProducerListComponent implements OnInit {
     }, (error) => {
       console.log('Error');
     });
+    this.subscribeDataAdminService.getAllData();
   }
 
   save(id) {

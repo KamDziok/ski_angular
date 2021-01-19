@@ -13,6 +13,8 @@ import {User} from '../interface/user';
 import {LoginComponent} from '../login/login.component';
 import {formatDate} from "@angular/common";
 import {MatDialog} from '@angular/material/dialog';
+import {FormGroup, FormControl} from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'dialog-allert',
@@ -27,6 +29,11 @@ export class DialogAllert {}
 })
 export class SerchOfferSkiComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
+  todayDate: any;
   searchOfferSkis = false;
   offerSkis: OfferSki[] = [];
   companies: Company[] = [];
@@ -47,7 +54,9 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
   constructor(private offerSkiService: OfferSkiService, private companyService: CompanyService,
               private skiService: SkiService, private producerService: ProducerService,
               public userService: UserService, public dialog: MatDialog//, private loginComponent: LoginComponent
-               ) {}
+               ) {
+                this.todayDate = moment(new Date()).format('YYYY-MM-DD');
+               }
 
   ngOnInit(): void {
     this.getAllCompany();
@@ -161,21 +170,38 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
 
   addToBasket(id){
     this.offerSkis[id].quantity -= 1;
-    this.userService.addOfferSki(this.offerSkis[id], this.startOffer, this.stopOffer);
+    this.userService.addOfferSki(this.offerSkis[id], this.range.get('start').value, this.range.get('end').value);
+    // this.userService.addOfferSki(this.offerSkis[id], this.startOffer, this.stopOffer);
     // this.userService.offerSkiListSize++;
     // this.loginComponent.basketSize++;
     // this.loginComponent.basket = this.userService.offerSkiList;
   }
 
   searchOfferSki(){
-    if(this.city === null || this.city === '' || this.startOffer === undefined || this.stopOffer === undefined){
+    // if(this.city === null || this.city === '' || this.startOffer === undefined || this.stopOffer === undefined){
+    if(this.city === null || this.city === '' || this.range.get('start').value == null || this.range.get('end').value == null){
       this.openDialog();
     } else {
-      this.getAllOfferSkiByDateAndCity(formatDate(this.startOffer, 'dd-MM-y', 'en-US'), formatDate(this.stopOffer, 'dd-MM-y', 'en-US'), this.city);
+      // this.getAllOfferSkiByDateAndCity(formatDate(this.startOffer, 'dd-MM-y', 'en-US'), formatDate(this.stopOffer, 'dd-MM-y', 'en-US'), this.city);
+      this.getAllOfferSkiByDateAndCity(formatDate(this.range.get('start').value, 'dd-MM-y', 'en-US'),
+                                      formatDate(this.range.get('end').value, 'dd-MM-y', 'en-US'), this.city);
+      // this.getAllOfferSkiByDateAndCity(this.range.get('start').value, this.range.get('end').value, this.city);
     }
     // this.getAllOfferSkiByCity(this.city);
     // this.getAllOfferSkiByDate(formatDate(this.startOffer, 'dd-MM-y', 'en-US'), formatDate(this.stopOffer, 'dd-MM-y', 'en-US'));
     // this.getAllOfferSkiByDate(this.startOffer, this.stopOffer);
+  }
+
+  calDays(start: Date, stop: Date){
+    let startDate = new Date(start);
+    let stopDate = new Date(stop);
+    let time = Math.abs(startDate.getTime() - stopDate.getTime());
+    return Math.ceil(time / (1000 * 3600 * 24));
+  }
+
+  sumPriceOfferSki(start: Date, stop: Date, offerSki: OfferSki){
+    let days = this.calDays(start, stop);
+    return offerSki.priceForDay * days;
   }
 
   ngOnDestroy() {

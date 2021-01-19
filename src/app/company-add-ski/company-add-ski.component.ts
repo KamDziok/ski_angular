@@ -68,6 +68,7 @@ export class CompanyAddSkiComponent implements OnInit, OnDestroy {
     }, (error) => {
       console.log('Error');
     });
+    this.subscribeDataCompanyService.getAllData();
   }
 
   save(id) {

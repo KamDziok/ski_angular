@@ -1,3 +1,4 @@
+import { SubscribeDataAdminService } from './../service/subscribe-data-admin.service';
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../service/company.service';
 import {Company} from '../interface/company';
@@ -11,7 +12,7 @@ export class AdminCompanyListComponent implements OnInit {
   companies: Company[] = [];
   disabledEdit: boolean[] = [];
   newCompany = {name: '', active: false, description: ''};
-  constructor(private companyService: CompanyService) { }
+  constructor(private companyService: CompanyService, private subscribeDataAdminService: SubscribeDataAdminService) { }
 
   ngOnInit(): void {
     this.getAllCompanies();
@@ -35,6 +36,7 @@ export class AdminCompanyListComponent implements OnInit {
     }, (error) => {
       console.log('Error');
     });
+    this.subscribeDataAdminService.getAllData();
   }
 
   save(id) {

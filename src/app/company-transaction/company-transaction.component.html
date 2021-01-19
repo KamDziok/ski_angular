@@ -4,7 +4,7 @@
   </div>
   <div class="col-10 float-left">
     <h2 class="text-center">
-      {{month | number:'2.0-2'}}.{{year}}r. Suma: <span>{{sumPriceTransactionList(transactionListFilter) | currency:'zł':'symbol':'1.2-2':'fr'}}</span>
+      {{month | number:'2.0-2'}}.{{year}}r. <span [className]="sumPriceTransactionList(transactionListFilter) > 0 ? 'text-success' : 'text-danger'">Suma: {{sumPriceTransactionList(transactionListFilter) | currency:'zł':'symbol':'1.2-2':'fr'}}</span>
     </h2>
   </div>
   <div class="col-1 float-left px-auto">

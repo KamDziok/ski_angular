@@ -129,6 +129,7 @@ export class AdminOfferSkiListComponent implements OnInit, OnDestroy {
     }, (error) => {
       console.log('Error');
     });
+    this.subscribeDataAdminService.getAllData();
   }
 
   save(id) {

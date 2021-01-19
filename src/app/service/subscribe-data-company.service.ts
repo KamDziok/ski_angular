@@ -8,6 +8,11 @@ export class SubscribeDataCompanyService {
 
   constructor(private subscribeDataAdminService: SubscribeDataAdminService) { }
 
+  public getAllData() {
+    this.getProducers();
+    this.getSkis();
+  }
+
   public getSkis() {
     return this.subscribeDataAdminService.getSkis();   
   }
@@ -16,7 +21,7 @@ export class SubscribeDataCompanyService {
     return this.subscribeDataAdminService.getProducers();
   }
 
-  public getPrices() {
-    return this.subscribeDataAdminService.getPrices();
-  }
+  // public getPrices() {
+  //   return this.subscribeDataAdminService.getPrices();
+  // }
 }

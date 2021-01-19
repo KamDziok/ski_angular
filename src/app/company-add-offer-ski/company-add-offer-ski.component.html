@@ -4,6 +4,12 @@
     <input [(ngModel)]="newOfferSki.city" class="form-control" />
   </div>
   <div class="form-group">
+    <label>ilość:</label>
+    <p>
+      <input [(ngModel)]="newOfferSki.quantity" class="form-control mr-0 d-inline-block">
+    </p>
+  </div>
+  <div class="form-group">
     <mat-form-field>
       <mat-label>data rozpoczęcia:</mat-label><br/>
       <input [(ngModel)]="newOfferSki.startOffer" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
@@ -55,6 +61,7 @@
       <th scope="col">miejscowość</th>
       <th scope="col">data rozpoczęcia</th>
       <th scope="col">data zakończenia</th>
+      <th scope="col">ilość</th>
       <th scope="col">cena</th>
       <!-- <th scope="col">firma</th> -->
       <th scope="col">narty</th>
@@ -84,6 +91,13 @@
           <mat-datepicker #topOffer></mat-datepicker>
         </mat-form-field>
         <!-- <input [(ngModel)]="offerSki.stopOffer" [disabled]="disabledEdit[i]" class="form-control"> -->
+      </td>
+      <td>
+        <div class="form-group">
+          <p>
+            <input [(ngModel)]="offerSki.quantity" [disabled]="disabledEdit[i]" class="form-control w-50 mr-0 d-inline-block">
+          </p>
+        </div>
       </td>
       <td>
         <div class="form-group">

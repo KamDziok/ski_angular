@@ -8,22 +8,31 @@
     </mat-form-field>
   </div>
   <div class="form-group">
-    <mat-form-field>
+    <mat-form-field >
+      <mat-label>data rozpoczęcia - zakończenia</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input matStartDate formControlName="start" placeholder="Start date">
+        <input matEndDate formControlName="end" placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <!-- <mat-form-field>
       <mat-label>data rozpoczęcia:</mat-label><br/>
       <input [(ngModel)]="newTransaction.startTransaction" [value]="" matInput [matDatepicker]="newTransactionStartTransaction"  placeholder="date">
       <mat-datepicker-toggle  matSuffix [for]="newTransactionStartTransaction"></mat-datepicker-toggle>
       <mat-datepicker #newTransactionStartTransaction></mat-datepicker>
-    </mat-form-field>
+    </mat-form-field> -->
     <!-- <label>data rozpoczęcia:</label>
     <input [(ngModel)]="startOffer" class="form-control" /> -->
-  </div>
+  <!-- </div>
   <div class="form-group">
     <mat-form-field>
       <mat-label>data zakończenia:</mat-label><br/>
       <input [(ngModel)]="newTransaction.stopTransaction" [value]="" matInput [matDatepicker]="newTransactionStopTransaction"  placeholder="date">
       <mat-datepicker-toggle  matSuffix [for]="newTransactionStopTransaction"></mat-datepicker-toggle>
       <mat-datepicker #newTransactionStopTransaction></mat-datepicker>
-    </mat-form-field>
+    </mat-form-field> -->
     <!-- <label>data zakończenia:</label>
     <input [(ngModel)]="stopOffer" class="form-control" /> -->
   </div>
@@ -132,7 +141,7 @@
         </table>
       </td>
       <td>
-        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-secondary">edit</button>
+        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edit</button>
         <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-primary">save</button>
       </td>
       <td>

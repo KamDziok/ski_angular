@@ -6,6 +6,7 @@ import { OfferSkiService } from '../service/offer-ski.service';
 import {Transaction} from '../interface/transaction';
 import {User} from '../interface/user';
 import {OfferSki} from '../interface/offer-ski';
+import {FormGroup, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-admin-transaction-list',
@@ -13,6 +14,10 @@ import {OfferSki} from '../interface/offer-ski';
   styleUrls: ['./admin-transaction-list.component.css']
 })
 export class AdminTransactionListComponent implements OnInit, OnDestroy {
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
   offerSkis: OfferSki[] = [];
   offerSkiListLocal: OfferSki[] = [];
   offerSkiLocal: OfferSki = null;
@@ -69,44 +74,44 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
   }
 
   getAllTransaction() {
-    setTimeout(() => {
-      this.transactionService.getAll().subscribe((result: Transaction[]) => {
-        this.transactions = result;
-        this.transactions.forEach(transaction => {
-          this.users.forEach(user => {
-            if (transaction.user.id === user.id) {
-              transaction.user = user;
-            }
-          })
-        });
-        this.disabledEdit = result.map(r => true);
-      }, (error) => {});
-    }, 2000);
-    // this.transactionService.getAll().subscribe((result: Transaction[]) => {
-    //   this.transactions = result;
-    //   this.transactions.forEach(transaction => {
-    //     this.users.forEach(user => {
-    //       if (transaction.user.id === user.id) {
-    //         transaction.user = user;
-    //       }
-    //     })
-    //   });
-    //   // for (const transaction of this.transactions) {
-    //   //   // for (const offerSki of this.offerSkis) {
-    //   //   //   for (const offerSkiInTransaction of transaction.offerSkiList) {
-    //   //   //     if (offerSkiInTransaction.id === offerSki.id) {
-    //   //   //       transaction.offerSkiList.push(offerSki);
-    //   //   //     }
-    //   //   //   }
-    //   //   // }
-    //   //   for (const user of this.users) {
-    //   //     if (transaction.user.id === user.id) {
-    //   //       transaction.user = user;
-    //   //     }
-    //   //   }
-    //   // }
-    //   this.disabledEdit = result.map(r => true);
-    // }, (error) => {});
+    // setTimeout(() => {
+    //   this.transactionService.getAll().subscribe((result: Transaction[]) => {
+    //     this.transactions = result;
+    //     this.transactions.forEach(transaction => {
+    //       this.users.forEach(user => {
+    //         if (transaction.user.id === user.id) {
+    //           transaction.user = user;
+    //         }
+    //       })
+    //     });
+    //     this.disabledEdit = result.map(r => true);
+    //   }, (error) => {});
+    // }, 2000);
+    this.transactionService.getAll().subscribe((result: Transaction[]) => {
+      this.transactions = result;
+      this.transactions.forEach(transaction => {
+        this.users.forEach(user => {
+          if (transaction.user.id === user.id) {
+            transaction.user = user;
+          }
+        })
+      });
+      // for (const transaction of this.transactions) {
+      //   // for (const offerSki of this.offerSkis) {
+      //   //   for (const offerSkiInTransaction of transaction.offerSkiList) {
+      //   //     if (offerSkiInTransaction.id === offerSki.id) {
+      //   //       transaction.offerSkiList.push(offerSki);
+      //   //     }
+      //   //   }
+      //   // }
+      //   for (const user of this.users) {
+      //     if (transaction.user.id === user.id) {
+      //       transaction.user = user;
+      //     }
+      //   }
+      // }
+      this.disabledEdit = result.map(r => true);
+    }, (error) => {});
   }
 
   makeEnabledEdit(id) {
@@ -120,8 +125,10 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
   }
 
   addTransaction() {
-    this.newTransaction.startTransaction = new Date(this.startOffer);
-    this.newTransaction.stopTransaction = new Date(this.stopOffer);
+    // this.newTransaction.startTransaction = new Date(this.startOffer);
+    // this.newTransaction.stopTransaction = new Date(this.stopOffer);
+    this.newTransaction.startTransaction = new Date(this.range.get('start').value);
+    this.newTransaction.stopTransaction = new Date(this.range.get('ebd').value);
     this.newTransaction.offerSkiList = this.offerSkiListLocal;
     this.offerSkiListLocal = [];
     this.newTransaction.prepareTransaction = new Date();
@@ -131,6 +138,7 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
     }, (error) => {
       console.log('Error');
     });
+    this.subscribeDataAdminService.getAllData();
   }
 
   save(id) {

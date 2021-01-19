@@ -160,7 +160,7 @@ export class SubscribeDataAdminService {
     // }, (error) => {}));
   }
 
-  private getAllSki() {
+  protected getAllSki() {
     // this.subscriptions.add(this.skiService.getAll().subscribe((result: Ski[]) => {
     this.skiService.getAll().subscribe((result: Ski[]) => {
       this.setSkis(result);
@@ -176,7 +176,7 @@ export class SubscribeDataAdminService {
     // }, (error) => {}));
   }
 
-  private getAllProducers() {
+  protected getAllProducers() {
     // this.subscriptions.add(this.producerService.getAll().subscribe((result: Producer[]) => {
     this.producerService.getAll().subscribe((result: Producer[]) => {
       this.setProducers(result);

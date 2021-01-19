@@ -27,7 +27,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
   disabledEdit: boolean[] = [];
   startOffer = '';
   stopOffer = '';
-  newOfferSki = {city: '', startOffer: null, stopOffer: null, company: null, priceForDay: null, ski: null};
+  newOfferSki = {city: '', startOffer: null, stopOffer: null, company: null, priceForDay: null, ski: null} as OfferSki;
   constructor(private offerSkiService: OfferSkiService, private subscribeDataCompanyService: SubscribeDataCompanyService,
               private userService: UserService) { }
 
@@ -121,16 +121,19 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
   }
 
   addOfferSki() {
-    this.newOfferSki.startOffer = new Date(this.startOffer);
+    this.newOfferSki.startOffer = new Date(this.newOfferSki.startOffer);
     if (this.stopOffer !== ''){
-      this.newOfferSki.stopOffer = new Date(this.stopOffer);
+      this.newOfferSki.stopOffer = new Date(this.newOfferSki.stopOffer);
     }
+    this.newOfferSki.company = this.user.company;
+    console.log(this.newOfferSki);
     this.offerSkiService.addOfferSki(this.newOfferSki).subscribe((success) => {
       console.log('Sukces');
       this.getAllOfferSki();
     }, (error) => {
       console.log('Error');
     });
+    this.subscribeDataCompanyService.getAllData();
   }
 
   save(id) {
