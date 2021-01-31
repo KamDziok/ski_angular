@@ -1,5 +1,5 @@
-<button (click)="addTransaction()" class="btn btn-outline-success">dodaj</button>
-<label>Wybrane oferty:</label>
+<div class="col-12 mt-3">
+<div *ngIf="transactionList.length>0">
 <table class="table table-striped">
   <thead>
   <tr>
@@ -73,3 +73,14 @@
   </tr>
   </tbody>
 </table>
+<p class="text-right">
+<label class="mr-3">Wybrane oferty:</label>
+<button (click)="addTransaction()" class="btn btn-outline-success">Wypożycz</button>
+</p>
+</div>
+<div *ngIf="transactionList.length<=0">
+  <p class="border-bottom text-center font-size-1-2-em">
+    Brak elementów w koszyku
+  </p>
+</div>
+</div>

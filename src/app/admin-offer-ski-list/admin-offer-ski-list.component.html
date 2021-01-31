@@ -1,54 +1,55 @@
-<div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3">
-  <div class="form-group">
-    <label>miejscowość:</label>
-    <input [(ngModel)]="newOfferSki.city" class="form-control" />
+<div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3 overflow-auto" style="max-height: 75%;">
+  <div>
+    <div class="form-group">
+      <label>miejscowość:</label>
+      <input [(ngModel)]="newOfferSki.city" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>ilość:</label>
+      <input [(ngModel)]="newOfferSki.quantity" class="form-control" />
+    </div>
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>data rozpoczęcia:</mat-label><br/>
+        <input [(ngModel)]="newOfferSki.startOffer" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
+        <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
+        <mat-datepicker #tartOffer></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field>
+        <mat-label>data zakończenia:</mat-label><br/>
+        <input [(ngModel)]="newOfferSki.stopOffer" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
+        <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
+        <mat-datepicker #topOffer></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <label>cena:</label>
+      <p>
+        <input [(ngModel)]="newOfferSki.priceForDay" class="form-control w-75 mr-0 d-inline-block"> zł/dzień
+      </p>
+    </div>
+    <div class="form-group">
+      <label>firma:</label>
+      <select [(ngModel)]="newOfferSki.company" class="form-control">
+        <option [ngValue]="newC" *ngFor="let newC of companies">{{newC.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>narta:</label>
+      <select [(ngModel)]="newOfferSki.ski" class="form-control">
+        <option [ngValue]="newS" *ngFor="let newS of skis">{{newS.producer.name}} {{newS.name}}</option>
+      </select>
+    </div>
+    <button (click)="addOfferSki()" class="btn btn-outline-success">dodaj</button>
   </div>
-  <div class="form-group">
-    <label>ilość:</label>
-    <input [(ngModel)]="newOfferSki.quantity" class="form-control" />
-  </div>
-  <div class="form-group">
-    <mat-form-field>
-      <mat-label>data rozpoczęcia:</mat-label><br/>
-      <input [(ngModel)]="newOfferSki.startOffer" [value]="" matInput [matDatepicker]="tartOffer"  placeholder="date">
-      <mat-datepicker-toggle  matSuffix [for]="tartOffer"></mat-datepicker-toggle>
-      <mat-datepicker #tartOffer></mat-datepicker>
-    </mat-form-field>
-  </div>
-  <div class="form-group">
-    <mat-form-field>
-      <mat-label>data zakończenia:</mat-label><br/>
-      <input [(ngModel)]="newOfferSki.stopOffer" [value]="" matInput [matDatepicker]="topOffer"  placeholder="date">
-      <mat-datepicker-toggle  matSuffix [for]="topOffer"></mat-datepicker-toggle>
-      <mat-datepicker #topOffer></mat-datepicker>
-    </mat-form-field>
-  </div>
-  <div class="form-group">
-    <label>cena:</label>
-    <p>
-      <input [(ngModel)]="newOfferSki.priceForDay" class="form-control w-75 mr-0 d-inline-block"> zł/dzień
-    </p>
-  </div>
-  <div class="form-group">
-    <label>firma:</label>
-    <select [(ngModel)]="newOfferSki.company" class="form-control">
-      <option [ngValue]="c" *ngFor="let c of companies">{{c.name}}</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>narta:</label>
-    <select [(ngModel)]="newOfferSki.ski" class="form-control">
-      <option [ngValue]="s" *ngFor="let s of skis">{{s.producer.name}} {{s.name}}</option>
-    </select>
-  </div>
-  <button (click)="addOfferSki()" class="btn btn-outline-success">dodaj</button>
 </div>
 
-<div class="col-md-12 offset-lg-3 col-lg-9 float-left table-responsive">
-  <table class="table table-striped">
+<div class="col-md-12 offset-lg-3 col-lg-9 float-left table-responsive pb-5">
+  <table class="table table-hover">
     <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">id</th>
       <th scope="col">miejscowość</th>
       <th scope="col">ilość</th>
@@ -60,9 +61,8 @@
       <th></th>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor="let offerSki of offerSkis; index as i">
-      <th scope="row">{{ i + 1 }}</th>
+    <tbody *ngFor="let offerSki of offerSkis; index as i">
+      <tr>
       <th scope="row">{{ offerSki.id }}</th>
       <td>
         <input [(ngModel)]="offerSki.city" [disabled]="disabledEdit[i]" class="form-control">
@@ -106,10 +106,60 @@
       </td>
       <td>
         <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
-        <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+        <div class="mb-1">
+          <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+        </div>
+        <div class="mt-1">
+          <button (click)="makeEnabledEdit(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-warning">anuluj</button>
+        </div>
       </td>
       <td>
         <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
+      </td>
+    </tr>
+    <tr *ngIf="offerSki.pictures.length <= 0">
+      <td colspan="9">
+        <div class="col-12">
+          <div class="col-12 col-lg-1">
+            <input type="file" accept="image/*" value="" (change)="onFileChanged($event)" class="" id="file" [disabled]="disabledEdit[i]">
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="offerSki.pictures.length > 0">
+      <td colspan="9">
+        <div class="col-12 d-none d-lg-block">
+          <div *ngFor="let picture of offerSki.pictures; index as inde" class="col-12 col-lg-2 d-inline-block position-relative mx-2 my-1">
+              <img class="col-12" src="{{picture.addres}}" />
+              <button style="top: 0; right: 0;" (click)="delImg(i, inde)" *ngIf="!disabledEdit[i]"  class="btn btn-danger position-absolute">x</button>
+          </div>
+          <div class="col-12 col-lg-2 d-inline-block mx-2 my-1">
+            <input type="file" accept="image/*" value="" (change)="onFileChanged($event)" class="" id="file" [disabled]="disabledEdit[i]">
+          </div>
+        </div>
+        <div class="col-12 d-block d-lg-none">
+          <div id="carousel{{i}}" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li [attr.data-target]="'#carousel' + i" [attr.data-slide-to]="ind" [ngClass]="{'active': ind==0}" *ngFor="let picture of offerSki.pictures; index as ind"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item" [ngClass]="{'active': in==0}" *ngFor="let picture of offerSki.pictures; index as in">
+                <img class="d-block w-100" src="{{picture.addres}}" />
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carousel{{i}}" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel{{i}}" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-12 d-block d-lg-none">
+          <input type="file" accept="image/*" value="" (change)="onFileChanged($event)" class="mx-auto mt-3" id="file" [disabled]="disabledEdit[i]">
+        </div>
       </td>
     </tr>
     </tbody>

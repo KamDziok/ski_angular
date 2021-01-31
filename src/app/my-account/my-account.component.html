@@ -1,21 +1,56 @@
-<div class="col-12">
-      <div class="col-6 offset-3 d-inline-block border border-dark rounded-bottom shadow">
+<div class="col-12 mt-3">
+      <div class="col-6 offset-3 d-inline-block border border-dark rounded-bottom shadow pt-4">
         <div class="col-12">
-          <p class="col-12 float-left">
-            <label>e-mail: {{user.eMail}}</label>
+          <div class="col-12 border-bottom border-dark bg-green p-0">
+            <h3 class="text-light py-3 pl-3 mb-0">
+              e-mail
+            </h3>
+          </div>
+          <div class="col-12 my-height my-3">
+          <p class="col-12 float-left py-1 pl-3 mb-0">
+            {{user.eMail}}
           </p>
-          <p class="col-12 float-left">
-            <label>imię: {{user.firstName}}</label>
-          </p>
-          <p class="col-12 float-left">
-            <label>nazwisko: {{user.lastName}}</label>
-          </p>
-          <p class="col-12 float-left">
-            <label>uprawnienie: {{permission}}</label>
-          </p>
-          <p class="col-12 float-left" *ngIf="user.permissions === permissions.COMPANY">
-            <label>firma: {{company.name}}</label>
-          </p>
+        </div>
+          <div class="col-12 border-bottom border-dark bg-green p-0">
+            <h3 class="text-light py-3 pl-3 mb-0">
+              imię
+            </h3>
+          </div>
+          <div class="col-12 my-height my-3">
+            <p class="col-12 float-left py-1 pl-3 mb-0">
+              {{user.firstName}}
+            </p>
+          </div>
+          <div class="col-12 border-bottom border-dark bg-green p-0">
+            <h3 class="text-light py-3 pl-3 mb-0">
+              nazwisko
+            </h3>
+          </div>
+          <div class="col-12 my-height my-3">
+            <p class="col-12 float-left py-1 pl-3 mb-0">
+              <label>{{user.lastName}}</label>
+            </p>
+        </div>
+          <div class="col-12 border-bottom border-dark bg-green p-0">
+            <h3 class="text-light py-3 pl-3 mb-0">
+              typ użytkownika
+            </h3>
+          </div>
+          <div class="col-12 my-height my-3">
+            <p class="col-12 float-left py-1 pl-3 mb-0">
+              <label>{{permission}}</label>
+            </p>
+          </div>
+          <div class="col-12 border-bottom border-dark bg-green p-0" *ngIf="user.permissions === permissions.COMPANY">
+            <h3 class="text-light py-3 pl-3 mb-0">
+              firma
+            </h3>
+          </div>
+          <div class="col-12 my-height my-3">
+            <p class="col-12 float-left py-1 pl-3 mb-0" *ngIf="user.permissions === permissions.COMPANY">
+              <label>{{company.name}}</label>
+            </p>
+          </div>
         </div>
       </div>
 </div>

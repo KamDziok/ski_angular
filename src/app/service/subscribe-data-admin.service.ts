@@ -3,7 +3,6 @@ import { Company } from './../interface/company';
 import { Injectable } from '@angular/core';
 import { map } from "rxjs/operators";
 import { OfferSkiService } from '../service/offer-ski.service';
-import { PriceService } from '../service/price.service';
 import { CompanyService } from '../service/company.service';
 import { SkiService } from '../service/ski.service';
 import { UserService } from './user.service';
@@ -32,7 +31,7 @@ export class SubscribeDataAdminService {
   users: boolean = false;
   producers: boolean = false;
 
-  constructor(private priceService: PriceService, private offerSkiService: OfferSkiService, 
+  constructor(private offerSkiService: OfferSkiService, 
               private companyService: CompanyService, private skiService: SkiService,
               private userService: UserService, private producerService: ProducerService) { }
 
@@ -120,10 +119,11 @@ export class SubscribeDataAdminService {
   }
 
   private getAllOfferSki() {
-    // this.subscriptions.add(this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
-    this.offerSkiService.getAll().pipe(map((result: OfferSki[]) => {
+    //this.subscriptions.add(this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
+    //this.offerSkiService.getAll().pipe(map((result: OfferSki[]) => {
+    this.offerSkiService.getAll().subscribe((result: OfferSki[]) => {
       this.setOfferSkis(result);
-    }, (error) => {}));
+    }, (error) => {});
     // }, (error) => {}));
   }
 

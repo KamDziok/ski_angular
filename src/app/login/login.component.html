@@ -3,7 +3,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" [routerLinkActive]="['active']" id="navbarTogglerDemo01">
-    <a class="col-1 navbar-brand" [routerLink]="['/login']">
+    <a class="col-6 col-md-3 col-lg-1 navbar-brand" [routerLink]="['/login']">
       <img class="col-12" src="../../assets/img/logo.png" alt="logo"/>
     </a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -13,13 +13,14 @@
       <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['my-transaction']">Moje wypożyczenia</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <!-- <li class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" [routerLink]="['create-company']">Załóż firmę</a>
-      </li>
+      </li> -->
     </ul>
     <ul class="navbar-nav mr-0 mt-2 mt-lg-0">
       <li class="nav-item mr-1" [routerLinkActive]="['active']">
-        <p class="nav-link" [routerLink]="['my-order']">Koszyk</p>
+        <!-- <p class="nav-link" [routerLink]="['my-order']">Koszyk</p> -->
+        <img [routerLink]="['my-order']" class="col-12" src="../../assets/img/cart-sharp.png" alt="cart-sharp"/>
       </li>
       <li class="nav-item" [routerLinkActive]="['active']">
         <a  class="nav-link" [routerLink]="['/login']">Witaj <b>{{currentUser.firstName}} {{currentUser.lastName}}</b>!</a>
@@ -32,7 +33,5 @@
 </nav>
 
 <div class="container-fluid">
-  <div class="col-12 px-lg-1 px-xl-3 mt-5 pt-5">
     <router-outlet></router-outlet>
-  </div>
 </div>

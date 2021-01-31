@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-green ">
+<nav class="navbar navbar-expand-lg navbar-dark bg-green mb-3">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" [routerLinkActive]="['active']" id="navbarTogglerDemo01">
-    <a class="col-1 navbar-brand" [routerLink]="['/admin']">
+    <a class="col-6 col-md-3 col-lg-1 navbar-brand" [routerLink]="['/admin']">
       <img class="col-12" src="../../assets/img/logo.png" alt="logo"/>
     </a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -38,8 +38,8 @@
 </nav>
 
 <div class="container-fluid">
-  <div class="col-12 px-lg-1 px-xl-3 mt-5 pt-5">
+  <!-- <div class="col-12 px-lg-1 px-xl-3 mt-5 pt-5"> -->
     <router-outlet></router-outlet>
-  </div>
+  <!-- </div> -->
 </div>
 

@@ -21,9 +21,9 @@ export class OfferSkiService {
     return this.httpClient.get(this.url + '/company/' + company.id + '/active');
   }
 
-  getAllFromCity(city){
-    return this.httpClient.get( (this.url + '/' + city));
-  }
+  // getAllFromCity(city){
+  //   return this.httpClient.get( (this.url + '/' + city));
+  // }
 
   getAllByData(begin, end){
     return this.httpClient.get( (this.url + '/start-date/' + begin + '/stop-date/' + end));
@@ -40,6 +40,14 @@ export class OfferSkiService {
 
   updateOfferSki(offerSki) {
     return this.httpClient.put(this.url, offerSki);
+  }
+
+  addImage(offerSki, body){
+    return this.httpClient.post(this.url + "/" + offerSki.id, body);
+  }
+
+  prepareToAddOfferSki(offerSki) {
+    return this.httpClient.post(this.url + "/prepare", offerSki);
   }
 
   addOfferSki(offerSki) {

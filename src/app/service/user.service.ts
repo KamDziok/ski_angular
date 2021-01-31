@@ -37,10 +37,10 @@ export class UserService {
           this.setPermissions(true, false, false, false);
           break;
         }
-        case Permissions.SUPPORT:
-          // this.support = true;
-          this.setPermissions(false, true, false, false);
-          break;
+        // case Permissions.SUPPORT:
+        //   // this.support = true;
+        //   this.setPermissions(false, true, false, false);
+        //   break;
         case Permissions.COMPANY:
           // this.company = true;
           this.setPermissions(false, false, true, false);
@@ -55,7 +55,7 @@ export class UserService {
 
   setPermissions (admin: boolean, support: boolean, company: boolean, user: boolean) {
     localStorage.setItem(LocalStorageKey.ADMIN, JSON.stringify(admin));
-    localStorage.setItem(LocalStorageKey.SUPPORT, JSON.stringify(support));
+    // localStorage.setItem(LocalStorageKey.SUPPORT, JSON.stringify(support));
     localStorage.setItem(LocalStorageKey.COMPANY, JSON.stringify(company));
     localStorage.setItem(LocalStorageKey.USER, JSON.stringify(user));
   }
@@ -64,9 +64,9 @@ export class UserService {
     return JSON.parse(localStorage.getItem(LocalStorageKey.ADMIN));
   }
 
-  getPermissionSupport(): boolean {
-    return JSON.parse(localStorage.getItem(LocalStorageKey.SUPPORT));
-  }
+  // getPermissionSupport(): boolean {
+  //   return JSON.parse(localStorage.getItem(LocalStorageKey.SUPPORT));
+  // }
 
   getPermissionCompany(): boolean {
     return JSON.parse(localStorage.getItem(LocalStorageKey.COMPANY));

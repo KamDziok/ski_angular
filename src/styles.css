@@ -10,6 +10,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   position: fixed!important;
 }
 
+.img-in-div{
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.profil-img-size{
+  width: 125px!important;
+  height: 125px!important;
+}
+
 @media only screen and (max-width: 991px) {
   .position-fixed-lg{
     position: static!important;

@@ -11,10 +11,19 @@ import {Producer} from '../interface/producer';
 export class AdminProducerListComponent implements OnInit {
   producers: Producer[] = [];
   disabledEdit: boolean[] = [];
-  newProducer = {name: ''};
+  newProducer = {} as Producer;
   constructor(private producerService: ProducerService, private subscribeDataAdminService: SubscribeDataAdminService) { }
 
   ngOnInit(): void {
+    this.getAllProducers();
+  }
+
+  clear(){
+    this.newProducer = {} as Producer;
+  }
+
+  refresh(){
+    this.clear();
     this.getAllProducers();
   }
 
@@ -26,13 +35,16 @@ export class AdminProducerListComponent implements OnInit {
   }
 
   makeEnabledEdit(id) {
-    this.disabledEdit[id] = false;
+    this.disabledEdit[id] = !this.disabledEdit[id];
+    if(this.disabledEdit[id] == true){
+      this.getAllProducers();
+    }
   }
 
   addPrice() {
     this.producerService.addProducer(this.newProducer).subscribe((success) => {
       console.log('Sukces');
-      this.getAllProducers();
+      this.refresh();
     }, (error) => {
       console.log('Error');
     });
@@ -43,7 +55,7 @@ export class AdminProducerListComponent implements OnInit {
     this.disabledEdit[id] = true;
     this.producerService.updateProducer(this.producers[id]).subscribe((success) => {
       console.log('Sukces');
-      this.getAllProducers();
+      this.refresh();
     }, (error => {
       console.log('Error');
     }));
@@ -51,6 +63,7 @@ export class AdminProducerListComponent implements OnInit {
   delete(id) {
     this.producerService.delete(this.producers[id]).subscribe((success) => {
         this.producers.splice(id, 1);
+        this.refresh();
       },
       (error) => {
         console.log('Error');

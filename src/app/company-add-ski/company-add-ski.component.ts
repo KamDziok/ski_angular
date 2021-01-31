@@ -16,10 +16,20 @@ export class CompanyAddSkiComponent implements OnInit, OnDestroy {
   skis: Ski[] = [];
   producers: Producer[] = [];
   disabledEdit: boolean[] = [];
-  newSki = {name: '', lengthSki: 0.0, type: '', producer: null};
+  newSki = {} as Ski;
   constructor(private subscribeDataCompanyService: SubscribeDataCompanyService, private skiService: SkiService) { }
 
   ngOnInit(): void {
+    this.getAllSki();
+  }
+
+  clear(){
+    this.newSki = {} as Ski;
+  }
+
+  refresh(){
+    this.clear();
+    this.getAllProducers();
     this.getAllSki();
   }
 
@@ -49,7 +59,7 @@ export class CompanyAddSkiComponent implements OnInit, OnDestroy {
   addSki() {
     this.skiService.addSki(this.newSki).subscribe((success) => {
       console.log('Sukces');
-      this.getAllSki();
+      this.refresh();
     }, (error) => {
       console.log('Error');
     });
@@ -60,7 +70,7 @@ export class CompanyAddSkiComponent implements OnInit, OnDestroy {
     this.disabledEdit[id] = true;
     this.skiService.updateSki(this.skis[id]).subscribe((success) => {
       console.log('Sukces');
-      this.getAllSki();
+      this.refresh();
     }, (error => {
       console.log('Error');
     }));
@@ -68,6 +78,7 @@ export class CompanyAddSkiComponent implements OnInit, OnDestroy {
   delete(id) {
     this.skiService.delete(this.skis[id]).subscribe((success) => {
         this.skis.splice(id, 1);
+        this.refresh();
       },
       (error) => {
         console.log('Error');

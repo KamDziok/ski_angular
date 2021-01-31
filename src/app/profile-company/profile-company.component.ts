@@ -1,3 +1,4 @@
+import { Picture } from './../interface/picture';
 import { OfferSkiService } from './../service/offer-ski.service';
 import { OfferSki } from './../interface/offer-ski';
 import { UserService } from './../service/user.service';
@@ -12,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-company.component.css']
 })
 export class ProfileCompanyComponent implements OnInit {
+  selectedFile;
   companyId = 0;
   company: Company;
   userCompany: boolean = false;
@@ -63,6 +65,14 @@ export class ProfileCompanyComponent implements OnInit {
     }
   }
 
+  onFileChanged(event){
+    this.selectedFile = event.target.files[0];
+  }
+
+  delImg(){
+    this.company.profilePicture=null;
+  }
+
   isNotification(){
     if(this.userDefault){
       this.notification = !this.notification;
@@ -82,13 +92,39 @@ export class ProfileCompanyComponent implements OnInit {
     }, (error) => {});
   }
 
+  uploadImg(){
+    let newImg: Picture = null;
+    const file = this.selectedFile;
+    const uploadImageData = new FormData();
+    if(this.selectedFile !== undefined){
+      uploadImageData.append('imageFile', file, file.name);
+      this.companyService.addImage(this.company, uploadImageData).subscribe((success: Picture) =>{
+        newImg = success;
+        this.company.profilePicture = newImg;
+        this.companyService.updateCompany(this.company).subscribe((success) => {
+          console.log('Sukces');
+          this.isEdit();
+        this.getCompanyById(this.companyId);
+        }, (error => {
+          console.log('Error');
+        }));
+      }, (error) => {
+        console.log('Error');
+      })
+    }
+  }
+
   saveCompany() {
-    this.companyService.updateCompany(this.company).subscribe((success) => {
-      this.isEdit();
-      this.getCompanyById(this.companyId);
-    }, (error => {
-      console.log('Error');
-    }));
+    if(this.selectedFile!==undefined){
+      this.uploadImg();
+    }else{
+      this.companyService.updateCompany(this.company).subscribe((success) => {
+        this.isEdit();
+        this.getCompanyById(this.companyId);
+      }, (error => {
+        console.log('Error');
+      }));
+    }
   }
 
 }

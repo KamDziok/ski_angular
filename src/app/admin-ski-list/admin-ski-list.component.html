@@ -1,4 +1,4 @@
-<div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3">
+<div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3 overflow-auto" style="max-height: 75%;">
   <div class="form-group">
     <label>nazwa:</label>
     <input [(ngModel)]="newSki.name" class="form-control" />
@@ -21,10 +21,9 @@
 </div>
 
 <div class="col-md-12 offset-lg-3 col-lg-9 float-left table-responsive">
-  <table class="table table-striped">
+  <table class="table table-hover">
     <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">id</th>
       <th scope="col">nazwa</th>
       <th scope="col">długość</th>
@@ -36,7 +35,6 @@
     </thead>
     <tbody>
     <tr *ngFor="let ski of skis; index as i">
-      <th scope="row">{{ i + 1 }}</th>
       <th scope="row">{{ ski.id }}</th>
       <td>
         <input [(ngModel)]="ski.name" [disabled]="disabledEdit[i]" class="form-control">
@@ -56,7 +54,12 @@
       </td>
       <td>
         <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
-        <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+        <div class="mb-1">
+          <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+        </div>
+        <div class="mt-1">
+          <button (click)="makeEnabledEdit(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-warning">anuluj</button>
+        </div>
       </td>
       <td>
         <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>

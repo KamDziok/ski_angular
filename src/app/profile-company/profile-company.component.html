@@ -1,6 +1,10 @@
-<div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3">
+<div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3 mt-3">
   <div class="form-group">
-    <img src="../../assets/img/logo.png" class="rounded-circle img-thumbnail profil-img" alt="profile-img"/>
+    <img src="../../assets/img/logo.png" class="rounded-circle img-thumbnail profil-img" alt="profile-img" *ngIf="company.profilePicture==null || company.profilePicture==undefined"/>
+    <input type="file" accept="image/*" value="" (change)="onFileChanged($event)" class="" id="file" *ngIf="company.profilePicture==null && edit">
+    <div class="position-relative rounded-circle img-thumbnail profil-img img-in-div profil-img-size" [style]="{'background-image': 'url(' + company.profilePicture.addres + ')'}" *ngIf="company.profilePicture!=null">
+      <button style="top: 0; right: 0;" (click)="delImg()" *ngIf="edit"  class="btn btn-danger position-absolute">x</button>
+    </div>
     <label *ngIf="!edit">{{company.name}}</label>
     <input type="text" *ngIf="edit" [(ngModel)]="company.name" class="form-control"/>
   </div>
@@ -17,23 +21,61 @@
 </div>
 
 <div class="col-md-12 offset-lg-3 col-lg-9 float-left">
-  <div class="col-12 col-xl-6 border border-dark rounded-bottom shadow float-left p-3" *ngFor="let os of offerSkisCompany">
-    <div class="col-6 float-left">
-      <img src="../../assets/img/logo.png" class="img-thumbnail" alt="offer-ski-img"/>
+  <div class="col-12 col-xl-6 border border-dark rounded-bottom shadow float-left p-3 mt-3" style="min-height: 400px; max-height: 400px;" *ngFor="let os of offerSkisCompany; index as i">
+    <div class="col-12 border-bottom border-dark bg-green mb-5 p-0">
+      <h3 class="text-light py-3 pl-3 mb-0">
+        {{os.ski.producer.name}} - {{os.ski.name}}
+      </h3>
     </div>
     <div class="col-6 float-left">
-      <p class="col-12 ">
-        <label>miasto: {{os.city}}</label>
-      </p>
-      <p class="col-12 ">
-        <label>narty: {{os.ski.producer.name}} {{os.ski.name}}</label>
-      </p>
-      <p class="col-12">
-        <label>długość: {{os.ski.lengthSki}}</label>
-      </p>
-      <p class="col-12">
-        <label>cena: {{os.priceForDay | currency:'zł/dzień':'symbol':'1.2-2':'fr'}}</label>
-      </p>
+      <img src="../../assets/img/logo.png" class="img-thumbnail" alt="offer-ski-img" *ngIf="os.pictures.length<=0"/>
+      <img src="{{os.pictures[0].addres}}" class="img-thumbnail" alt="offer-ski-img" *ngIf="os.pictures.length==1"/>
+      <div id="carousel{{i}}" class="carousel slide" data-ride="carousel" *ngIf="os.pictures.length>1">
+        <ol class="carousel-indicators">
+          <li [attr.data-target]="'#carousel' + i" [attr.data-slide-to]="ind" [ngClass]="{'active': ind==0}" *ngFor="let picture of os.pictures; index as ind"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item" [ngClass]="{'active': in==0}" *ngFor="let picture of os.pictures; index as in">
+            <img class="d-block w-100" src="{{picture.addres}}" />
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carousel{{i}}" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel{{i}}" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+    <div class="col-6 float-left">
+      <div class="col-12 ">
+        <div class="col-5 p-0 m-0 float-left border-bottom">
+          <p>
+            miasto:
+          </p>
+        </div>
+        <div class="col-7 p-0 m-0 float-left border-bottom">
+          <p> {{os.city}}</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="col-5 p-0 m-0 float-left border-bottom">
+          <p>długość:</p>
+        </div>
+        <div class="col-7 p-0 m-0 float-left border-bottom">
+          <p>{{os.ski.lengthSki}} cm</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="col-5 p-0 m-0 float-left border-bottom">
+          <p>cena:</p>
+        </div>
+        <div class="col-7 p-0 m-0 float-left border-bottom">
+          <p>{{os.priceForDay | currency:'zł/dzień':'symbol':'1.2-2':'fr'}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

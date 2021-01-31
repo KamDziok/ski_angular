@@ -26,13 +26,25 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
   disabledEdit: boolean[] = [];
   startOffer = '';
   stopOffer = '';
-  newTransaction = {prepareTransaction: null, startTransaction: null, stopTransaction: null, user: null, offerSkiList: []};
+  offerSkiLocalEdit: OfferSki = null;
+  newTransaction = {} as Transaction;
   constructor(private transactionService: TransactionService, private subscribeDataAdminService: SubscribeDataAdminService
               ) { }
 
   ngOnInit(): void {
     this.users = this.getAllUser();
     this.offerSkis = this.getAllOfferSki();
+    this.getAllTransaction();
+  }
+
+  clear(){
+    this.newTransaction = {} as Transaction;
+  }
+
+  refresh(){
+    this.clear();
+    this.getAllUser();
+    this.getAllOfferSki();
     this.getAllTransaction();
   }
 
@@ -59,7 +71,12 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
   }
 
   makeEnabledEdit(id) {
-    this.disabledEdit[id] = false;
+    this.disabledEdit[id] = !this.disabledEdit[id];
+    if(this.disabledEdit[id] == true){
+      this.getAllUser();
+      this.getAllOfferSki();
+      this.getAllTransaction();
+    }
   }
 
   addOfferSkisLocal(){
@@ -76,7 +93,7 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
     this.newTransaction.prepareTransaction = new Date();
     this.transactionService.addTransaction(this.newTransaction).subscribe((success) => {
       console.log('Sukces');
-      this.getAllTransaction();
+      this.refresh();
     }, (error) => {
       console.log('Error');
     });
@@ -89,7 +106,7 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
     this.disabledEdit[id] = true;
     this.transactionService.updateTransaction(this.transactions[id]).subscribe((success) => {
       console.log('Sukces');
-      this.getAllTransaction();
+      this.refresh();
     }, (error => {
       console.log('Error');
     }));
@@ -97,10 +114,17 @@ export class AdminTransactionListComponent implements OnInit, OnDestroy {
   delete(id) {
     this.transactionService.delete(this.transactions[id]).subscribe((success) => {
         this.transactions.splice(id, 1);
+        this.refresh();
       },
       (error) => {
         console.log('Error');
       });
+  }
+  deleteOfferSki(idTransaction, idOfferSki) {
+    this.transactions[idTransaction].offerSkiList.splice(idOfferSki, 1);
+  }
+  addToTransaction(idTransaction){
+    this.transactions[idTransaction].offerSkiList.push(this.offerSkiLocalEdit);
   }
   ngOnDestroy() {
   }

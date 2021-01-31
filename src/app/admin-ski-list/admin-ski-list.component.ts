@@ -16,10 +16,20 @@ export class AdminSkiListComponent implements OnInit, OnDestroy {
   skis: Ski[] = [];
   producers: Producer[] = [];
   disabledEdit: boolean[] = [];
-  newSki = {name: '', lengthSki: 0.0, type: '', producer: null};
+  newSki = {} as Ski;
   constructor(private subscribeDataAdminService: SubscribeDataAdminService, private skiService: SkiService) { }
 
   ngOnInit(): void {
+    this.getAllProducers();
+    this.getAllSki();
+  }
+
+  clear(){
+    this.newSki = {} as Ski;
+  }
+
+  refresh(){
+    this.clear();
     this.getAllProducers();
     this.getAllSki();
   }
@@ -43,13 +53,17 @@ export class AdminSkiListComponent implements OnInit, OnDestroy {
   }
 
   makeEnabledEdit(id) {
-    this.disabledEdit[id] = false;
+    this.disabledEdit[id] = !this.disabledEdit[id];
+    if(this.disabledEdit[id] == true){
+      this.getAllProducers();
+      this.getAllSki();
+    }
   }
 
   addSki() {
     this.skiService.addSki(this.newSki).subscribe((success) => {
       console.log('Sukces');
-      this.getAllSki();
+      this.refresh();
     }, (error) => {
       console.log('Error');
     });
@@ -60,7 +74,7 @@ export class AdminSkiListComponent implements OnInit, OnDestroy {
     this.disabledEdit[id] = true;
     this.skiService.updateSki(this.skis[id]).subscribe((success) => {
       console.log('Sukces');
-      this.getAllSki();
+      this.refresh();
     }, (error => {
       console.log('Error');
     }));
@@ -68,6 +82,7 @@ export class AdminSkiListComponent implements OnInit, OnDestroy {
   delete(id) {
     this.skiService.delete(this.skis[id]).subscribe((success) => {
         this.skis.splice(id, 1);
+        this.refresh();
       },
       (error) => {
         console.log('Error');

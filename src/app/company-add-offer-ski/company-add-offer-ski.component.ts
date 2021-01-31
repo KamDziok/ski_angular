@@ -5,7 +5,6 @@ import { Company } from './../interface/company';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OfferSkiService } from '../service/offer-ski.service';
-import { PriceService } from '../service/price.service';
 import { CompanyService } from '../service/company.service';
 import { SkiService } from '../service/ski.service';
 import {UserService} from '../service/user.service';
@@ -25,12 +24,23 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
   disabledEdit: boolean[] = [];
   startOffer = '';
   stopOffer = '';
-  newOfferSki = {city: '', startOffer: null, stopOffer: null, company: null, priceForDay: null, ski: null} as OfferSki;
+  newOfferSki = {} as OfferSki;
   constructor(private offerSkiService: OfferSkiService, private subscribeDataCompanyService: SubscribeDataCompanyService,
               private userService: UserService) { }
 
   ngOnInit(): void {
     this.user = this.userService.getCurrentUser();
+    this.getAllOfferSki();
+  }
+
+  clear(){
+    this.newOfferSki = {} as OfferSki;
+  }
+
+  refresh(){
+    this.clear();
+    this.getAllCompany();
+    this.getAllSki();
     this.getAllOfferSki();
   }
 
@@ -60,6 +70,9 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
 
   makeEnabledEdit(id) {
     this.disabledEdit[id] = false;
+    if(this.disabledEdit[id]==true){
+      this.getAllOfferSki();
+    }
   }
 
   addOfferSki() {
@@ -71,7 +84,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
     console.log(this.newOfferSki);
     this.offerSkiService.addOfferSki(this.newOfferSki).subscribe((success) => {
       console.log('Sukces');
-      this.getAllOfferSki();
+      this.refresh();
     }, (error) => {
       console.log('Error');
     });
@@ -89,7 +102,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
     this.disabledEdit[id] = true;
     this.offerSkiService.updateOfferSki(this.offerSkis[id]).subscribe((success) => {
       console.log('Sukces');
-      // this.getAllPrices();
+      this.refresh();
     }, (error => {
       console.log('Error');
     }));
@@ -97,6 +110,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
   delete(id) {
     this.offerSkiService.delete(this.offerSkis[id]).subscribe((success) => {
         this.offerSkis.splice(id, 1);
+        this.refresh();
       },
       (error) => {
         console.log('Error');

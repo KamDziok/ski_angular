@@ -27,4 +27,8 @@ export class CompanyService {
   addCompany(company) {
     return this.httpClient.post(this.url, company);
   }
+
+  addImage(company, body){
+    return this.httpClient.post(this.url + "/" + company.id, body);
+  }
 }

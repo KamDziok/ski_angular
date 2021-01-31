@@ -1,3 +1,4 @@
+import { User } from './../interface/user';
 import { SubscribeDataAdminService } from './../service/subscribe-data-admin.service';
 import { Company } from './../interface/company';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -6,7 +7,6 @@ import { Permissions } from '../static/permissions';
 import { UserService } from '../service/user.service';
 import { CompanyService } from '../service/company.service';
 import { PermissionList } from '../static/permission-list';
-import {User} from '../interface/user';
 
 @Component({
   selector: 'app-admin-user-list',
@@ -21,11 +21,21 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   disabledEdit: boolean[] = [];
   disabledAddCompany = true;
   disabledEditCompany = true;
-  newUser = {firstName: '', lastName: '', eMail: '', password: '', permissions: Permissions.USER, company: null};
+  newUser = {} as User;
   constructor(private userService: UserService, private subscribeDataAdminService: SubscribeDataAdminService
     ) { }
 
   ngOnInit(): void {
+    this.getAllCompanies();
+    this.getAllUsers();
+  }
+
+  clear(){
+    this.newUser = {} as User;
+  }
+
+  refresh(){
+    this.clear();
     this.getAllCompanies();
     this.getAllUsers();
   }
@@ -52,7 +62,11 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   }
 
   makeEnabledEdit(id) {
-    this.disabledEdit[id] = false;
+    this.disabledEdit[id] = !this.disabledEdit[id];
+    if(this.disabledEdit[id] == true){
+      this.getAllCompanies();
+      this.getAllUsers();
+    }
   }
 
   makeEnabledAddCompany(permissions){
@@ -86,7 +100,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
     }
     this.userService.addUser(this.newUser).subscribe((success) => {
       console.log('Sukces');
-      this.getAllUsers();
+      this.refresh();
     }, (error) => {
       console.log('Error');
     });
@@ -97,7 +111,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
     this.disabledEdit[id] = true;
     this.userService.updateUser(this.users[id]).subscribe((success) => {
       console.log('Sukces');
-      this.getAllUsers();
+      this.refresh();
     }, (error => {
       console.log('Error');
     }));
@@ -105,6 +119,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   delete(id) {
     this.userService.delete(this.users[id]).subscribe((success) => {
         this.users.splice(id, 1);
+        this.refresh();
       },
       (error) => {
         console.log('Error');

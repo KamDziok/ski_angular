@@ -1,4 +1,6 @@
-  <div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3">
+<!-- <div class="container-fluid mx-0">
+<div class="col-12 mt-3"> -->
+  <div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3 mt-3">
     <div class="form-group mt-3">
       <p class="col-12 float-left">
         <label>misato:</label>
@@ -21,35 +23,92 @@
     <button (click)="searchOfferSki()" class="btn btn-outline-success">szukaj</button>
   </div>
     <div class="col-md-12 offset-lg-3 col-lg-9 float-left">
-      <div class="col-11 col-xl-6 h border border-dark rounded-bottom shadow float-left p-3 mb-2" *ngFor="let os of offerSkis; index as i">
-        <div class="col-6 float-left">
-          <img src="../../assets/img/logo.png" class="img-thumbnail" alt="offer-ski-img"/>
-        </div>
-        <div class="col-6 float-left">
-          <p class="col-12">
-            <label>firma:
-               <a *ngIf="!isUserLogin" [routerLink]="['/profile-company/' + os.company.id]">{{os.company.name}}</a>
-               <a *ngIf="isUserLogin" [routerLink]="['/login/profile-company/' + os.company.id]">{{os.company.name}}</a>
-            </label>
-          </p>
-          <p class="col-12 ">
-            <label>miasto: {{os.city}}</label>
-          </p>
-          <p class="col-12 ">
-            <label>narty: {{os.ski.producer.name}} {{os.ski.name}}</label>
-          </p>
-          <p class="col-12">
-            <label>długość: {{os.ski.lengthSki}}</label>
-          </p>
-          <p class="col-12 float-left">
-            <label>dostępnych: {{os.quantity}}</label>
-          </p>
-          <p class="col-12">
-            <label>cena: {{sumPriceOfferSki(range.get('start').value, range.get('end').value, os) | currency:'zł':'symbol':'1.2-2':'fr'}}</label>
-          </p>
-          <p class="col-12 float-left" *ngIf="isUserLogin">
-            <button (click)="addToBasket(i)" class="btn btn-outline-success">wypożycz</button>
-          </p>
+      <div *ngIf="offerSkis.length > 0">
+        <div class="col-12 col-xl-6 h border border-dark rounded-bottom shadow float-left p-3 mb-2 mt-3" style="min-height: 420px; max-height: 420px;" *ngFor="let os of offerSkis; index as i" [class]="{'d-none':os.quantity===0}">
+          <div class="col-12 border-bottom border-dark bg-green mb-5 p-0">
+            <h3 class="text-light py-3 pl-3 mb-0">
+              {{os.ski.producer.name}} - {{os.ski.name}}
+            </h3>
+          </div>
+          <div class="col-6 float-left">
+            <img src="../../assets/img/logo.png" class="img-thumbnail" alt="offer-ski-img" *ngIf="os.pictures.length<=0"/>
+            <img src="{{os.pictures[0].addres}}" class="img-thumbnail" alt="offer-ski-img" *ngIf="os.pictures.length==1"/>
+            <div id="carousel{{i}}" class="carousel slide" data-ride="carousel" *ngIf="os.pictures.length>1">
+              <ol class="carousel-indicators">
+                <li [attr.data-target]="'#carousel' + i" [attr.data-slide-to]="ind" [ngClass]="{'active': ind==0}" *ngFor="let picture of os.pictures; index as ind"></li>
+              </ol>
+              <div class="carousel-inner">
+                <div class="carousel-item" [ngClass]="{'active': in==0}" *ngFor="let picture of os.pictures; index as in">
+                  <img class="d-block w-100" src="{{picture.addres}}" />
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carousel{{i}}" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carousel{{i}}" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-6 float-left">
+            <div class="col-12">
+              <div class="col-5 p-0 m-0 float-left border-bottom">
+                <p>firma:</p>
+              </div>
+              <div class="col-7 p-0 m-0 float-left border-bottom">
+                <p>
+                <a *ngIf="!isUserLogin" [routerLink]="['/profile-company/' + os.company.id]">{{os.company.name}}</a>
+                <a *ngIf="isUserLogin" [routerLink]="['/login/profile-company/' + os.company.id]">{{os.company.name}}</a>
+                </p>
+              </div>
+            </div>
+            <div class="col-12 ">
+              <div class="col-5 p-0 m-0 float-left border-bottom">
+                <p>
+                  miasto:
+                </p>
+              </div>
+              <div class="col-7 p-0 m-0 float-left border-bottom">
+                <p> {{os.city}}</p>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="col-5 p-0 m-0 float-left border-bottom">
+                <p>długość:</p>
+              </div>
+              <div class="col-7 p-0 m-0 float-left border-bottom">
+                <p>{{os.ski.lengthSki}} cm</p>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="col-5 p-0 m-0 float-left border-bottom">
+                <p>dostępnych:</p>
+              </div>
+              <div class="col-7 p-0 m-0 float-left border-bottom">
+                <p>{{os.quantity}} szt.</p>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="col-5 p-0 m-0 float-left border-bottom">
+                <p>cena:</p>
+              </div>
+              <div class="col-7 p-0 m-0 float-left border-bottom">
+                <p>{{sumPriceOfferSki(range.get('start').value, range.get('end').value, os) | currency:'zł':'symbol':'1.2-2':'fr'}}</p>
+              </div>
+            </div>
+            <p class="col-12 float-left" *ngIf="isUserLogin">
+              <button (click)="addToBasket(i)" class="btn btn-outline-success">wypożycz</button>
+            </p>
+          </div>
         </div>
       </div>
+      <div *ngIf="offerSkis.length<=0">
+        <p class="border-bottom text-center font-size-1-2-em">
+          Brak wyników wyszukiwania
+        </p>
+      </div>
     </div>
+  <!-- </div>
+</div> -->

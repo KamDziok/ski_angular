@@ -1,4 +1,5 @@
-<div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3">
+<div class="col-12 ">
+<div class="col-md-12 col-lg-3 float-left position-fixed-lg border border-dark rounded-bottom shadow py-3 overflow-auto" style="max-height: 75%;">
   <div class="form-group">
     <mat-form-field>
       <mat-label>data zawarcia transakcji:</mat-label><br/>
@@ -51,10 +52,9 @@
 </div>
 
 <div class="col-md-12 offset-lg-3 col-lg-9 float-left table-responsive">
-  <table class="table table-striped">
+  <table class="table table-hover">
     <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">id</th>
       <th scope="col">data zawarcia transakcji</th>
       <th scope="col">data rozpoczęcia /<br /> data zakończenia</th>
@@ -66,7 +66,6 @@
     </thead>
     <tbody>
     <tr *ngFor="let transaction of transactions; index as i">
-      <th scope="row">{{ i + 1 }}</th>
       <th scope="row">{{ transaction.id }}</th>
       <td>
         <mat-form-field>
@@ -107,18 +106,37 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let o of transaction.offerSkiList; index as i">
-            <th scope="row">{{ i + 1 }}</th>
+          <tr *ngFor="let o of transaction.offerSkiList; index as ind">
+            <th scope="row">{{ ind + 1 }}</th>
             <td>
-              <label>{{o.ski.producer.name}} {{o.ski.name}} {{o.ski.lengthSki}}cm</label>
+              <label>{{o.ski.producer.name}} {{o.ski.name}} <br /> {{o.ski.lengthSki}}cm</label>
+            </td>
+            <td *ngIf="!disabledEdit[i]">
+              <button (click)="deleteOfferSki(i, ind)" [disabled]="!disabledEdit[ind]" class="btn btn-outline-danger">usuń</button>
+            </td>
+          </tr>
+          <tr *ngIf="!disabledEdit[i]">
+            <th></th>
+            <td>
+              <select [(ngModel)]="offerSkiLocalEdit" class="form-control">
+                <option [ngValue]="os" *ngFor="let os of offerSkis">{{os.ski.producer.name}} {{os.ski.name}} {{os.ski.lengthSki}}cm</option>
+              </select>
+            </td>
+            <td>
+              <button (click)="addToTransaction(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
             </td>
           </tr>
           </tbody>
         </table>
       </td>
       <td>
-        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edit</button>
-        <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-primary">save</button>
+        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
+        <div class="mb-1">
+          <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+        </div>
+        <div class="mt-1">
+          <button (click)="makeEnabledEdit(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-warning">anuluj</button>
+        </div>
       </td>
       <td>
         <button (click)="delete(i)" [disabled]="!disabledEdit[i]" class="btn btn-outline-danger">usuń</button>
@@ -126,4 +144,5 @@
     </tr>
     </tbody>
   </table>
+</div>
 </div>

@@ -45,7 +45,7 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
   offerSki: OfferSki;
   startOffer: Date;
   stopOffer: Date;
-  city = '';
+  city = "";
   isUserLogin = false;
   currentUser: User = null;
   constructor(private offerSkiService: OfferSkiService, private companyService: CompanyService,
@@ -104,18 +104,18 @@ export class SerchOfferSkiComponent implements OnInit, OnDestroy {
     }, (error) => {}));
   }
 
-  getAllOfferSkiByCity(city) {
-      this.offerSkiService.getAllFromCity(city).
-        subscribe((result: OfferSki[]) => {
-          this.offerSkis = result;
-          if (this.offerSkis.length > 0){
-            this.searchOfferSkis = true;
-          } else {
-            this.searchOfferSkis = false;
-          }
-        }, (error) => {
-        });
-  }
+  // getAllOfferSkiByCity(city) {
+  //     this.offerSkiService.getAllFromCity(city).
+  //       subscribe((result: OfferSki[]) => {
+  //         this.offerSkis = result;
+  //         if (this.offerSkis.length > 0){
+  //           this.searchOfferSkis = true;
+  //         } else {
+  //           this.searchOfferSkis = false;
+  //         }
+  //       }, (error) => {
+  //       });
+  // }
 
   getAllOfferSkiByDate(begin, end) {
     this.offerSkiService.getAllByData(begin, end)
