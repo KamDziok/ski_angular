@@ -10,14 +10,12 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">id</th>
       <th scope="col">nazwa producenta</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let producer of producers; index as i">
-      <th scope="row">{{ i + 1 }}</th>
       <th scope="row">{{ producer.id }}</th>
       <td>
         <input [(ngModel)]="producer.name" [disabled]="disabledEdit[i]" class="form-control">

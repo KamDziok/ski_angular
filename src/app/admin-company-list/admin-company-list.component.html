@@ -22,7 +22,7 @@
     <thead>
     <tr >
       <th scope="col">id</th>
-      <th scope="col">nazwa</th>
+      <th scope="col" style="max-width: 150px;">nazwa</th>
       <th scope="col">aktywna</th>
       <th scope="col">opis</th>
       <th scope="col">zdjęcie profilowe</th>
@@ -33,8 +33,8 @@
     <tbody>
       <tr *ngFor="let company of companies; index as i">
         <th scope="row">{{company.id}}</th>
-        <td>
-          <input [(ngModel)]="company.name" [disabled]="disabledEdit[i]" class="form-control">
+        <td style="max-width: 150px;" class="float-left">
+          <input [(ngModel)]="company.name" [disabled]="disabledEdit[i]" class="form-control" >
         </td>
         <td>
           <div class="form-group">
@@ -48,10 +48,10 @@
           <textarea [(ngModel)]="company.description" [disabled]="disabledEdit[i]" class="form-control"></textarea>
         </td>
         <td>
-          <div class="form-group" >
+          <div class="form-group float-left" style="max-width: 150px;">
             <div class="col-xl-1" *ngIf="company.profilePicture!=null; then thenBlock else elseBlock"></div>
             <ng-template #thenBlock>
-              <div >
+              <div>
                 <div class="position-relative rounded-circle img-thumbnail profil-img img-in-div profil-img-size" [style]="{'background-image': 'url(' + company.profilePicture.addres + ')'}" >
                   <button style="top: 0; right: 0;" (click)="delImg(i)" *ngIf="!disabledEdit[i]"  class="btn btn-danger position-absolute">x</button>
                 </div>

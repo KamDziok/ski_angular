@@ -24,7 +24,6 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">id</th>
       <th scope="col">nazwa</th>
       <th scope="col">długość</th>
@@ -34,7 +33,6 @@
     </thead>
     <tbody>
     <tr *ngFor="let ski of skis; index as i">
-      <th scope="row">{{ i + 1 }}</th>
       <th scope="row">{{ ski.id }}</th>
       <td>
         <input [(ngModel)]="ski.name" [disabled]="disabledEdit[i]" class="form-control">

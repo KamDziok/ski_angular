@@ -15,7 +15,6 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">id</th>
       <th scope="col">data zawarcia transakcji</th>
       <th scope="col">data rozpoczęcia</th>
@@ -28,7 +27,6 @@
     </thead>
     <tbody>
     <tr *ngFor="let transaction of transactionListFilter; index as i">
-      <th scope="row">{{ i + 1 }}</th>
       <th scope="row">{{ transaction.id }}</th>
       <td>
         <mat-form-field>

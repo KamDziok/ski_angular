@@ -87,12 +87,14 @@
       </td>
       <td>
         <div class="form-group">
-          <input [(ngModel)]="offerSki.priceForDay" [disabled]="disabledEdit[i]" class="form-control"> zł/dzień
+          <p>
+            <input [(ngModel)]="offerSki.priceForDay" [disabled]="disabledEdit[i]" class="form-control w-50 mr-0 d-inline-block"> zł/dzień
+          </p>
         </div>
       </td>
       <td>
         <div class="form-group">
-          <select [(ngModel)]="offerSki.company" [disabled]="disabledEdit[i]" class="form-control">
+          <select [(ngModel)]="offerSki.company" [disabled]="disabledEdit[i]" class="form-control" style="min-width: 125px;">
             <option [ngValue]="c" *ngFor="let c of companies" [selected]="offerSki.company.id === c.id">{{c.name}}</option>
           </select>
         </div>

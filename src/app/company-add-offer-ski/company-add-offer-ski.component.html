@@ -40,11 +40,10 @@
   <button (click)="addOfferSki()" class="btn btn-outline-success">dodaj</button>
 </div>
 
-<div class="col-12 offset-lg-3 col-lg-9 float-left table-responsive mt-3">
-  <table class="table table-striped">
+<div class="col-md-12 offset-lg-3 col-lg-9 float-left table-responsive pb-5">
+  <table class="table table-hover">
     <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">id</th>
       <th scope="col">miejscowość</th>
       <th scope="col">data rozpoczęcia</th>
@@ -52,14 +51,14 @@
       <th scope="col">ilość</th>
       <th scope="col">cena</th>
       <th scope="col">narty</th>
+      <th scope="col"></th>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor="let offerSki of offerSkis; index as i">
-      <th scope="row">{{ i + 1 }}</th>
+    <tbody *ngFor="let offerSki of offerSkis; index as i">
+    <tr>
       <th scope="row">{{ offerSki.id }}</th>
       <td>
-        <input [(ngModel)]="offerSki.city" [disabled]="disabledEdit[i]" class="form-control">
+        <input [(ngModel)]="offerSki.city" [disabled]="true" class="form-control">
       </td>
       <td>
         <mat-form-field>
@@ -80,22 +79,76 @@
       <td>
         <div class="form-group">
           <p>
-            <input [(ngModel)]="offerSki.quantity" [disabled]="disabledEdit[i]" class="form-control w-50 mr-0 d-inline-block">
+            <input [(ngModel)]="offerSki.quantity" [disabled]="true" class="form-control w-50 mr-0 d-inline-block">
           </p>
         </div>
       </td>
       <td>
         <div class="form-group">
           <p>
-            <input [(ngModel)]="offerSki.priceForDay" [disabled]="disabledEdit[i]" class="form-control w-50 mr-0 d-inline-block"> zł/dzień
+            <input [(ngModel)]="offerSki.priceForDay" [disabled]="true" class="form-control w-50 mr-0 d-inline-block"> zł/dzień
           </p>
         </div>
       </td>
       <td>
         <div class="form-group">
-          <select [(ngModel)]="offerSki.ski" [disabled]="disabledEdit[i]" class="form-control">
+          <select [(ngModel)]="offerSki.ski" [disabled]="true" class="form-control">
             <option [ngValue]="s" *ngFor="let s of skis" [selected]="offerSki.ski.id === s.id">{{s.producer.name}} {{s.name}}</option>
           </select>
+        </div>
+      </td>
+      <td>
+        <button (click)="makeEnabledEdit(i)" *ngIf="disabledEdit[i]" class="btn btn-outline-warning">edytuj</button>
+        <div class="mb-1">
+          <button (click)="save(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-success">zapisz</button>
+        </div>
+        <div class="mt-1">
+          <button (click)="makeEnabledEdit(i)" *ngIf="!disabledEdit[i]" class="btn btn-outline-warning">anuluj</button>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="offerSki.pictures.length <= 0">
+      <td colspan="9">
+        <div class="col-12">
+          <div class="col-12 col-lg-1">
+            <input type="file" accept="image/*" value="" (change)="onFileChanged($event)" class="" id="file" [disabled]="disabledEdit[i]">
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="offerSki.pictures.length > 0">
+      <td colspan="8">
+        <div class="col-12 d-none d-lg-block">
+          <div *ngFor="let picture of offerSki.pictures; index as inde" class="col-12 col-lg-2 d-inline-block position-relative mx-2 my-1">
+              <img class="col-12" src="{{picture.addres}}" />
+              <button style="top: 0; right: 0;" (click)="delImg(i, inde)" *ngIf="!disabledEdit[i]"  class="btn btn-danger position-absolute">x</button>
+          </div>
+          <div class="col-12 col-lg-2 d-inline-block mx-2 my-1">
+            <input type="file" accept="image/*" value="" (change)="onFileChanged($event)" class="" id="file" [disabled]="disabledEdit[i]">
+          </div>
+        </div>
+        <div class="col-12 d-block d-lg-none">
+          <div id="carousel{{i}}" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li [attr.data-target]="'#carousel' + i" [attr.data-slide-to]="ind" [ngClass]="{'active': ind==0}" *ngFor="let picture of offerSki.pictures; index as ind"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item" [ngClass]="{'active': in==0}" *ngFor="let picture of offerSki.pictures; index as in">
+                <img class="d-block w-100" src="{{picture.addres}}" />
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carousel{{i}}" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel{{i}}" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-12 d-block d-lg-none">
+          <input type="file" accept="image/*" value="" (change)="onFileChanged($event)" class="mx-auto mt-3" id="file" [disabled]="disabledEdit[i]">
         </div>
       </td>
     </tr>

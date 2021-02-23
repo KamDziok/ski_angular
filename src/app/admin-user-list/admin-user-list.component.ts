@@ -22,10 +22,12 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   disabledAddCompany = true;
   disabledEditCompany = true;
   newUser = {} as User;
+  newPassword: string[] = [];
   constructor(private userService: UserService, private subscribeDataAdminService: SubscribeDataAdminService
     ) { }
 
   ngOnInit(): void {
+    console.log(this.newPassword)
     this.getAllCompanies();
     this.getAllUsers();
   }
@@ -108,6 +110,9 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
   }
 
   save(id) {
+    if(this.newPassword[id]!=undefined){
+      this.users[id].password = this.newPassword[id];
+    }
     this.disabledEdit[id] = true;
     this.userService.updateUser(this.users[id]).subscribe((success) => {
       console.log('Sukces');
@@ -116,6 +121,7 @@ export class AdminUserListComponent implements OnInit, OnDestroy {
       console.log('Error');
     }));
   }
+
   delete(id) {
     this.userService.delete(this.users[id]).subscribe((success) => {
         this.users.splice(id, 1);

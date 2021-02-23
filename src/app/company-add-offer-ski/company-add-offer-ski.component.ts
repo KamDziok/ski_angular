@@ -1,3 +1,4 @@
+import { Picture } from './../interface/picture';
 import { SubscribeDataCompanyService } from './../service/subscribe-data-company.service';
 import { OfferSki } from './../interface/offer-ski';
 import { Ski } from './../interface/ski';
@@ -24,6 +25,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
   disabledEdit: boolean[] = [];
   startOffer = '';
   stopOffer = '';
+  selectedFile = undefined;
   newOfferSki = {} as OfferSki;
   constructor(private offerSkiService: OfferSkiService, private subscribeDataCompanyService: SubscribeDataCompanyService,
               private userService: UserService) { }
@@ -69,7 +71,7 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
   }
 
   makeEnabledEdit(id) {
-    this.disabledEdit[id] = false;
+    this.disabledEdit[id] = !this.disabledEdit[id];
     if(this.disabledEdit[id]==true){
       this.getAllOfferSki();
     }
@@ -91,7 +93,44 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
     this.subscribeDataCompanyService.getAllData();
   }
 
+  uploadImg(offerSki: OfferSki, id){
+    let newImg = null;
+    const file = this.selectedFile;
+    const uploadImageData = new FormData();
+    if(this.selectedFile !== undefined){
+      uploadImageData.append('imageFile', file, file.name);
+      this.offerSkiService.addImage(offerSki, uploadImageData).subscribe((success: Picture) =>{
+        newImg = success;
+        offerSki.pictures.push(newImg);
+        this.offerSkis[id].startOffer = new Date(this.offerSkis[id].startOffer);
+        if(this.offerSkis[id].stopOffer!=null){
+          this.offerSkis[id].stopOffer = new Date(this.offerSkis[id].stopOffer);
+        }     
+        this.disabledEdit[id] = true;
+        this.offerSkiService.updateOfferSki(this.offerSkis[id]).subscribe((success) => {
+          console.log('Sukces');
+        }, (error => {
+          console.log('Error');
+        }));
+      }, (error) => {
+        console.log('Error');
+      })
+    }
+    this.selectedFile = undefined;
+  }
+
+  onFileChanged(event){
+    this.selectedFile = event.target.files[0];
+  }
+
+  delImg(idOfferSki, indexImg){
+    this.offerSkis[idOfferSki].pictures.splice(indexImg, 1);
+  }
+
   save(id) {
+    if(this.selectedFile!==undefined){
+      this.uploadImg(this.offerSkis[id], id)
+    }else{
     // @ts-ignore
     this.offerSkis[id].startOffer = new Date(this.offerSkis[id].startOffer);
     // @ts-ignore
@@ -106,7 +145,9 @@ export class CompanyAddOfferSkiComponent implements OnInit, OnDestroy {
     }, (error => {
       console.log('Error');
     }));
+    }
   }
+
   delete(id) {
     this.offerSkiService.delete(this.offerSkis[id]).subscribe((success) => {
         this.offerSkis.splice(id, 1);
